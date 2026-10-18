@@ -518,8 +518,9 @@ function AuthenticatedApp() {
         <div className="flex h-screen w-full">
           <AppSidebar />
           <div className="flex flex-col flex-1 min-w-0">
-            <header className="flex items-center justify-between p-2 sm:p-4 border-b shrink-0">
+            <header className="dsp-app-header flex items-center justify-between p-2 sm:p-4 shrink-0">
               <SidebarTrigger data-testid="button-sidebar-toggle" />
+              <div className="dsp-app-wordmark"><strong>DoorSurvey Pro</strong><span>Division 8 field workspace</span></div>
               <div className="flex items-center gap-2">
                 <TourTrigger className="hidden sm:flex" startTour={startTour} />
                 <Suspense fallback={null}>
@@ -529,7 +530,7 @@ function AuthenticatedApp() {
                 <ThemeToggle />
               </div>
             </header>
-            <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b gap-2">
+            <div className="dsp-breadcrumb-bar flex items-center justify-between px-4 pt-3 pb-2 border-b gap-2">
               <BreadcrumbNav />
               <PageHelpButton route={location} />
             </div>
@@ -612,3 +613,4 @@ export default function App() {
     </ErrorBoundary>
   );
 }
+

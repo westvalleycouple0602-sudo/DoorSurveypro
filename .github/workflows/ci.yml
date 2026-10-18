@@ -21,9 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: Verify locked local tools were installed
+        run: node scripts/verify/installed-tools.mjs
       - run: npm run doctor
       - run: npm test
 
@@ -35,9 +37,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: Verify locked local tools were installed
+        run: node scripts/verify/installed-tools.mjs
       - run: npm run check -- --pretty false
         env:
           NODE_OPTIONS: --max-old-space-size=4096
@@ -50,9 +54,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: Verify locked local tools were installed
+        run: node scripts/verify/installed-tools.mjs
       - run: npm run build
 
   dependencies:
@@ -63,15 +69,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: npm ci --no-audit --no-fund
+      - name: Verify locked local tools were installed
+        run: node scripts/verify/installed-tools.mjs
       - run: python scripts/audit-dependencies.py --verify
       - run: npm audit --omit=dev --audit-level=high
 
 # Database fixtures and authenticated browser flows are NOT run against the
 # existing application database or faked by test auth bypasses. Configure a
 # dedicated test environment before adding them as release gates.
+

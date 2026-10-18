@@ -82,7 +82,7 @@ export default function Dashboard() {
   const totalPhotos = photos.length;
   const pendingQuotes = quoteRequests.filter((q: any) => q.status === "pending").length;
 
-  const recentProjects = projects
+  const recentProjects = [...projects]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 5);
   
@@ -117,17 +117,19 @@ export default function Dashboard() {
   return (
     <div className="flex-1 overflow-auto">
       <div className="mx-auto max-w-7xl p-4 sm:p-6 space-y-4 sm:space-y-6">
-        {/* Header */}
-        <div className="flex flex-col gap-3 sm:gap-4 animate-fade-in">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-foreground">
-              Welcome back{user?.firstName ? `, ${user.firstName}` : ''}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Manage your door survey projects and estimates
-            </p>
-          </div>
-        </div>
+        <section className="dsp-field-hero" aria-labelledby="field-workspace-heading">
+          <p className="dsp-field-eyebrow">Division 8 field survey</p>
+          <h1 id="field-workspace-heading">Your field workspace</h1>
+          <p className="dsp-field-intro">
+            Welcome back{user?.firstName ? `, ${user.firstName}` : ''}. Keep each opening's evidence,
+            measurements and project work together.
+          </p>
+          <ol className="dsp-field-steps" aria-label="Survey workflow">
+            <li><b aria-hidden="true">01</b><div><strong>Register the opening</strong><span>Project, location, door and frame.</span></div></li>
+            <li><b aria-hidden="true">02</b><div><strong>Capture the evidence</strong><span>Photos, observations and measurements.</span></div></li>
+            <li><b aria-hidden="true">03</b><div><strong>Review and deliver</strong><span>Verify details, prepare scope and export.</span></div></li>
+          </ol>
+        </section>
 
         {/* Trial Status Banner */}
         <TrialStatusBanner />
@@ -681,3 +683,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

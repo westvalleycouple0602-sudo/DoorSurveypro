@@ -707,12 +707,12 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b border-sidebar-border p-4 pl-6 group-data-[collapsible=icon]:p-2">
+      <SidebarHeader className="dsp-sidebar-header border-b border-sidebar-border p-4 pl-6 group-data-[collapsible=icon]:p-2">
         <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
           {!isCollapsed && (
             <div className="flex flex-col flex-1">
               <span className="text-sm font-semibold">DoorSurvey Pro</span>
-              <span className="text-xs text-muted-foreground">Commercial Estimating</span>
+              <span className="text-xs text-muted-foreground">Survey · Estimate · Deliver</span>
             </div>
           )}
           <img 
@@ -723,7 +723,7 @@ export function AppSidebar() {
           />
         </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="dsp-sidebar-content">
         <div className="p-4 pt-3">
           <TrialStatusBanner />
         </div>
@@ -736,7 +736,7 @@ export function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu className="pl-4">
                 {section.items.map((item) => {
-                  const isActive = location === item.url;
+                  const isActive = location === item.url || (item.url === "/" && location === "/dashboard");
                   let badgeCount = 0;
                   
                   if (item.url === "/engineering-review" && pendingQuotesCount > 0) {
@@ -761,7 +761,8 @@ export function AppSidebar() {
                   };
                   
                   const menuButton = (
-                    <SidebarMenuButton 
+                    <SidebarMenuButton
+                      className="dsp-nav-item"
                       isActive={isActive}
                       onClick={handleNavigation}
                       data-testid={item.testId}
@@ -822,7 +823,7 @@ export function AppSidebar() {
         ))}
       </SidebarContent>
       {user?.role && (
-        <SidebarFooter className="border-t border-sidebar-border p-4">
+        <SidebarFooter className="dsp-sidebar-footer border-t border-sidebar-border p-4">
           <div className="flex items-center justify-between gap-2">
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-sm font-medium truncate" data-testid="text-user-name">
@@ -851,3 +852,4 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
+
