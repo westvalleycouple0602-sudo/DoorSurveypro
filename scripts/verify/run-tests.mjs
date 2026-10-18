@@ -3,6 +3,32 @@ import { spawnSync } from 'node:child_process';
 
 const manifest = JSON.parse(fs.readFileSync('tests/test-manifest.json', 'utf8'));
 const mode = process.argv[2];
+if (mode === 'e2e') {
+  if (process.env.E2E_TESTS_APPROVED !== 'isolated' || !process.env.TEST_APP_BASE_URL) {
+    console.error('BLOCKED: browser fixtures require a separately prepared disposable app, TEST_APP_BASE_URL and E2E_TESTS_APPROVED=isolated. Never use the current application data.');
+    process.exit(2);
+  }
+  let url;
+  try { url = new URL(process.env.TEST_APP_BASE_URL); } catch {
+    console.error('BLOCKED: invalid test application URL.'); process.exit(2);
+  }
+  const currentHosts = [process.env.REPLIT_DEV_DOMAIN, ...(process.env.REPLIT_DOMAINS || '').split(',')].filter(Boolean);
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password ||
+    url.search || url.hash || url.pathname !== '/' || currentHosts.includes(url.hostname) ||
+    ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) && (!url.port || url.port === '5000')) {
+    console.error('BLOCKED: use the root URL of a distinct isolated app, not the current preview or an embedded credential.');
+    process.exit(2);
+  }
+  const env = { NODE_ENV: 'test', TEST_APP_BASE_URL: url.origin };
+  for (const key of Object.keys(process.env)) {
+    if (['PATH', 'HOME', 'CI', 'SYSTEMROOT', 'USERPROFILE', 'TMP', 'TEMP', 'PLAYWRIGHT_BROWSERS_PATH'].includes(key) || key.startsWith('E2E_'))
+      env[key] = process.env[key];
+  }
+  const result = spawnSync(process.execPath, ['node_modules/@playwright/test/cli.js', 'test',
+    '--config', 'playwright.external.config.ts'], { stdio: 'inherit', env });
+  if (result.error) throw result.error;
+  process.exit(result.status ?? 1);
+}
 if (mode === 'unit') {
   const commands = [
     ['inventory', ['scripts/verify/test-inventory.mjs']],
@@ -47,12 +73,21 @@ if (mode === 'integration') {
     process.exit(2);
   }
   console.log('Running database fixtures against the explicitly approved isolated test database. Legacy service tests are separate and require dedicated service fixtures.');
+  const env = {
+    NODE_ENV: 'test', DATABASE_URL: process.env.TEST_DATABASE_URL,
+    SESSION_SECRET: 'disposable-integration-session-not-for-runtime',
+    REDIS_URL: 'redis://127.0.0.1:1', REDIS_HOST: '127.0.0.1', REDIS_PORT: '1',
+    NATS_URL: 'nats://127.0.0.1:1',
+  };
+  for (const key of ['PATH', 'HOME', 'CI', 'SYSTEMROOT', 'USERPROFILE', 'TMP', 'TEMP'])
+    if (process.env[key] !== undefined) env[key] = process.env[key];
+  for (const key of ['CLERK_SECRET_KEY', 'CLERK_PUBLISHABLE_KEY', 'VITE_CLERK_PUBLISHABLE_KEY'])
+    if (process.env[`TEST_${key}`]) env[key] = process.env[`TEST_${key}`];
   const result = spawnSync(process.execPath, ['--import', 'tsx', '--test', ...manifest.database], {
-    stdio: 'inherit',
-    env: { ...process.env, NODE_ENV: 'test', DATABASE_URL: process.env.TEST_DATABASE_URL },
+    stdio: 'inherit', env,
   });
   if (result.error) throw result.error;
   process.exit(result.status ?? 1);
 }
-console.error('Usage: node scripts/verify/run-tests.mjs unit|core|integration');
+console.error('Usage: node scripts/verify/run-tests.mjs unit|core|integration|e2e');
 process.exit(2);

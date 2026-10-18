@@ -20,7 +20,7 @@
 | `npm run build` | Frontend and backend production compilation |
 | `npm run verify` | Structural checks, unit tests, full type check and build in sequence |
 | `npm run test:integration` | Guarded database-writing Node fixtures |
-| `npm run test:e2e` | Existing real-browser suite; requires a dedicated environment |
+| `npm run test:e2e` | Guarded real-browser suite against an explicitly approved disposable app |
 
 Jest transpiles tests without duplicating the application type checker; the
 full type check is a separate mandatory CI job. This is not a waiver of type
@@ -44,12 +44,23 @@ Database fixtures are excluded from default unit tests. They require:
 
 These guardrails reduce accidental misuse; a name is not proof of isolation.
 The operator must verify the database is disposable. The command does not apply
-schema changes automatically. Legacy Redis/API integration tests need additional
+schema changes automatically. The fixture process does not inherit current app
+or provider credentials; Clerk test configuration, when needed, must be supplied
+as `TEST_CLERK_SECRET_KEY`, `TEST_CLERK_PUBLISHABLE_KEY` and
+`TEST_VITE_CLERK_PUBLISHABLE_KEY`. Cache/event endpoints are inert.
+Legacy Redis/API integration tests need additional
 dedicated service fixtures and remain explicitly listed in the test manifest.
 
 Browser tests need isolated Clerk test identities, organization fixtures and
 external-service mocks/sandboxes. Do not revive retired auth endpoints or bypass
 access controls to make an outdated browser test pass.
+
+The browser command requires `TEST_APP_BASE_URL` and
+`E2E_TESTS_APPROVED=isolated`. It rejects the current preview and the default
+local app port, does not start/reuse the existing dev server, and forwards only
+tooling variables and explicitly named `E2E_` fixture configuration—not current
+app/provider credentials. Approval is not proof of isolation: verify the target
+is disposable first. Direct legacy `npx playwright test` bypasses this guard.
 
 ## Repository and GitHub access
 

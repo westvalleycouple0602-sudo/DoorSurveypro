@@ -16,7 +16,7 @@
     "test:jest": "jest --config jest.unit.config.cjs --runInBand",
     "test:domain": "node --require ./tests/setup/unit-env.cjs node_modules/@playwright/test/cli.js test --config playwright.domain.config.ts",
     "test:integration": "node scripts/verify/run-tests.mjs integration",
-    "test:e2e": "playwright test",
+    "test:e2e": "node scripts/verify/run-tests.mjs e2e",
     "verify": "npm run doctor && npm test && npm run check && npm run build",
     "db:push": "drizzle-kit push"
   },
