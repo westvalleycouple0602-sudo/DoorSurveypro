@@ -3,7 +3,8 @@
     "tests/foundation.test.ts",
     "server/__tests__/operator-origin.test.ts",
     "client/src/lib/__tests__/project-analytics.test.ts",
-    "tests/logo-palette.test.ts"
+    "tests/logo-palette.test.ts",
+    "tests/git-workflow.test.mjs"
   ],
   "jestServer": [
     "server/__tests__/cache.test.ts",
@@ -50,3 +51,4 @@
     "tests/e2e/quote-flow.spec.ts"
   ]
 }
+

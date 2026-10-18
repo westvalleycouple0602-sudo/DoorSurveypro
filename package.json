@@ -18,7 +18,9 @@
     "test:integration": "node scripts/verify/run-tests.mjs integration",
     "test:e2e": "node scripts/verify/run-tests.mjs e2e",
     "verify": "npm run doctor && npm test && npm run check && npm run build",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "work:start": "node scripts/git-workflow.mjs start",
+    "work:push": "node scripts/git-workflow.mjs push"
   },
   "dependencies": {
     "@clerk/express": "2.1.76",

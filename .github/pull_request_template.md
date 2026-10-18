@@ -1,5 +1,9 @@
 ## User-visible outcome
 
+## Branch route
+- [ ] Task PR targets `develop`, or this is a release promotion from `develop` to `main`
+- [ ] Latest integration changes included; no unrelated original history imported
+
 ## Workstream / issue
 
 ## Data, permissions and integrations
@@ -17,3 +21,4 @@
 List actual results and any failures. Do not check a box for an unrun or failing check.
 
 ## Remaining limitations / setup dependencies
+

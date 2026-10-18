@@ -16,7 +16,7 @@ function walk(directory) {
   for (const item of fs.readdirSync(directory, { withFileTypes: true })) {
     const file = path.posix.join(directory, item.name);
     if (item.isDirectory()) walk(file);
-    else if (/\.(test|spec)\.tsx?$/.test(file)) discovered.push(file);
+    else if (/\.(test|spec)\.(?:[cm]?js|tsx?)$/.test(file)) discovered.push(file);
   }
 }
 ['server', 'client/src', 'shared', 'tests'].forEach(walk);
@@ -32,3 +32,4 @@ for (const [group, files] of Object.entries(manifest)) {
   }
 }
 console.log(`PASS: ${discovered.length} tests explicitly classified; none silently omitted.`);
+

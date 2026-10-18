@@ -3,10 +3,11 @@
 ## Start here
 
 1. Read `AGENTS.md` and the architecture overview.
-2. Use the existing repository. Create a short-lived feature branch from the
-   agreed integration branch; do not merge the oversized original history into
-   the clean upload branch.
-3. Restore dependencies with `npm ci`. Do not regenerate the lockfile casually.
+2. Follow [GitHub and Replit workflow](docs/GIT_WORKFLOW.md). Start a short task
+   from `develop` with `npm run work:start -- fix/short-name`; push committed work
+   with `npm run work:push` and open the PR into `develop`. Do not merge the
+   oversized original history into the clean upload branch.
+3. Use Node 22.15+ within Node 22; restore dependencies with `npm ci`. Do not regenerate the lockfile casually.
 4. Use the existing `Start application` workflow (`npm run dev`) for preview.
    The component sandbox is separate; do not start duplicate app servers.
 5. Run `npm run doctor`, `npm test`, `npm run check`, and `npm run build`.
@@ -34,3 +35,4 @@ reviewable and separate from unrelated UI changes.
 Keep GitHub private. Do not commit `.env`, provider credentials, generated
 archives, dependency folders, database dumps or the oversized original catalog.
 Preserve separate full backups.
+
