@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DoorSurvey AI – Compliance • BOM • Quote</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+    <h1>DoorSurvey AI</h1>
+    <p class="subtitle">Run compliance, generate a BOM, and produce a priced quote — right in your browser.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1) Opening Context</h2>
+      <p class="hint">Paste or upload an opening JSON. Use the defaults if you're just testing.</p>
+      <div class="row">
+        <button id="btnLoadSample" class="btn">Load Sample</button>
+        <label class="file">
+          <input type="file" id="fileInput" accept="application/json" />
+          <span>Upload JSON</span>
+        </label>
+      </div>
+      <textarea id="openingInput" rows="14" spellcheck="false" placeholder='{"door": {"space_type":"classroom","is_fire_door": true}}'></textarea>
+
+      <div class="row">
+        <button id="btnRunBOM" class="btn primary">Run BOM (/bom)</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>2) Quote Options</h2>
+      <div class="grid">
+        <label>Margin % <input type="number" id="margin" value="40" min="0" max="95" /></label>
+        <label>Tax % <input type="number" id="tax" value="8.6" min="0" max="25" step="0.1" /></label>
+        <label>Shipping $ <input type="number" id="shipping" value="75" min="0" step="1" /></label>
+      </div>
+      <div class="row">
+        <button id="btnRunQuote" class="btn">Run Quote (/quote)</button>
+      </div>
+      <p class="hint">Note: /quote builds on the results of /bom (it reads /output/bom.json).</p>
+    </section>
+
+    <section class="panel">
+      <h2>Results</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="bom">BOM</button>
+        <button class="tab" data-tab="quote">Quote</button>
+        <button class="tab" data-tab="raw">Raw JSON</button>
+      </div>
+      <div id="bom" class="tabpane active">
+        <table id="bomTable">
+          <thead>
+            <tr><th>Category</th><th>Description</th><th>Family</th><th>BHMA</th><th>Brand</th><th>SKU</th><th>Finish</th><th>Grade</th><th>Qty</th><th>MSRP</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="downloads" id="bomDownloads"></div>
+      </div>
+      <div id="quote" class="tabpane">
+        <div id="totals" class="totals"></div>
+        <div class="downloads" id="quoteDownloads"></div>
+      </div>
+      <div id="raw" class="tabpane">
+        <pre id="rawJson" class="code"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© DoorSurvey Pro — local demo UI</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+{
+  "id": "door_survey_v1",
+  "name": "DoorSurvey Pro – Door Opening Survey Workflow",
+  "version": 1,
+  "steps": [
+    {
+      "key": "project",
+      "label": "Project Details",
+      "description": "Capture project context and applicable building standards.",
+      "fields": [
+        "project.name",
+        "project.location",
+        "project.customerId",
+        "project.buildingType",
+        "project.quoteType",
+        "project.standards[]"
+      ]
+    },
+    {
+      "key": "mapping",
+      "label": "Locate Opening",
+      "description": "Map the opening to floor plan and assign unique ID.",
+      "fields": [
+        "opening.doorTag",
+        "opening.floor",
+        "opening.spaceName",
+        "opening.openingType",
+        "opening.handing"
+      ]
+    },
+    {
+      "key": "measurements",
+      "label": "LiDAR / AR Measurements",
+      "description": "Capture dimensional information using AR / LiDAR.",
+      "fields": [
+        "opening.measurements.roughWidthMm",
+        "opening.measurements.roughHeightMm",
+        "opening.measurements.clearWidthMm",
+        "opening.measurements.headHeightMm",
+        "opening.measurements.jambDepthMm",
+        "opening.measurements.doorThicknessMm",
+        "opening.measurements.sillHeightMm"
+      ]
+    },
+    {
+      "key": "door",
+      "label": "Door Panel",
+      "fields": [
+        "opening.doorLeaf.leafType",
+        "opening.doorLeaf.coreType",
+        "opening.doorLeaf.fireRatingMinutes",
+        "opening.doorLeaf.hasVisionLite",
+        "opening.doorLeaf.visionLiteDescription",
+        "opening.doorLeaf.manufacturer",
+        "opening.doorLeaf.model"
+      ]
+    },
+    {
+      "key": "frame",
+      "label": "Frame",
+      "fields": [
+        "opening.frame.material",
+        "opening.frame.profile",
+        "opening.frame.anchorType",
+        "opening.frame.conditionScore",
+        "opening.frame.notes"
+      ]
+    },
+    {
+      "key": "hardware",
+      "label": "Hardware Set",
+      "fields": [
+        "opening.hardware.hinges[]",
+        "opening.hardware.lockFunction",
+        "opening.hardware.lockset",
+        "opening.hardware.exitDevice",
+        "opening.hardware.closer",
+        "opening.hardware.accessories[]",
+        "opening.hardware.electrifiedHardware[]"
+      ]
+    },
+    {
+      "key": "compliance",
+      "label": "Code Compliance",
+      "fields": [
+        "opening.compliance.standardsChecked[]",
+        "opening.compliance.passes",
+        "opening.compliance.issues[]",
+        "opening.compliance.notes"
+      ]
+    },
+    {
+      "key": "evidence",
+      "label": "Photos & Evidence",
+      "fields": [
+        "opening.evidence.photos[]",
+        "opening.evidence.videos[]",
+        "opening.evidence.documents[]"
+      ]
+    },
+    {
+      "key": "engineering",
+      "label": "Engineering Review",
+      "fields": [
+        "opening.engineeringReview.status",
+        "opening.engineeringReview.notes",
+        "opening.engineeringReview.conflicts[]"
+      ]
+    },
+    {
+      "key": "quote",
+      "label": "Quote Summary",
+      "fields": [
+        "opening.quoteSummary.materialCost",
+        "opening.quoteSummary.laborCost",
+        "opening.quoteSummary.shippingCost",
+        "opening.quoteSummary.marginPercent",
+        "opening.quoteSummary.totalPrice",
+        "opening.quoteSummary.optionLabel"
+      ]
+    },
+    {
+      "key": "review",
+      "label": "Review & Save",
+      "fields": [
+        "project.*",
+        "opening.*"
+      ]
+    }
+  ]
+}

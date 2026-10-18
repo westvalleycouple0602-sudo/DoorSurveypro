@@ -1,0 +1,453 @@
+// src/config/doorHardwareRules.ts
+
+/**
+ * Core rule model for door, frame, and hardware checks.
+ * You can extend this with more jurisdictions, versions, etc.
+ */
+
+export type CodeSource =
+  | "ADA_2010"
+  | "IBC_2018"
+  | "IBC_2021"
+  | "NFPA_80"
+  | "NFPA_101"
+  | "ICC_A117_1"
+  | "BHMA_A156";
+
+export type RuleCategory =
+  | "operable_parts_egress"
+  | "accessibility_reach_operability"
+  | "fire_door_assembly"
+  | "vision_communication"
+  | "automatic_operators"
+  | "thresholds_clearances"
+  | "hinges_pivots_misc";
+
+export interface CodeReference {
+  source: CodeSource;
+  section: string; // e.g. "404.2.7", "1010.2"
+  notes?: string;
+}
+
+export interface HeightRequirement {
+  /** Minimum height in inches above finished floor (AFF). */
+  min_in?: number;
+  /** Maximum height in inches above finished floor (AFF). */
+  max_in?: number;
+}
+
+export interface DimensionalRequirement {
+  /** Maximum threshold height in inches. */
+  threshold_max_height_in?: number;
+  /** Maximum vertical edge clearance between door and frame (inches). */
+  max_vertical_clearance_in?: number;
+  /** Maximum bottom clearance (inches) for fire doors, if applicable. */
+  max_bottom_clearance_in?: number;
+}
+
+export interface RuleRequirement {
+  /** AFF height requirement for the relevant operable part, bar, plate, viewer, etc. */
+  height_aff?: HeightRequirement;
+  /** Other dimensional requirements related to this rule. */
+  dimensions?: DimensionalRequirement;
+  /** Flags/expectations this rule asserts (non-numeric). */
+  flags?: {
+    /** Hardware must unlatch with a single motion. */
+    single_motion_to_egress?: boolean;
+    /** Operation must not require tight grasping, pinching, or twisting of the wrist. */
+    no_tight_grasp_pinch_twist?: boolean;
+    /** Hardware must be operable with one hand. */
+    one_hand_operation?: boolean;
+    /** Assembly must be listed and labeled for fire use. */
+    fire_listed_assembly_required?: boolean;
+    /** Door must be self-closing or automatic-closing if fire rated. */
+    self_closing_required_for_fire_door?: boolean;
+  };
+}
+
+/**
+ * A single rule that your engine can evaluate against a surveyed opening.
+ */
+export interface DoorHardwareRule {
+  /** Unique stable id; you can map violations back to this. */
+  id: string;
+  /** Human-readable rule name. */
+  name: string;
+  /** Short description of what the rule is about. */
+  description: string;
+  /** High-level category for grouping in UI/analytics. */
+  category: RuleCategory;
+  /** Typical jurisdictions this rule applies to (you can add more granular configs). */
+  jurisdictions: string[]; // e.g. ["US"], ["US-CA"]
+  /** Formal code references that justify the rule. */
+  code_references: CodeReference[];
+  /** The actual numeric/dimensional and functional requirements. */
+  requirements: RuleRequirement;
+  /**
+   * Machine-readable condition string(s) describing when the rule applies.
+   * You can parse this or just show it in the UI and implement logic separately.
+   */
+  conditions: string[];
+  /** Additional implementation notes or nuance for engineers/reviewers. */
+  notes?: string;
+}
+
+/**
+ * Core rule set for commercial doors, frames, and hardware.
+ * This is intentionally conservative and aligned with common U.S. practice.
+ *
+ * You should still layer jurisdiction-specific overrides in your own config.
+ */
+export const doorHardwareRules: DoorHardwareRule[] = [
+  // 1. General operable hardware height (lever/lock/pull)
+  {
+    id: "hardware_height_general_operable_egress",
+    name: "Operable Door Hardware Height (General Egress/Entry)",
+    description:
+      "Operable hardware used for normal egress/entry (levers, pulls, latches) must be mounted between 34 in and 48 in above finished floor on accessible doors.",
+    category: "operable_parts_egress",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404.2.7", notes: "Accessible Doors & Gates" },
+      { source: "ADA_2010", section: "309.3–309.4", notes: "Operable Parts" },
+      { source: "IBC_2018", section: "1010", notes: "Door Hardware Height – Means of Egress" },
+      { source: "ICC_A117_1", section: "404", notes: "Door Hardware reach and operation" }
+    ],
+    requirements: {
+      height_aff: { min_in: 34, max_in: 48 },
+      flags: {
+        one_hand_operation: true,
+        no_tight_grasp_pinch_twist: true
+      }
+    },
+    conditions: [
+      "opening.on_accessible_route == true",
+      "hardware.role in ['latch','lever','pull','lockset']",
+      "hardware.required_for_normal_egress_or_entry == true"
+    ],
+    notes:
+      "If a door is part of an accessible route and hardware is necessary for everyday use, enforce this height window. Non-required deadbolts or security devices may be exempt (see separate rule)."
+  },
+
+  // 2. Panic / fire exit device height
+  {
+    id: "panic_device_height",
+    name: "Panic / Fire Exit Device Height",
+    description:
+      "The actuating portion (crossbar or push pad) of panic or fire exit devices must be mounted between 34 in and 48 in above finished floor on required egress doors.",
+    category: "operable_parts_egress",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "IBC_2018", section: "1010", notes: "Panic and Fire Exit Hardware height" },
+      { source: "NFPA_101", section: "7.2.1", notes: "Door Hardware in Means of Egress" },
+      { source: "ADA_2010", section: "404.2.7" }
+    ],
+    requirements: {
+      height_aff: { min_in: 34, max_in: 48 },
+      flags: {
+        single_motion_to_egress: true,
+        one_hand_operation: true,
+        no_tight_grasp_pinch_twist: true
+      }
+    },
+    conditions: [
+      "opening.is_means_of_egress_door == true",
+      "hardware.type in ['panic_device','fire_exit_device']",
+      "hardware.required_for_egress == true"
+    ],
+    notes:
+      "Some jurisdictions (e.g., US-CA) may impose a lower maximum (e.g. 44 in). Add localized override rules for those cases."
+  },
+
+  // 3. Jurisdiction-specific cap (example: California)
+  {
+    id: "egress_hardware_height_ca_cap",
+    name: "Egress Hardware Height – California Cap",
+    description:
+      "In certain jurisdictions, the maximum height of egress hardware is reduced (e.g., 44 in max AFF in California).",
+    category: "operable_parts_egress",
+    jurisdictions: ["US-CA"],
+    code_references: [
+      {
+        source: "IBC_2018",
+        section: "1010",
+        notes: "Referenced with California Building Code amendments – lower cap."
+      }
+    ],
+    requirements: {
+      height_aff: { min_in: 34, max_in: 44 }
+    },
+    conditions: [
+      "opening.jurisdiction == 'US-CA'",
+      "opening.is_means_of_egress_door == true",
+      "hardware.required_for_egress == true"
+    ],
+    notes:
+      "Apply this as an overlay rule for California or other local codes that limit hardware height more strictly than ADA/IBC."
+  },
+
+  // 4. Security-only locks outside accessible range
+  {
+    id: "security_lock_height_exception",
+    name: "Security-Only Lock Height Exception",
+    description:
+      "Security-only locks and bolts not used for normal operation may be mounted outside the 34–48 in accessible range, subject to locking arrangement rules.",
+    category: "operable_parts_egress",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404.2.7", notes: "Exception for security devices" },
+      { source: "NFPA_101", section: "7.2.1", notes: "Special locking arrangements" }
+    ],
+    requirements: {
+      flags: {
+        single_motion_to_egress: false
+      }
+    },
+    conditions: [
+      "hardware.type in ['deadbolt','surface_bolt','top_bolt']",
+      "hardware.required_for_normal_egress_or_entry == false",
+      "opening.occupant_operation_of_device == false"
+    ],
+    notes:
+      "Use this to avoid false violations when staff-only or after-hours security devices are installed above typical reach ranges. Still must comply with life safety rules for special locking arrangements."
+  },
+
+  // 5. Viewer (peephole) heights
+  {
+    id: "door_viewer_height_accessible",
+    name: "Door Viewer Height (Accessible)",
+    description:
+      "At least one door viewer (peephole) serving an accessible door should be mounted around 43 in AFF to be usable from a seated position.",
+    category: "vision_communication",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404", notes: "Advisory diagrams for door viewers" },
+      { source: "ICC_A117_1", section: "404", notes: "Visual communication elements in doors" }
+    ],
+    requirements: {
+      height_aff: { min_in: 40, max_in: 45 }
+    },
+    conditions: [
+      "opening.on_accessible_route == true",
+      "hardware.type == 'door_viewer'"
+    ],
+    notes:
+      "Common industry practice is to provide a lower accessible viewer (~43 in) and optionally a higher standard viewer (~60 in). This rule checks the accessible one."
+  },
+
+  // 6. Vision lite bottom height
+  {
+    id: "vision_lite_bottom_height",
+    name: "Vision Lite Bottom Height (Accessible)",
+    description:
+      "At least one vision lite in the door or adjacent sidelite must have its bottom edge no more than 43 in above finished floor to allow visibility from a seated position.",
+    category: "vision_communication",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404", notes: "Vision lite height guidance" },
+      { source: "ICC_A117_1", section: "404", notes: "Vision panel height" }
+    ],
+    requirements: {
+      height_aff: { max_in: 43 }
+    },
+    conditions: [
+      "opening.on_accessible_route == true",
+      "opening.has_vision_lite == true"
+    ],
+    notes:
+      "When multiple lites exist, only one needs to meet this accessible bottom height. Make sure AI identifies at least one compliant lite."
+  },
+
+  // 7. Closer / overhead stop height
+  {
+    id: "closer_overhead_mounting_height",
+    name: "Closer and Overhead Stop Mounting Height",
+    description:
+      "Overhead closers and stops are typically mounted at the door head and are permitted above normal operable-part height, often 78 in min AFF or higher.",
+    category: "accessibility_reach_operability",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404.2.8", notes: "Closing speed and forces" },
+      { source: "BHMA_A156", section: "A156.4", notes: "Door closers – installation dimensions" }
+    ],
+    requirements: {
+      height_aff: { min_in: 78 },
+      flags: {
+        one_hand_operation: true
+      }
+    },
+    conditions: [
+      "hardware.type in ['door_closer','overhead_stop']"
+    ],
+    notes:
+      "Main compliance issues for closers are closing time and opening force, not operable-part reach. This rule is mostly to document that high mounting is acceptable and ensure AI doesn’t mis-flag it as too high."
+  },
+
+  // 8. Threshold height at doors on accessible route
+  {
+    id: "threshold_height_accessible",
+    name: "Threshold Height at Accessible Doors",
+    description:
+      "Thresholds at doors on accessible routes must not exceed 1/2 in in height; heights greater than 1/4 in must be beveled.",
+    category: "thresholds_clearances",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "ADA_2010", section: "404.2.5", notes: "Thresholds at doors" },
+      { source: "ICC_A117_1", section: "404.2.5", notes: "Threshold profiles" }
+    ],
+    requirements: {
+      dimensions: {
+        threshold_max_height_in: 0.5
+      }
+    },
+    conditions: [
+      "opening.on_accessible_route == true",
+      "opening.has_threshold == true"
+    ],
+    notes:
+      "Your measurement pipeline should capture threshold height and profile. AI can then judge whether it exceeds these limits, especially at exterior swinging doors."
+  },
+
+  // 9. Fire door listing & hardware compatibility
+  {
+    id: "fire_door_listed_assembly",
+    name: "Fire Door Listed Assembly with Compatible Hardware",
+    description:
+      "Where a door is required to be fire-protection-rated, the door, frame, and hardware must be part of a listed and labeled fire door assembly.",
+    category: "fire_door_assembly",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "NFPA_80", section: "1.1 / 4.x", notes: "Scope & general requirements" },
+      { source: "NFPA_101", section: "7.2.1.8", notes: "Fire door assemblies in means of egress" }
+    ],
+    requirements: {
+      flags: {
+        fire_listed_assembly_required: true,
+        self_closing_required_for_fire_door: true
+      }
+    },
+    conditions: [
+      "opening.required_fire_rating_minutes > 0"
+    ],
+    notes:
+      "Enforce that leaf, frame, hinges, latches, closers, and glazing are all listed for the required rating and installed per listing. Use manufacturer labels and catalog data to validate."
+  },
+
+  // 10. Fire door hinge quantity & spacing (simplified)
+  {
+    id: "fire_door_hinge_count_spacing",
+    name: "Fire Door Hinge Count and Spacing",
+    description:
+      "Fire-rated swinging doors must have hinges/pivots sized and spaced according to NFPA 80 tables (e.g., minimum two hinges up to 60 in height, plus one for each additional 30 in or fraction thereof).",
+    category: "hinges_pivots_misc",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "NFPA_80", section: "6.4.x", notes: "Hinges and pivot hardware for swinging doors" }
+    ],
+    requirements: {},
+    conditions: [
+      "opening.required_fire_rating_minutes > 0",
+      "opening.operation == 'swinging'",
+      "hardware.type in ['butt_hinge','continuous_hinge','pivot']"
+    ],
+    notes:
+      "Implement the exact hinge-count logic in code using NFPA 80 tables. This rule serves as a placeholder to ensure fire doors are checked for correct hinge quantity and spacing."
+  },
+
+  // 11. Vertical and bottom clearances at fire doors
+  {
+    id: "fire_door_clearances",
+    name: "Fire Door Edge and Bottom Clearances",
+    description:
+      "Clearances at fire door edges must be within NFPA 80 limits (e.g., 1/8 in at vertical edges; specific bottom clearance depending on sill condition).",
+    category: "thresholds_clearances",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "NFPA_80", section: "4.8", notes: "Clearances for swinging doors" }
+    ],
+    requirements: {
+      dimensions: {
+        max_vertical_clearance_in: 0.125,
+        max_bottom_clearance_in: 0.75 // adjust per sill/threshold type in your logic
+      }
+    },
+    conditions: [
+      "opening.required_fire_rating_minutes > 0",
+      "opening.operation == 'swinging'"
+    ],
+    notes:
+      "Use LiDAR/AR or manual measurements to capture edge gaps. Exact maximum bottom clearances vary with sill/threshold type – encode that nuance in your engine."
+  },
+
+  // 12. Single motion to egress (no extra steps)
+  {
+    id: "single_motion_to_egress",
+    name: "Single Motion to Egress Requirement",
+    description:
+      "Egress doors must unlatch with a single motion without requiring tight grasping, pinching, or twisting of the wrist.",
+    category: "accessibility_reach_operability",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "IBC_2018", section: "1010", notes: "Door operation – single releasing operation" },
+      { source: "NFPA_101", section: "7.2.1.5", notes: "Operation of doors in egress" },
+      { source: "ADA_2010", section: "404.2.7" }
+    ],
+    requirements: {
+      flags: {
+        single_motion_to_egress: true,
+        one_hand_operation: true,
+        no_tight_grasp_pinch_twist: true
+      }
+    },
+    conditions: [
+      "opening.is_means_of_egress_door == true",
+      "opening.occupancy_group not in ['detention','healthcare_special_locking','special_amusement']"
+    ],
+    notes:
+      "AI should flag doors where multiple devices or steps are required (e.g., separate deadbolt plus latch) except where special locking arrangements are allowed by code."
+  },
+
+  // 13. Automatic operator actuator plate height
+  {
+    id: "auto_operator_actuator_plate_height",
+    name: "Automatic Operator Actuator Plate Height",
+    description:
+      "Wall-mounted actuator plates for low-energy/power-assisted door operators must be within accessible operable-part reach range (typically 34–48 in AFF).",
+    category: "automatic_operators",
+    jurisdictions: ["US"],
+    code_references: [
+      { source: "BHMA_A156", section: "A156.10 / A156.19", notes: "Automatic door operators" },
+      { source: "ADA_2010", section: "309", notes: "Operable parts reach range" }
+    ],
+    requirements: {
+      height_aff: { min_in: 34, max_in: 48 },
+      flags: {
+        one_hand_operation: true,
+        no_tight_grasp_pinch_twist: true
+      }
+    },
+    conditions: [
+      "hardware.type == 'auto_operator_actuator_plate'"
+    ],
+    notes:
+      "Distance from the door, clear floor space, and approach angles also need to be checked per A156.10/A156.19 and accessibility standards – implement those as additional rules."
+  }
+];
+
+/**
+ * Utility helpers you can use in your services.
+ */
+
+export function getRulesByCategory(category: RuleCategory): DoorHardwareRule[] {
+  return doorHardwareRules.filter((r) => r.category === category);
+}
+
+export function getRulesForJurisdiction(juris: string): DoorHardwareRule[] {
+  return doorHardwareRules.filter(
+    (r) => r.jurisdictions.includes(juris) || r.jurisdictions.includes("US")
+  );
+}
+
+export function findRuleById(id: string): DoorHardwareRule | undefined {
+  return doorHardwareRules.find((r) => r.id === id);
+}

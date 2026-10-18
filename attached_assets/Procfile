@@ -1,0 +1,4 @@
+api: uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+worker: python -m rq worker default --url ${REDIS_URL}
+repair: python app/repair_worker.py
+synthetic: python app/synthetic.py --headless

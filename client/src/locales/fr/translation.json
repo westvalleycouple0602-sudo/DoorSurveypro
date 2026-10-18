@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "dashboard": "Tableau de Bord",
+    "projects": "Projets",
+    "estimating": "Estimation",
+    "quotes": "Devis",
+    "projectManagement": "Gestion de Projet",
+    "reviewTools": "Outils de Révision",
+    "purchasing": "Achats",
+    "analytics": "Analytique",
+    "company": "Entreprise",
+    "settings": "Paramètres"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {{name}}!",
+    "welcomeDefault": "Bienvenue!",
+    "quickActions": "Actions Rapides",
+    "recentProjects": "Projets Récents",
+    "activeQuotes": "Devis Actifs",
+    "metrics": {
+      "totalProjects": "Projets Totaux",
+      "activeQuotes": "Devis Actifs",
+      "doorOpenings": "Ouvertures de Portes"
+    },
+    "actions": {
+      "newProject": "Nouveau Projet",
+      "viewProjects": "Voir Tous les Projets",
+      "createQuote": "Créer un Devis"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "tabs": {
+      "profile": "Profil",
+      "preferences": "Préférences",
+      "security": "Sécurité",
+      "activity": "Activité"
+    },
+    "personalInfo": "Informations Personnelles",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse E-mail",
+    "edit": "Modifier",
+    "save": "Enregistrer les Modifications",
+    "cancel": "Annuler",
+    "notifications": {
+      "title": "Notifications",
+      "description": "Gérez vos préférences de notification",
+      "emailNotifications": "Notifications par E-mail",
+      "emailNotificationsDesc": "Recevoir des notifications par e-mail",
+      "projectUpdates": "Mises à Jour de Projet",
+      "projectUpdatesDesc": "Recevoir des notifications sur les changements de projets",
+      "quoteAlerts": "Alertes de Devis",
+      "quoteAlertsDesc": "Recevoir des alertes sur les mises à jour de devis",
+      "weeklyDigest": "Résumé Hebdomadaire",
+      "weeklyDigestDesc": "Recevoir un résumé de votre semaine",
+      "marketingEmails": "E-mails Marketing",
+      "marketingEmailsDesc": "Recevoir des mises à jour sur les nouvelles fonctionnalités"
+    },
+    "language": {
+      "title": "Langue",
+      "description": "Sélectionnez votre langue préférée pour l'interface",
+      "preferred": "Langue Préférée",
+      "preferredDesc": "Choisissez la langue que vous souhaitez utiliser pour l'interface de l'application"
+    },
+    "measurements": {
+      "title": "Système de Mesure",
+      "description": "Configurez vos unités de mesure préférées",
+      "system": "Unités de Mesure",
+      "systemDesc": "Sélectionnez le système de mesure préféré de votre organisation",
+      "imperial": "Impérial (pouces, pieds)",
+      "metric": "Métrique (millimètres, mètres)"
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "new": "Nouveau",
+    "view": "Voir",
+    "actions": "Actions"
+  },
+  "messages": {
+    "success": {
+      "saved": "Modifications enregistrées avec succès",
+      "deleted": "Élément supprimé avec succès",
+      "created": "Élément créé avec succès"
+    },
+    "error": {
+      "generic": "Une erreur s'est produite. Veuillez réessayer.",
+      "network": "Erreur réseau. Veuillez vérifier votre connexion.",
+      "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action."
+    }
+  }
+}

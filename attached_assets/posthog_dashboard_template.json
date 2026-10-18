@@ -1,0 +1,42 @@
+{
+  "name": "DoorSurvey \u2014 Validation & RUM",
+  "description": "Core metrics for validations and web vitals.",
+  "filters": {},
+  "tiles": [
+    {
+      "type": "trend",
+      "name": "Validations per day",
+      "event": "door_validation",
+      "aggregation": "dau"
+    },
+    {
+      "type": "trend",
+      "name": "Validation FAIL rate",
+      "event": "door_validation",
+      "formula": "sum(failed)/sum(total)"
+    },
+    {
+      "type": "trend",
+      "name": "CLS (p75)",
+      "event": "web_vital_CLS",
+      "aggregation": "p75(value)"
+    },
+    {
+      "type": "trend",
+      "name": "LCP (p75)",
+      "event": "web_vital_LCP",
+      "aggregation": "p75(value)"
+    },
+    {
+      "type": "table",
+      "name": "Top validation codes failing",
+      "event": "door_validation",
+      "properties": [
+        "dtype",
+        "op",
+        "country"
+      ],
+      "breakdown": "code"
+    }
+  ]
+}

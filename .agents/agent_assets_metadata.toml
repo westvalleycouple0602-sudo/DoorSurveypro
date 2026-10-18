@@ -1,0 +1,100 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "e3rqXCAbrBImqRzH_SlJO"
+uri = "file://backups/catalog-pdf/ABH-Catalog-pages-001-048.pdf"
+type = "pdf"
+title = "ABH Catalog backup — pages 1–48"
+description = "Part 1 of 4. Download all four parts to preserve the complete 192-page catalog."
+logical_id = "0ec1a8b2-1c05-41e1-81a7-d122c77d52d5"
+content_hash = "sha256:061c3d7e240a15f27abde0b32da2d3de93e217f8a8f8775e43439108aad6d347"
+size = 42748767
+mtime_ms = 1791525753526
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/0ec1a8b2-1c05-41e1-81a7-d122c77d52d5/364eb5ee-31ed-46ba-875d-3b93590a3f35"
+storage_version_token = "1791525854227915"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "_5vU04eHFQxm-DtdmG1dj"
+uri = "file://backups/catalog-pdf/ABH-Catalog-pages-049-096.pdf"
+type = "pdf"
+title = "ABH Catalog backup — pages 49–96"
+description = "Part 2 of 4. The original catalog remains intact in your project."
+logical_id = "b6b4e5b7-91be-49c2-8301-07575db49ac2"
+content_hash = "sha256:07d3af67243b8b1698435d5e08cc314be2e0766cbfff1fa5061f383bc040b1b6"
+size = 30939119
+mtime_ms = 1791525754602
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/b6b4e5b7-91be-49c2-8301-07575db49ac2/ee1e31c1-1e38-4eaf-801a-4e8daf9005c8"
+storage_version_token = "1791525855805564"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "MkTLj_uD28dyTjS-Imc1S"
+uri = "file://backups/catalog-pdf/ABH-Catalog-pages-097-144.pdf"
+type = "pdf"
+title = "ABH Catalog backup — pages 97–144"
+description = "Part 3 of 4. The original catalog remains intact in your project."
+logical_id = "cc2a9db6-d6e4-4625-9f19-cbb149382463"
+content_hash = "sha256:770b3b892843681efe0761fa47dfb87b9f9d2bd2b7bd852712abc19955868dcc"
+size = 38281156
+mtime_ms = 1791525755858
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/cc2a9db6-d6e4-4625-9f19-cbb149382463/cbd2af12-dfa8-47cf-b8d4-76ac05f1934f"
+storage_version_token = "1791525857174460"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "r8DI3vl4v1UhaO75xeWdx"
+uri = "file://backups/catalog-pdf/ABH-Catalog-pages-145-192.pdf"
+type = "pdf"
+title = "ABH Catalog backup — pages 145–192"
+description = "Part 4 of 4. Together the four downloads contain all catalog pages."
+logical_id = "e925bcc9-5a9a-4aba-874a-2011d9b54458"
+content_hash = "sha256:97ee30eb15663ac36e2c4aa6f6fa59a11843ee36d89206ac2fbed1f471a88997"
+size = 31377364
+mtime_ms = 1791525756918
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/e925bcc9-5a9a-4aba-874a-2011d9b54458/370f926a-043b-495d-a234-7ed568cd31ea"
+storage_version_token = "1791525858273196"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "NKRo8ZVhl7UO3gr6gt1wv"
+uri = "file://generated-artifacts/GITHUB-DESKTOP-INSTRUCTIONS.txt"
+type = "text"
+title = "GitHub Desktop upload instructions"
+description = "Steps for copying the verified source-only snapshot into a fresh clone, without importing the oversized-file history or changing main."
+logical_id = "95055b03-5a51-4b0f-bff2-aae006a742e9"
+content_hash = "sha256:7e4433fae5e46754748bd8740454e5465962b7d01860366a3de2415d73c9b78b"
+size = 1555
+mtime_ms = 1791990451357
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/95055b03-5a51-4b0f-bff2-aae006a742e9/1e91e4a3-61fb-40b6-8d24-ef2118763e6b"
+storage_version_token = "1791990622111738"
+content_type = "text/plain"
+
+[[outputs]]
+id = "rfAcH-ZgkrPmhYW3awLLz"
+uri = "file://generated-artifacts/architecture/DoorSurvey-Pro-Architecture-and-Functions.html"
+type = "html"
+title = "DoorSurvey Pro — Architecture and Functions"
+description = "Self-contained, searchable guide to the current architecture, features, workflows, integrations, limitations, database declarations and 3,977 named functions."
+logical_id = "ff7207e1-a1c2-4c83-9bd4-16415d78d38f"
+content_hash = "sha256:c5b3a53804473020ac6ebdd4d8517cd6b473920b6c7dbd1bcfc958c73215bfa4"
+size = 834024
+mtime_ms = 1792305711890
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/ff7207e1-a1c2-4c83-9bd4-16415d78d38f/1d14df50-abfe-4b75-bbf1-25f89b02adae"
+storage_version_token = "1792305748777128"
+content_type = "text/html"
+
+[[outputs]]
+id = "sUgMgIOr4y80_8O2GlAxx"
+uri = "file://generated-artifacts/architecture/DoorSurvey-Pro-Architecture-and-Functions.md"
+type = "text"
+title = "Architecture Guide — Editable Markdown"
+description = "Editable documentation for collaborators, including the complete source-reference inventories."
+logical_id = "320a081e-ef3a-4338-a745-0eb3ebc4a85d"
+content_hash = "sha256:88c3fda6b6c0c37df600a83a100521dfea76816afe295a955b61999ac797bdff"
+size = 496989
+mtime_ms = 1792305711874
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:2c998a82-6b84-4e18-b435-e2dce728bfd5/320a081e-ef3a-4338-a745-0eb3ebc4a85d/0ab0fc4a-d882-464b-afad-aa31f8fed291"
+storage_version_token = "1792305749650660"
+content_type = "text/markdown"

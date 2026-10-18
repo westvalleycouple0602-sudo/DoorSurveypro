@@ -1,0 +1,62 @@
+category,type,manufacturer,modelNumber,description,specifications,listPrice,unit
+Hardware,Push Plate,ABH Manufacturing,AB-70A,"Push Plate 3"" x 12"" (.050"" Thick)","Dimensions: 3"" x 12"", Thickness: .050"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629",4.37,each
+Hardware,Push Plate,ABH Manufacturing,AB-70B,"Push Plate 3-1/2"" x 15"" (.050"" Thick)","Dimensions: 3-1/2"" x 15"", Thickness: .050"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629, Drawing: ABH-12083",4.92,each
+Hardware,Push Plate,ABH Manufacturing,AB-70C,"Push Plate 4"" x 16"" (.050"" Thick)","Dimensions: 4"" x 16"", Thickness: .050"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629, Drawing: ABH-12084",6.02,each
+Hardware,Push Plate,ABH Manufacturing,AB-70E,"Push Plate 6"" x 16"" (.050"" Thick)","Dimensions: 6"" x 16"", Thickness: .050"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629, Drawing: ABH-12085",7.67,each
+Hardware,Push Plate,ABH Manufacturing,AB-70F,"Push Plate 8"" x 16"" (.050"" Thick)","Dimensions: 8"" x 16"", Thickness: .050"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629, Drawing: ABH-12086",8.77,each
+Hardware,Push Plate,ABH Manufacturing,AB-73B,"Heavy Duty Push Plate 3-1/2"" x 15"" (.125"" Thick)","Dimensions: 3-1/2"" x 15"", Thickness: .125"", Material: Stainless Steel, Heavy Duty, Drawing: ABH-12613",15.48,each
+Hardware,Push Plate,ABH Manufacturing,AB-73C,"Heavy Duty Push Plate 4"" x 16"" (.125"" Thick)","Dimensions: 4"" x 16"", Thickness: .125"", Material: Stainless Steel, Heavy Duty, Drawing: ABH-12614",17.48,each
+Hardware,Flush Pull,ABH Manufacturing,AB-94,"Flush Pull 3-1/2"" x 5""","Dimensions: 3-1/2"" x 5"", Material: Stainless Steel, Available Finishes: US28/628, US3/605, US4/606, US10/612, US10B/613, US32D/630, US32/629, Drawing: ABH-12150",28.22,each
+Hardware,Flush Pull,ABH Manufacturing,AB-94BTB,"Flush Pull 3-1/2"" x 5"" (Back-to-Back Pair)","Dimensions: 3-1/2"" x 5"", Material: Stainless Steel, Type: Back-to-Back Pair, Drawing: ABH-12151",57.93,pair
+Hardware,Flush Pull,ABH Manufacturing,AB-94C,"Flush Pull 3-1/2"" x 5"" (Concealed Screws)","Dimensions: 3-1/2"" x 5"", Material: Stainless Steel, Features: Concealed Screws, Drawing: ABH-12152",30.97,each
+Hardware,Flush Pull,ABH Manufacturing,AB-95A,"Flush Pull 2-3/16"" x 3-1/4""","Dimensions: 2-3/16"" x 3-1/4"", Material: Stainless Steel, Drawing: ABH-12158",8.79,each
+Hardware,Flush Pull,ABH Manufacturing,AB-95B,"Flush Pull 2-11/16"" x 4-3/16""","Dimensions: 2-11/16"" x 4-3/16"", Material: Stainless Steel, Drawing: ABH-12159",9.74,each
+Hardware,Flush Pull,ABH Manufacturing,AB-95R,"Flush Pull 3-1/2"" Diameter (Round)","Dimensions: 3-1/2"" Dia., Material: Stainless Steel",21.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-102,"Door Pull 2-1/8"" x 5-1/2"" CTC","Center-to-Center: 5-1/2"", Diameter: 5/8"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12514",14.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-105,"Door Pull 2-5/8"" x 5-1/2"" CTC","Center-to-Center: 5-1/2"", Diameter: 3/4"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12515",14.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-106,"Door Pull 2-3/8"" x 6"" CTC","Center-to-Center: 6"", Diameter: 3/4"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12516",14.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-107,"Door Pull 2-5/8"" x 8"" CTC","Center-to-Center: 8"", Diameter: 3/4"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12517",14.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-110,"Door Pull 3-1/2"" x 8"" CTC","Center-to-Center: 8"", Diameter: 1"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12520",18.23,each
+Hardware,Door Pull,ABH Manufacturing,AB-111,"Door Pull 3-1/2"" x 10"" CTC","Center-to-Center: 10"", Diameter: 1"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12522",18.73,each
+Hardware,Door Pull,ABH Manufacturing,AB-122,"Bar Door Pull 2"" x 6-3/8"" CTC","Center-to-Center: 6"", Bar Size: 3/8"" x 1-1/4"", Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12207",14.98,each
+Hardware,Door Pull,ABH Manufacturing,AB-125,"Half Round Door Pull 2"" x 6-1/2"" CTC","Center-to-Center: 6"", Profile: 1"" Half Round, Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12209",15.98,each
+Hardware,Door Pull,ABH Manufacturing,AB-126,"Half Round Door Pull 2"" x 8-1/2"" CTC","Center-to-Center: 8"", Profile: 1"" Half Round, Type: Type 1HD, Material: Stainless Steel, Drawing: ABH-12210",15.98,each
+Hardware,Door Pull,ABH Manufacturing,AB-132,"Cast Door Pull 1-7/8"" x 5-1/2"" CTC","Center-to-Center: 5-1/2"", Type: Cast Pull, Material: Stainless Steel, Drawing: ABH-12663",13.23,each
+Hardware,Pull Plate,ABH Manufacturing,AB-102x70B,"Pull Plate 3-1/2"" x 15"" with 5/8"" Dia Pull","Plate: 3-1/2"" x 15"", Pull Diameter: 5/8"", CTC: 5-1/2"", Drawing: ABH-12674",26.97,each
+Hardware,Pull Plate,ABH Manufacturing,AB-102x70C,"Pull Plate 4"" x 16"" with 5/8"" Dia Pull","Plate: 4"" x 16"", Pull Diameter: 5/8"", CTC: 5-1/2"", Drawing: ABH-12675",29.22,each
+Hardware,Pull Plate,ABH Manufacturing,AB-105x70B,"Pull Plate 3-1/2"" x 15"" with 3/4"" Dia Pull","Plate: 3-1/2"" x 15"", Pull Diameter: 3/4"", CTC: 5-1/2"", Drawing: ABH-12676",32.71,each
+Hardware,Pull Plate,ABH Manufacturing,AB-105x70C,"Pull Plate 4"" x 16"" with 3/4"" Dia Pull","Plate: 4"" x 16"", Pull Diameter: 3/4"", CTC: 5-1/2"", Drawing: ABH-12677",34.21,each
+Hardware,Pull Plate,ABH Manufacturing,AB-106x70B,"Pull Plate 3-1/2"" x 15"" with 3/4"" Dia Pull","Plate: 3-1/2"" x 15"", Pull Diameter: 3/4"", CTC: 6"", Drawing: ABH-12678",33.21,each
+Hardware,Pull Plate,ABH Manufacturing,AB-106x70C,"Pull Plate 4"" x 16"" with 3/4"" Dia Pull","Plate: 4"" x 16"", Pull Diameter: 3/4"", CTC: 6"", Drawing: ABH-12679",34.71,each
+Hardware,Hinge,ABH Manufacturing,A500083-US32D,"Aluminum Continuous Geared Hinge - Full Concealed 83-1/8""","Height: 83-1/8"", Type: Full Concealed, Material: Aluminum, Finish: US32D, Features: Geared Continuous",125.00,each
+Hardware,Hinge,ABH Manufacturing,A505083-US32D,"Aluminum Continuous Geared Hinge - Full Concealed w/ Dual Edge Guards 83-1/8""","Height: 83-1/8"", Type: Full Concealed with Dual Edge Guards, Material: Aluminum, Finish: US32D",145.00,each
+Hardware,Hinge,ABH Manufacturing,A502083-US32D,"Stainless Steel Pin & Barrel Continuous Hinge - Full Surface 83-1/8""","Height: 83-1/8"", Type: Full Surface, Material: Stainless Steel, Finish: US32D",135.00,each
+Hardware,Hinge,ABH Manufacturing,A515083-US32D,"Stainless Steel Continuous Hinge - Full Concealed w/ Single Edge Guard 83-1/8""","Height: 83-1/8"", Type: Full Concealed with Single Edge Guard, Material: Stainless Steel, Finish: US32D",155.00,each
+Hardware,Hospital Latch,ABH Manufacturing,6000-US32D,"Hospital Push/Pull Latch - Cylindrical","Type: Cylindrical, Backset: 2-3/4"" or 5"", Finish: US32D, Features: ADA Compliant",78.00,each
+Hardware,Hospital Latch,ABH Manufacturing,6800-US32D,"Hospital Push/Pull Latch - Low Profile Cylindrical","Type: Low Profile Cylindrical, Backset: 2-3/4"" or 5"", Finish: US32D, Features: ADA Compliant",85.00,each
+Hardware,Hospital Latch,ABH Manufacturing,6800Q-US32D,"Hospital Push/Pull Latch - Low Profile Quiet Glide","Type: Low Profile Quiet Glide, Backset: 2-3/4"" or 5"", Finish: US32D, Features: ADA Compliant, Quiet Operation",92.00,each
+Hardware,Pivot Set,ABH Manufacturing,0117-US32D,"Pivot Set 3/4"" Offset - Floor Mount Medium Duty","Offset: 3/4"", Mount: Floor, Duty: Medium, Finish: US32D, Includes: Top Pivot 0180",65.00,set
+Hardware,Pivot Set,ABH Manufacturing,0147-US32D,"Pivot Set 3/4"" Offset - Floor Mount Heavy Duty","Offset: 3/4"", Mount: Floor, Duty: Heavy, Finish: US32D, Includes: Top Pivot 0180",85.00,set
+Hardware,Pivot Set,ABH Manufacturing,0127-US32D,"Pivot Set Center Hung - Side Jamb Mount","Type: Center Hung, Mount: Side Jamb, Finish: US32D, Includes: Top Pivot 0320",72.00,set
+Hardware,Pivot Set,ABH Manufacturing,0128-US32D,"Pivot Set Center Hung - Floor Mount","Type: Center Hung, Mount: Floor, Finish: US32D, Includes: Top Pivot 0320",75.00,set
+Hardware,Pivot Set,ABH Manufacturing,0195-US32D,"Pivot Set 3/4"" Offset - Side Jamb Mount","Offset: 3/4"", Mount: Side Jamb, Finish: US32D, Includes: Top Pivot 0180",68.00,set
+Hardware,Overhead Stop,ABH Manufacturing,1000-US32D,"Concealed Mount Overhead Stop - Heavy Duty","Type: Concealed Mount, Duty: Heavy, Finish: US32D, Features: Adjustable Hold Open",45.00,each
+Hardware,Overhead Stop,ABH Manufacturing,4000-US32D,"Concealed Mount Overhead Stop - Medium Duty","Type: Concealed Mount, Duty: Medium, Finish: US32D, Features: Adjustable Hold Open",38.00,each
+Hardware,Overhead Stop,ABH Manufacturing,9000-US32D,"Surface Mount Overhead Stop - Heavy Duty","Type: Surface Mount, Duty: Heavy, Finish: US32D, Features: Adjustable Hold Open",42.00,each
+Hardware,Overhead Stop,ABH Manufacturing,4400-US32D,"Surface Mount Overhead Stop - Medium Duty","Type: Surface Mount, Duty: Medium, Finish: US32D, Features: Adjustable Hold Open",35.00,each
+Hardware,Electromagnetic Holder,ABH Manufacturing,2100-US28,"Electromagnetic Holder - Recessed Mount Tri-Voltage","Type: Recessed Mount, Voltage: 12/24/120VAC, Finish: US28, Holding Force: 50 lbs",48.00,each
+Hardware,Electromagnetic Holder,ABH Manufacturing,2300-US28,"Electromagnetic Holder - Surface Mount Tri-Voltage","Type: Surface Mount, Voltage: 12/24/120VAC, Finish: US28, Holding Force: 50 lbs",42.00,each
+Hardware,Electromagnetic Holder,ABH Manufacturing,2400-US28,"Electromagnetic Holder - Flush Mount Tri-Voltage","Type: Flush Mount, Voltage: 12/24/120VAC, Finish: US28, Holding Force: 50 lbs",45.00,each
+Hardware,Electromagnetic Holder,ABH Manufacturing,2600-US28,"Electromagnetic Holder - Single Floor Mount Tri-Voltage","Type: Single Floor Mount, Voltage: 12/24/120VAC, Finish: US28, Holding Force: 75 lbs",52.00,each
+Hardware,Door Stop,ABH Manufacturing,AB-430-RKW,"Solid Cast Wall Stop","Type: Wall Mount, Material: Cast, Finish: Multiple Available",12.50,each
+Hardware,Door Stop,ABH Manufacturing,AB-440,"Low Dome Stop","Type: Floor/Wall Mount, Profile: Low Dome, Material: Cast, Finish: Multiple Available",8.75,each
+Hardware,Door Stop,ABH Manufacturing,AB-441,"Low Dome Stop with Keeper","Type: Floor/Wall Mount, Profile: Low Dome, Features: Keeper, Material: Cast",9.25,each
+Hardware,Door Stop,ABH Manufacturing,AB-442,"High Dome Stop","Type: Floor/Wall Mount, Profile: High Dome, Material: Cast",9.50,each
+Hardware,Door Stop,ABH Manufacturing,AB-445,"Heavy Duty Door Stop","Type: Floor/Wall Mount, Duty: Heavy, Material: Cast",15.75,each
+Hardware,Door Stop,ABH Manufacturing,AB-462,"Heavy Duty Door Stop with Holder","Type: Floor Mount, Duty: Heavy, Features: Holder, Material: Cast",18.50,each
+Hardware,Flush Bolt,ABH Manufacturing,FB Series,"Flush Bolts - Multiple Sizes","Type: Manual/Automatic, Material: Stainless Steel, Sizes: 6"", 8"", 12"", 18""",35.00,each
+Hardware,Coordinator,ABH Manufacturing,COOR Series,"Door Coordinators","Type: Overhead, Features: Adjustable, Material: Steel/Aluminum",55.00,each
+Hardware,Protection Plate,ABH Manufacturing,AB-K1050,"Kick Plate - Multiple Sizes","Material: Stainless Steel, Heights: 4"", 6"", 8"", 10"", 12"", 16"", 34"", Lengths: 34"", 35"", 40"", 46"", Finish: Multiple Available, Bottom Edge: Beveled",25.00,each
+Hardware,Rescue Hardware,ABH Manufacturing,RESC Series,"Rescue Hardware - Fire Department Access","Type: Knox Box Compatible, Material: Stainless Steel, Features: Emergency Access",125.00,each
+Hardware,Power Transfer,ABH Manufacturing,PT Series,"Electrical Power Transfer","Type: Continuous Hinge Integrated, Wire Capacity: Multiple, Features: Concealed Wiring",85.00,each
+Hardware,Wire Harness,ABH Manufacturing,WIRE Series,"EZ Wire Harness","Type: Pre-wired, Lengths: Multiple, Features: Plug & Play Installation",45.00,each

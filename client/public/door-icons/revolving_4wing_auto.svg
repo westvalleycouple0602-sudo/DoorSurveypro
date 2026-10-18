@@ -1,0 +1,19 @@
+<svg class="door-svg" xmlns="http://www.w3.org/2000/svg" width="160" height="120" viewBox="0 0 160 120">
+  <defs>
+    <style>
+      .line { fill: none; stroke: var(--door-stroke); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: var(--door-stroke); stroke-width: 2; }
+      .glass { fill: var(--door-glass); opacity: .35; stroke: var(--door-stroke); stroke-width: 2; }
+      .fixed { fill: var(--door-fixed); stroke: var(--door-stroke); stroke-width: 2; }
+      .operable { fill: var(--door-operable); stroke: var(--door-stroke); stroke-width: 2; }
+      .badge { fill: var(--door-badge-bg); stroke: var(--door-stroke); stroke-width: 2; }
+      .text { fill: var(--door-stroke); font: 700 11px Arial, sans-serif; }
+    </style>
+  </defs>
+  <rect x="10" y="10" width="140" height="100" class="line" />
+<rect x="55" y="14" width="50" height="8" class="badge"/><text x="60" y="21" class="text">AUTO</text>
+<circle cx="80" cy="60" r="35" class="thin"/>
+<line x1="80" y1="25" x2="80" y2="95" class="line"/>
+<line x1="45" y1="60" x2="115" y2="60" class="line"/>
+
+</svg>

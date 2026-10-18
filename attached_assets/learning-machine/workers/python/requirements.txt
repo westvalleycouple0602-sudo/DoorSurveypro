@@ -1,0 +1,1 @@
+# Add real deps as needed, e.g. pillow, pytorch, onnxruntime, opencv-python, fastapi, uvicorn

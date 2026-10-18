@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "estimating": "Estimating",
+    "quotes": "Quotes",
+    "projectManagement": "Project Management",
+    "reviewTools": "Review Tools",
+    "purchasing": "Purchasing",
+    "analytics": "Analytics",
+    "company": "Company",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}!",
+    "welcomeDefault": "Welcome back!",
+    "quickActions": "Quick Actions",
+    "recentProjects": "Recent Projects",
+    "activeQuotes": "Active Quotes",
+    "metrics": {
+      "totalProjects": "Total Projects",
+      "activeQuotes": "Active Quotes",
+      "doorOpenings": "Door Openings"
+    },
+    "actions": {
+      "newProject": "New Project",
+      "viewProjects": "View All Projects",
+      "createQuote": "Create Quote"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "tabs": {
+      "profile": "Profile",
+      "preferences": "Preferences",
+      "security": "Security",
+      "activity": "Activity"
+    },
+    "personalInfo": "Personal Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "edit": "Edit",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "notifications": {
+      "title": "Notifications",
+      "description": "Manage your notification preferences",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDesc": "Receive notifications via email",
+      "projectUpdates": "Project Updates",
+      "projectUpdatesDesc": "Get notified about project changes",
+      "quoteAlerts": "Quote Alerts",
+      "quoteAlertsDesc": "Receive alerts for quote updates",
+      "weeklyDigest": "Weekly Digest",
+      "weeklyDigestDesc": "Get a summary of your week",
+      "marketingEmails": "Marketing Emails",
+      "marketingEmailsDesc": "Receive updates about new features"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Select your preferred language for the interface",
+      "preferred": "Preferred Language",
+      "preferredDesc": "Choose the language you want to use for the application interface"
+    },
+    "measurements": {
+      "title": "Measurement System",
+      "description": "Configure your preferred measurement units",
+      "system": "Measurement Units",
+      "systemDesc": "Select your organization's preferred measurement system",
+      "imperial": "Imperial (inches, feet)",
+      "metric": "Metric (millimeters, meters)"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "new": "New",
+    "view": "View",
+    "actions": "Actions"
+  },
+  "messages": {
+    "success": {
+      "saved": "Changes saved successfully",
+      "deleted": "Item deleted successfully",
+      "created": "Item created successfully"
+    },
+    "error": {
+      "generic": "An error occurred. Please try again.",
+      "network": "Network error. Please check your connection.",
+      "unauthorized": "You are not authorized to perform this action."
+    }
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "door": {
+    "commercial": {
+      "Material": {
+        "Door Material": [
+          {
+            "value": "Hollow Metal 16ga (galvanneal)",
+            "code": "HM16G-G90",
+            "description": "Commercial steel door leaf, 16-gauge G90 galvanneal, primed.",
+            "compatibility": "Welded or KD frames; high-abuse.",
+            "standards": "ASTM A653; SDI A250; UL 10C(if fire)",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          },
+          {
+            "value": "Hollow Metal 18ga (galvanneal)",
+            "code": "HM18G-G90",
+            "description": "Economy steel door 18ga, primed.",
+            "compatibility": "Standard duty.",
+            "standards": "ASTM A653; SDI A250",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "Stainless Steel 16ga 304 #4",
+            "code": "SS16-304",
+            "description": "Corrosion-resistant stainless #4 finish.",
+            "compatibility": "Use stainless hardware for coastal/healthcare.",
+            "standards": "ASTM A240",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Core": {
+        "Core Type": [
+          {
+            "value": "Honeycomb",
+            "code": "CORE-HC",
+            "description": "Lightweight core.",
+            "compatibility": "Lower STC.",
+            "standards": "SDI A250",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "Mineral Core (Fire)",
+            "code": "CORE-MIN",
+            "description": "Fire-rated mineral core.",
+            "compatibility": "45\u2013180 min labels.",
+            "standards": "NFPA 80; UL 10C",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          },
+          {
+            "value": "Steel Stiffened",
+            "code": "CORE-SS",
+            "description": "Vertically steel-stiffened.",
+            "compatibility": "High abuse/security; heavy.",
+            "standards": "SDI A250",
+            "cost_impact": "High",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Fire/Code": {
+        "Fire Rating": [
+          {
+            "value": "20 min",
+            "code": "FR-20",
+            "description": "Smoke/draft control openings.",
+            "compatibility": "S-label gaskets may be required.",
+            "standards": "NFPA 80; UL 10C; IBC 716",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          },
+          {
+            "value": "60/90/180 min",
+            "code": "FR-ULX",
+            "description": "Higher fire ratings.",
+            "compatibility": "Match frame/glazing ratings.",
+            "standards": "NFPA 80; UL 10C",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Glazing": {
+        "Fire-Resistive Glass": [
+          {
+            "value": "Ceramic (60\u2013180)",
+            "code": "GL-FR-CER",
+            "description": "Fire-resistive glazing.",
+            "compatibility": "Heavy; size limits.",
+            "standards": "UL 263/10C",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Hinges": {
+        "Continuous Hinge": [
+          {
+            "value": "Full Surface Continuous",
+            "code": "HINGE-CONT-FS",
+            "description": "Full height hinge.",
+            "compatibility": "Great for high-cycle.",
+            "standards": "BHMA A156.26",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Electrified": {
+        "Power Transfer": [
+          {
+            "value": "Concealed Power Transfer (EPT)",
+            "code": "ELEC-EPT",
+            "description": "Concealed power transfer.",
+            "compatibility": "For readers/locks.",
+            "standards": "BHMA A156.1/.4",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ],
+        "Access Reader": [
+          {
+            "value": "Mullion/Leaf-Mounted Reader",
+            "code": "ELEC-RDR",
+            "description": "Badge reader.",
+            "compatibility": "Coordinate raceways.",
+            "standards": "NEC; IBC",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Sill": {
+        "Threshold": [
+          {
+            "value": "ADA 1/2\" Ramp Threshold",
+            "code": "TH-ADA",
+            "description": "Compliant threshold \u22641/2\" rise.",
+            "compatibility": "Pair with automatic sweep.",
+            "standards": "ADA 404; ANSI A117.1",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Finish": {
+        "Metal Finish": [
+          {
+            "value": "BHMA 626 (Satin Chrome)",
+            "code": "FIN-626",
+            "description": "Standard architectural finish.",
+            "compatibility": "Match hardware.",
+            "standards": "BHMA A156.18",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "BHMA 613 (Oil Rubbed Bronze)",
+            "code": "FIN-613",
+            "description": "Living finish.",
+            "compatibility": "Patinas over time.",
+            "standards": "BHMA A156.18",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Low",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      }
+    },
+    "residential": {
+      "Material": {
+        "Door Material": [
+          {
+            "value": "Engineered Wood (MDF)",
+            "code": "MDF-SMOOTH",
+            "description": "Smooth paint-grade MDF interior door.",
+            "compatibility": "Interior only.",
+            "standards": "\u2014",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ],
+        "Wood Species": [
+          {
+            "value": "Oak (Stain Grade)",
+            "code": "WOOD-OAK",
+            "description": "Traditional grain; durable.",
+            "compatibility": "Exterior requires finish/overhang.",
+            "standards": "AWI",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          },
+          {
+            "value": "Mahogany (Stain Grade)",
+            "code": "WOOD-MAH",
+            "description": "Premium look; stable.",
+            "compatibility": "Marine-grade finish for exposure.",
+            "standards": "AWI",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      }
+    },
+    "both": {
+      "Material": {
+        "Door Material": [
+          {
+            "value": "Fiberglass Textured (Woodgrain)",
+            "code": "FG-TXT",
+            "description": "Textured fiberglass entry door.",
+            "compatibility": "Good exterior performance; insulated.",
+            "standards": "NFRC/IECC (exterior)",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Size/Handing": {
+        "Nominal Width": [
+          {
+            "value": "3'-0\" (914 mm)",
+            "code": "W-30914",
+            "description": "Common egress width.",
+            "compatibility": "ADA clear width check.",
+            "standards": "IBC; ADA",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ],
+        "Nominal Height": [
+          {
+            "value": "7'-0\" (2134 mm)",
+            "code": "H-7002134",
+            "description": "Commercial standard height.",
+            "compatibility": "Verify stock availability.",
+            "standards": "\u2014",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ],
+        "Handing": [
+          {
+            "value": "RH / LH / RHR / LHR",
+            "code": "HAND-ALL",
+            "description": "Swing orientation options.",
+            "compatibility": "Coordinate with hardware and egress.",
+            "standards": "IBC; NFPA 101",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      },
+      "Fire/Code": {
+        "Smoke Control": [
+          {
+            "value": "S-Label Gasketing",
+            "code": "S-LABEL",
+            "description": "Perimeter smoke seals.",
+            "compatibility": "Check positive pressure.",
+            "standards": "UL 1784; IBC 716",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Code": {
+        "Accessibility": [
+          {
+            "value": "ADA Clear 32\"",
+            "code": "ADA-32",
+            "description": "Clear opening \u226532\".",
+            "compatibility": "Affects width/hardware projection.",
+            "standards": "2010 ADA",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      },
+      "Glazing": {
+        "Vision Panel": [
+          {
+            "value": "No Lite",
+            "code": "LITE-0",
+            "description": "Solid door.",
+            "compatibility": "\u2014",
+            "standards": "\u2014",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "Full Lite",
+            "code": "LITE-FULL",
+            "description": "Full-height glass.",
+            "compatibility": "Tempered/laminated as required.",
+            "standards": "ANSI Z97.1; ADA",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Hardware Prep": {
+        "Bore/Edge Prep": [
+          {
+            "value": "Cylindrical Lock Prep (161)",
+            "code": "PREP-161",
+            "description": "2-1/8\" bore, 2-3/4\" backset.",
+            "compatibility": "Resi often 2-3/8\".",
+            "standards": "ANSI A115.2",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      },
+      "Perimeter": {
+        "Gasketing": [
+          {
+            "value": "Surface Perimeter Seals",
+            "code": "SEAL-SURF",
+            "description": "Applied seals for smoke/acoustic.",
+            "compatibility": "Required for S/STC.",
+            "standards": "UL 1784; ASTM E90",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Composite": {
+        "Package": [
+          {
+            "value": "Prehung Exterior (resi)",
+            "code": "PKG-PREHUNG",
+            "description": "Door+frame+kerf seals+threshold.",
+            "compatibility": "Field trim optional.",
+            "standards": "ENERGY; IRC",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      }
+    }
+  },
+  "frame": {
+    "commercial": {
+      "Material": {
+        "Frame Material": [
+          {
+            "value": "Hollow Metal 16ga (galvanneal)",
+            "code": "FRM-HM16",
+            "description": "Commercial HM frame 16ga.",
+            "compatibility": "Pairs with HM doors.",
+            "standards": "SDI A250; UL 10C (if fire)",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "Stainless Steel 16ga",
+            "code": "FRM-SS16",
+            "description": "Stainless frame for healthcare/coastal.",
+            "compatibility": "Use stainless anchors/screws.",
+            "standards": "ASTM A240",
+            "cost_impact": "High",
+            "lead_time_impact": "High",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Construction": {
+        "KD/Welded": [
+          {
+            "value": "Knockdown (KD)",
+            "code": "KD",
+            "description": "Three-piece drywall frame.",
+            "compatibility": "Fast install in studs.",
+            "standards": "SDI A250",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          },
+          {
+            "value": "Welded",
+            "code": "WELD",
+            "description": "Fully welded frame.",
+            "compatibility": "For masonry/new work.",
+            "standards": "SDI A250",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      },
+      "Dimension": {
+        "Throat (Wall) Depth": [
+          {
+            "value": "4-7/8\" (124 mm)",
+            "code": "TH-4875",
+            "description": "Stud/drywall walls.",
+            "compatibility": "Order per wall depth.",
+            "standards": "\u2014",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      },
+      "Hardware": {
+        "Prep": [
+          {
+            "value": "Electric Strike Prep",
+            "code": "PREP-ES",
+            "description": "Cutout & reinforce for e-strike.",
+            "compatibility": "Coordinate with power & latch.",
+            "standards": "BHMA A156.5",
+            "cost_impact": "Medium",
+            "lead_time_impact": "Medium",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      }
+    },
+    "residential": {
+      "Material": {
+        "Frame Material": [
+          {
+            "value": "Wood Jamb (Pine)",
+            "code": "FRM-WOOD-P",
+            "description": "Residential prehung jamb, paint grade.",
+            "compatibility": "Interior/exterior with kerf.",
+            "standards": "AWI; Energy",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      }
+    },
+    "both": {
+      "Profile": {
+        "Rabbet": [
+          {
+            "value": "Single Rabbet 1-3/4\"",
+            "code": "RAB-SGL",
+            "description": "Standard for single leaf.",
+            "compatibility": "Check stop height for seals.",
+            "standards": "SDI A250",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": true,
+            "notes": ""
+          }
+        ]
+      },
+      "Seals": {
+        "Smoke/Acoustic": [
+          {
+            "value": "Kerf / Surface Stops",
+            "code": "FRM-SEAL",
+            "description": "Integrated or applied stops.",
+            "compatibility": "Needed for S/STC.",
+            "standards": "UL 1784; ASTM E90",
+            "cost_impact": "Low",
+            "lead_time_impact": "Low",
+            "default": false,
+            "notes": ""
+          }
+        ]
+      }
+    }
+  }
+}

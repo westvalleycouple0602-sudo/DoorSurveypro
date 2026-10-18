@@ -1,0 +1,12 @@
+
+# Generate a template CSV (defaults to door/commercial)
+curl -s "http://localhost:5000/api/template" | jq .
+
+# Multi-partner price compare
+curl -s -X POST http://localhost:5000/api/partners/price_multi -H 'Content-Type: application/json' -d '{
+  "partners":["acme","contoso"],
+  "items":[
+    {"opening_id":"D-101A","qty":1,"codes":["HM16G-G90","FR-ULX","GL-FR"]},
+    {"opening_id":"D-102B","qty":2,"codes":["HM16G-G90","HINGE-CONT-FS"]}
+  ]
+}' | jq .

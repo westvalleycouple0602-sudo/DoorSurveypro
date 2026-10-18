@@ -1,0 +1,26 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import floorplanRoutes from "./routes/floorplans";
+import openingRoutes from "./routes/openings";
+import filesRoutes from "./routes/files";
+import auditRoutes from "./routes/audit";
+import * as oidc from "./auth/oidc";
+import { auditMiddleware } from "./audit";
+import { rateLimit } from "./rateLimit";
+
+const app = express();
+app.use(cors()); app.use(express.json()); app.use(cookieParser());
+app.use(rateLimit({ rate: 120, perSec: 60 })); app.use(auditMiddleware);
+app.get("/health", (_, res) => res.json({ ok: true }));
+app.use("/api/floorplans", floorplanRoutes);
+app.use("/api/openings", openingRoutes);
+app.use("/api/files", filesRoutes);
+app.use("/api/audit", auditRoutes);
+app.get("/auth/login", oidc.login);
+app.get("/auth/callback", oidc.callback);
+app.get("/auth/me", oidc.me);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log("DSP API on :"+PORT));

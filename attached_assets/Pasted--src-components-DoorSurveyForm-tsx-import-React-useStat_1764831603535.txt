@@ -1,0 +1,731 @@
+// src/components/DoorSurveyForm.tsx
+import React, { useState } from "react";
+import type {
+  DoorSurveyProject,
+  DoorOpeningInput,
+  BuildingCodeStandard,
+  DoorSurveyPayload,
+} from "../types/doorSurvey";
+
+type StepKey =
+  | "project"
+  | "mapping"
+  | "measurements"
+  | "door"
+  | "frame"
+  | "hardware"
+  | "compliance"
+  | "evidence"
+  | "engineering"
+  | "quote"
+  | "review";
+
+const steps: { key: StepKey; label: string }[] = [
+  { key: "project", label: "Project Details" },
+  { key: "mapping", label: "Locate Opening" },
+  { key: "measurements", label: "LiDAR / AR Measurements" },
+  { key: "door", label: "Door Panel" },
+  { key: "frame", label: "Frame" },
+  { key: "hardware", label: "Hardware Set" },
+  { key: "compliance", label: "Code Compliance" },
+  { key: "evidence", label: "Photos & Evidence" },
+  { key: "engineering", label: "Engineering Review" },
+  { key: "quote", label: "Quote Summary" },
+  { key: "review", label: "Review & Save" },
+];
+
+interface DoorSurveyFormProps {
+  projectDefaults?: Partial<DoorSurveyProject>;
+  onSubmit: (payload: DoorSurveyPayload) => Promise<void> | void;
+}
+
+export const DoorSurveyForm: React.FC<DoorSurveyFormProps> = ({
+  projectDefaults,
+  onSubmit,
+}) => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+  const [project, setProject] = useState<DoorSurveyProject>({
+    id: undefined,
+    name: "",
+    location: "",
+    buildingType: "Office Building",
+    customerId: undefined,
+    quoteType: "none",
+    standards: ["ADA", "IBC"],
+    ...projectDefaults,
+  });
+
+  const [opening, setOpening] = useState<DoorOpeningInput>({
+    doorTag: "",
+    floor: "",
+    spaceName: "",
+    openingType: "single",
+    handing: "RH",
+    measurements: {
+      roughWidthMm: 0,
+      roughHeightMm: 0,
+      clearWidthMm: 0,
+      headHeightMm: 0,
+      jambDepthMm: 0,
+      doorThicknessMm: 0,
+      sillHeightMm: 0,
+    },
+    doorLeaf: {
+      leafType: "flush",
+      coreType: "solid",
+      fireRatingMinutes: 0,
+      hasVisionLite: false,
+      visionLiteDescription: "",
+      manufacturer: "",
+      model: "",
+    },
+    frame: {
+      material: "hollow_metal",
+      profile: "5-3/4",
+      anchorType: "existing",
+      conditionScore: 3,
+      notes: "",
+    },
+    hardware: {
+      hinges: [],
+      lockFunction: "",
+      lockset: "",
+      exitDevice: "",
+      closer: "",
+      accessories: [],
+      electrifiedHardware: [],
+    },
+    compliance: {
+      standardsChecked: ["ADA", "IBC"],
+      passes: true,
+      issues: [],
+      notes: "",
+    },
+    evidence: {
+      photos: [],
+      videos: [],
+      documents: [],
+    },
+    engineeringReview: {
+      status: "pending",
+      notes: "",
+      conflicts: [],
+    },
+    quoteSummary: {
+      materialCost: 0,
+      laborCost: 0,
+      shippingCost: 0,
+      marginPercent: 35,
+      totalPrice: 0,
+      optionLabel: "Base",
+    },
+  });
+
+  const current = steps[currentStepIndex];
+
+  const goNext = () => {
+    setCurrentStepIndex((i) => Math.min(i + 1, steps.length - 1));
+  };
+
+  const goBack = () => {
+    setCurrentStepIndex((i) => Math.max(i - 1, 0));
+  };
+
+  const handleSubmit = async () => {
+    const payload: DoorSurveyPayload = {
+      project,
+      opening,
+    };
+    await onSubmit(payload);
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Simple step header – swap for shadcn Steps / Breadcrumb if desired */}
+      <header className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">New Door Survey</h2>
+          <p className="text-sm text-muted-foreground">
+            Step {currentStepIndex + 1} of {steps.length}: {current.label}
+          </p>
+        </div>
+        <div className="flex gap-1 text-xs">
+          {steps.map((step, index) => (
+            <span
+              key={step.key}
+              className={[
+                "h-1 w-6 rounded-full",
+                index <= currentStepIndex ? "bg-primary" : "bg-muted",
+              ].join(" ")}
+            />
+          ))}
+        </div>
+      </header>
+
+      <section className="border rounded-lg p-4 bg-card flex flex-col gap-4">
+        {current.key === "project" && (
+          <ProjectStep project={project} onChange={setProject} />
+        )}
+
+        {current.key === "mapping" && (
+          <MappingStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "measurements" && (
+          <MeasurementsStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "door" && (
+          <DoorStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "frame" && (
+          <FrameStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "hardware" && (
+          <HardwareStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "compliance" && (
+          <ComplianceStep opening={opening} project={project} onChange={setOpening} />
+        )}
+
+        {current.key === "evidence" && (
+          <EvidenceStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "engineering" && (
+          <EngineeringStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "quote" && (
+          <QuoteStep opening={opening} onChange={setOpening} />
+        )}
+
+        {current.key === "review" && (
+          <ReviewStep project={project} opening={opening} />
+        )}
+      </section>
+
+      <footer className="flex justify-between">
+        <button
+          type="button"
+          className="btn btn-outline"
+          onClick={goBack}
+          disabled={currentStepIndex === 0}
+        >
+          Back
+        </button>
+
+        {current.key !== "review" && (
+          <button type="button" className="btn btn-primary" onClick={goNext}>
+            Next
+          </button>
+        )}
+
+        {current.key === "review" && (
+          <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+            Save Survey
+          </button>
+        )}
+      </footer>
+    </div>
+  );
+};
+
+/* --- Individual Step Components (simplified) --- */
+
+interface StepProps {
+  opening: DoorOpeningInput;
+  onChange: (next: DoorOpeningInput) => void;
+}
+
+interface ProjectStepProps {
+  project: DoorSurveyProject;
+  onChange: (next: DoorSurveyProject) => void;
+}
+
+const ProjectStep: React.FC<ProjectStepProps> = ({ project, onChange }) => {
+  const toggleStandard = (std: BuildingCodeStandard) => {
+    const exists = project.standards.includes(std);
+    const next = {
+      ...project,
+      standards: exists
+        ? project.standards.filter((s) => s !== std)
+        : [...project.standards, std],
+    };
+    onChange(next);
+  };
+
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Project Name</span>
+        <input
+          className="input"
+          value={project.name}
+          onChange={(e) => onChange({ ...project, name: e.target.value })}
+          placeholder="Memorial Hospital Renovation"
+        />
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Location</span>
+        <input
+          className="input"
+          value={project.location}
+          onChange={(e) => onChange({ ...project, location: e.target.value })}
+          placeholder="123 Main St, Springfield"
+        />
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Building Type</span>
+        <select
+          className="input"
+          value={project.buildingType}
+          onChange={(e) => onChange({ ...project, buildingType: e.target.value })}
+        >
+          <option>Hospital</option>
+          <option>Office Building</option>
+          <option>School</option>
+          <option>Retail</option>
+          <option>Multi-Family</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Quote Type</span>
+        <select
+          className="input"
+          value={project.quoteType}
+          onChange={(e) =>
+            onChange({
+              ...project,
+              quoteType: e.target.value as DoorSurveyProject["quoteType"],
+            })
+          }
+        >
+          <option value="none">None</option>
+          <option value="budget">Budget</option>
+          <option value="proposal">Proposal</option>
+          <option value="change_order">Change Order</option>
+        </select>
+      </label>
+
+      <div className="md:col-span-2">
+        <span className="text-sm font-medium">Applicable Standards</span>
+        <div className="mt-1 flex flex-wrap gap-2">
+          {(["ADA", "IBC", "NFPA", "ANSI_SDI", "LOCAL"] as BuildingCodeStandard[]).map(
+            (std) => (
+              <button
+                key={std}
+                type="button"
+                className={[
+                  "px-3 py-1 rounded-full border text-xs",
+                  project.standards.includes(std)
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-muted text-muted-foreground",
+                ].join(" ")}
+                onClick={() => toggleStandard(std)}
+              >
+                {std === "ANSI_SDI" ? "ANSI/SDI" : std}
+              </button>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MappingStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  return (
+    <div className="grid gap-3 md:grid-cols-3">
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Door Tag / Number</span>
+        <input
+          className="input"
+          value={opening.doorTag}
+          onChange={(e) => onChange({ ...opening, doorTag: e.target.value })}
+          placeholder="101A"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Floor</span>
+        <input
+          className="input"
+          value={opening.floor}
+          onChange={(e) => onChange({ ...opening, floor: e.target.value })}
+          placeholder="Level 1"
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Space / Room</span>
+        <input
+          className="input"
+          value={opening.spaceName}
+          onChange={(e) => onChange({ ...opening, spaceName: e.target.value })}
+          placeholder="Corridor 1"
+        />
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Opening Type</span>
+        <select
+          className="input"
+          value={opening.openingType}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              openingType: e.target.value as DoorOpeningInput["openingType"],
+            })
+          }
+        >
+          <option value="single">Single Swing</option>
+          <option value="pair">Pair</option>
+          <option value="sliding">Sliding</option>
+          <option value="folding">Folding</option>
+          <option value="revolving">Revolving</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Handing</span>
+        <select
+          className="input"
+          value={opening.handing}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              handing: e.target.value as DoorOpeningInput["handing"],
+            })
+          }
+        >
+          <option value="RH">RH</option>
+          <option value="LH">LH</option>
+          <option value="RHR">RHR</option>
+          <option value="LHR">LHR</option>
+        </select>
+      </label>
+    </div>
+  );
+};
+
+const MeasurementsStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const m = opening.measurements;
+  const update = (field: keyof typeof m, value: number) => {
+    onChange({ ...opening, measurements: { ...m, [field]: value } });
+  };
+
+  const numInputProps = {
+    className: "input",
+    type: "number",
+    step: "1",
+    min: 0,
+  } as const;
+
+  return (
+    <div className="grid gap-3 md:grid-cols-3">
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Rough Width (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.roughWidthMm || ""}
+          onChange={(e) => update("roughWidthMm", Number(e.target.value))}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Rough Height (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.roughHeightMm || ""}
+          onChange={(e) => update("roughHeightMm", Number(e.target.value))}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Clear Width (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.clearWidthMm || ""}
+          onChange={(e) => update("clearWidthMm", Number(e.target.value))}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Head Height (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.headHeightMm || ""}
+          onChange={(e) => update("headHeightMm", Number(e.target.value))}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Jamb Depth (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.jambDepthMm || ""}
+          onChange={(e) => update("jambDepthMm", Number(e.target.value))}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Door Thickness (mm)</span>
+        <input
+          {...numInputProps}
+          value={m.doorThicknessMm || ""}
+          onChange={(e) => update("doorThicknessMm", Number(e.target.value))}
+        />
+      </label>
+    </div>
+  );
+};
+
+// For brevity, the remaining steps follow the same pattern and read/write into opening.*
+// You can flesh them out as needed.
+const DoorStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const door = opening.doorLeaf;
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Door Type</span>
+        <select
+          className="input"
+          value={door.leafType}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              doorLeaf: {
+                ...door,
+                leafType: e.target.value as typeof door.leafType,
+              },
+            })
+          }
+        >
+          <option value="flush">Flush</option>
+          <option value="full_glass">Full Glass</option>
+          <option value="half_glass">Half Glass</option>
+          <option value="narrow_lite">Narrow Lite</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Core Type</span>
+        <select
+          className="input"
+          value={door.coreType}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              doorLeaf: {
+                ...door,
+                coreType: e.target.value as typeof door.coreType,
+              },
+            })
+          }
+        >
+          <option value="solid">Solid</option>
+          <option value="hollow">Hollow</option>
+          <option value="mineral">Mineral / Fire</option>
+          <option value="stc">STC / Acoustic</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Fire Rating (min)</span>
+        <input
+          type="number"
+          className="input"
+          value={door.fireRatingMinutes || ""}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              doorLeaf: { ...door, fireRatingMinutes: Number(e.target.value) },
+            })
+          }
+        />
+      </label>
+
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={door.hasVisionLite}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              doorLeaf: { ...door, hasVisionLite: e.target.checked },
+            })
+          }
+        />
+        <span className="text-sm">Has vision lite / glass</span>
+      </label>
+
+      {door.hasVisionLite && (
+        <label className="md:col-span-2 flex flex-col gap-1">
+          <span className="text-sm font-medium">Vision Lite Description</span>
+          <input
+            className="input"
+            value={door.visionLiteDescription}
+            onChange={(e) =>
+              onChange({
+                ...opening,
+                doorLeaf: { ...door, visionLiteDescription: e.target.value },
+              })
+            }
+            placeholder="e.g. 6\"x30\" safety glass"
+          />
+        </label>
+      )}
+    </div>
+  );
+};
+
+const FrameStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const frame = opening.frame;
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Frame Material</span>
+        <select
+          className="input"
+          value={frame.material}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              frame: { ...frame, material: e.target.value as typeof frame.material },
+            })
+          }
+        >
+          <option value="hollow_metal">Hollow Metal</option>
+          <option value="aluminum">Aluminum</option>
+          <option value="wood">Wood</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Profile</span>
+        <input
+          className="input"
+          value={frame.profile}
+          onChange={(e) =>
+            onChange({ ...opening, frame: { ...frame, profile: e.target.value } })
+          }
+          placeholder="5-3/4"
+        />
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Anchor Type</span>
+        <select
+          className="input"
+          value={frame.anchorType}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              frame: { ...frame, anchorType: e.target.value as typeof frame.anchorType },
+            })
+          }
+        >
+          <option value="existing">Existing</option>
+          <option value="new">New masonry anchor</option>
+          <option value="steel">Steel / clip</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-sm font-medium">Condition Score (1–5)</span>
+        <input
+          type="number"
+          min={1}
+          max={5}
+          className="input"
+          value={frame.conditionScore}
+          onChange={(e) =>
+            onChange({
+              ...opening,
+              frame: { ...frame, conditionScore: Number(e.target.value) },
+            })
+          }
+        />
+      </label>
+
+      <label className="md:col-span-2 flex flex-col gap-1">
+        <span className="text-sm font-medium">Notes</span>
+        <textarea
+          className="input min-h-[80px]"
+          value={frame.notes}
+          onChange={(e) =>
+            onChange({ ...opening, frame: { ...frame, notes: e.target.value } })
+          }
+        />
+      </label>
+    </div>
+  );
+};
+
+// HardwareStep / ComplianceStep / EvidenceStep / EngineeringStep / QuoteStep / ReviewStep
+// follow the same pattern: simple fields bound to opening.hardware, opening.compliance, etc.
+// Stub versions are left to avoid over-long code in this snippet.
+
+const HardwareStep: React.FC<StepProps> = () => (
+  <p className="text-sm text-muted-foreground">
+    Hardware capture UI goes here (hinges, lock/exit device, closer, accessories,
+    electrified hardware, with barcode scanning hooks).
+  </p>
+);
+
+const ComplianceStep: React.FC<
+  StepProps & { project: DoorSurveyProject }
+> = () => (
+  <p className="text-sm text-muted-foreground">
+    Compliance results and rule-trigger UI goes here (ADA / IBC / NFPA summaries).
+  </p>
+);
+
+const EvidenceStep: React.FC<StepProps> = () => (
+  <p className="text-sm text-muted-foreground">
+    Photo / video / document upload widgets with AI labelling go here.
+  </p>
+);
+
+const EngineeringStep: React.FC<StepProps> = () => (
+  <p className="text-sm text-muted-foreground">
+    Engineering review summary, AI recommendation, and override controls go here.
+  </p>
+);
+
+const QuoteStep: React.FC<StepProps> = () => (
+  <p className="text-sm text-muted-foreground">
+    Quote breakdown (materials, labor, shipping, options A/B/C) UI goes here.
+  </p>
+);
+
+const ReviewStep: React.FC<{
+  project: DoorSurveyProject;
+  opening: DoorOpeningInput;
+}> = ({ project, opening }) => (
+  <div className="space-y-2 text-sm">
+    <h3 className="font-semibold">Review Summary</h3>
+    <p>
+      <span className="font-medium">Project:</span> {project.name} –{" "}
+      {project.location}
+    </p>
+    <p>
+      <span className="font-medium">Opening:</span> {opening.doorTag} –{" "}
+      {opening.spaceName}
+    </p>
+    <p>
+      <span className="font-medium">Type:</span> {opening.openingType},{" "}
+      {opening.handing}
+    </p>
+    <p>
+      <span className="font-medium">Standards:</span>{" "}
+      {project.standards.join(", ")}
+    </p>
+    <p className="text-muted-foreground">
+      Full JSON payload will be sent to backend / AI compliance engine when you
+      click "Save Survey".
+    </p>
+  </div>
+);

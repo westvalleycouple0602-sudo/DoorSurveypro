@@ -1,0 +1,21 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+/backups/catalog-pdf/
+/generated-artifacts/
+
+# Keep transfer archives, history backups and credentials out of future commits.
+/attached_assets/ABH Master Catalog (1)_1760757806846.pdf
+DoorSurvey-*.zip
+*.bundle
+/.transfer-history/
+/.transfer-parts/
+.env
+.env.local
+.env.production
+/coverage/
+/test-results/
+/playwright-report/

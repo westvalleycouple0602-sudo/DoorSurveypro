@@ -1,0 +1,26 @@
+{
+  "name": "doorsurveypro-openai-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.5",
+    "vite": "6.4.4"
+  },
+  "overrides": {
+    "uuid": "11.1.1",
+    "esbuild": "^0.25.0",
+    "@tootallnate/once": "2.0.1"
+  }
+}

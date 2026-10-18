@@ -1,0 +1,117 @@
+// doorSurveyProLandingHeroVideo.ts
+
+export type Scene = {
+  id: number;
+  name: string;
+  durationSeconds: number;
+  prompt: string;
+  overlayText: string;
+  notes?: string[];
+};
+
+export type VideoStyle = {
+  overallLook: string;
+  intendedAspectRatio: string;
+  audio: string;
+  looping: boolean;
+  notes: string[];
+};
+
+export type VideoSpec = {
+  videoTitle: string;
+  usage: string;
+  totalDurationSeconds: number;
+  style: VideoStyle;
+  scenes: Scene[];
+};
+
+export const doorSurveyProLandingHeroVideo: VideoSpec = {
+  videoTitle: "DoorSurvey Pro - Landing Page Cinematic Hero",
+  usage: "Landing page autoplay hero background (silent, looping)",
+  totalDurationSeconds: 12,
+  style: {
+    overallLook: "Ultra-cinematic, Apple-style, clean, premium, high-resolution",
+    intendedAspectRatio: "16:9",
+    audio: "None (silent autoplay)",
+    looping: true,
+    notes: [
+      "Use smooth transitions and similar brightness between last and first scene for seamless looping.",
+      "Prioritize high-end lighting, shallow depth of field, and clean composition.",
+      "No voiceover, no dialog, no noisy text – short overlays only."
+    ]
+  },
+  scenes: [
+    {
+      id: 1,
+      name: "Epic Door Scan Hero Shot",
+      durationSeconds: 3,
+      prompt:
+        "Ultra-cinematic slow-motion shot of a commercial door in a clean modern hallway. Soft volumetric lighting through the top window. Subtle floating dust particles in the air. A glowing neon LiDAR scan sweeps across the door frame, revealing measurements in thin futuristic lines around the jamb and head. Shallow depth of field, premium Apple-quality production.",
+      overlayText: "Survey Smarter.",
+      notes: [
+        "Use soft warm/cool mixed lighting to feel premium and modern.",
+        "LiDAR sweep animation should be smooth and clearly visible."
+      ]
+    },
+    {
+      id: 2,
+      name: "LiDAR Point Cloud Forming Door Shape",
+      durationSeconds: 2,
+      prompt:
+        "Black-to-white gradient background. A glowing teal point cloud rapidly forms the outline of a door and frame. Lines connect between points and lock into precise dimensions. Minimalistic high-tech aesthetic, soft shadows, premium motion blur.",
+      overlayText: "Millimeter Accuracy.",
+      notes: [
+        "Keep background very minimal so the point cloud is the hero.",
+        "Use teal or cyan accents for technical feel."
+      ]
+    },
+    {
+      id: 3,
+      name: "Hardware Detection Macro Shot",
+      durationSeconds: 2,
+      prompt:
+        "Beautiful macro close-up shot of door hardware on the edge of a door: hinge and lock edge in frame. Glossy metal reflections with realistic texture. A clean digital overlay appears in the air, labeling the hardware type with elegant neon labels and thin lines. Cinematic lighting, shallow focus, hyper-realistic look.",
+      overlayText: "Instant Hardware Detection.",
+      notes: [
+        "Focus on the metal reflections and fine details.",
+        "Keep the overlay thin and minimal, not cluttered."
+      ]
+    },
+    {
+      id: 4,
+      name: "UI Assembling Door Package",
+      durationSeconds: 2,
+      prompt:
+        "Minimal white background. Floating UI cards slide gracefully into place with magnetic animation: one labeled 'Door Type', one 'Frame Type', one 'Swing Direction', one 'Hardware Set'. Cards snap together to form a complete 'Door Opening' package. Soft shadows, smooth gradients, modern Apple-style motion design.",
+      overlayText: "Complete Openings. Built Automatically.",
+      notes: [
+        "Use a blue/gray accent palette.",
+        "Motion should feel soft and elegant, not bouncy or cartoonish."
+      ]
+    },
+    {
+      id: 5,
+      name: "Quote Generation UI",
+      durationSeconds: 2,
+      prompt:
+        "A sleek, polished PDF quote animates onto the screen with a soft page-fold effect. Line items glide in: 'Materials', 'Hardware', 'Labor', 'Total'. Clean typography with subtle blue accents. Slight parallax as the page settles into view, giving depth.",
+      overlayText: "Instant Quotes.",
+      notes: [
+        "Make the layout look like a professional contractor/door quote.",
+        "Avoid tiny text; prioritize legibility and clean structure."
+      ]
+    },
+    {
+      id: 6,
+      name: "Final Hero Device + CTA (Loop End Frame)",
+      durationSeconds: 3,
+      prompt:
+        "A floating tablet rotates slowly over a pure white surface. The DoorSurvey Pro interface glows softly on the screen, showing a clean dashboard with doors and surveys. Soft ambient light from above, minimal modern design, ultra-clean aesthetic. Subtle camera drift to keep motion loop-friendly.",
+      overlayText: "DoorSurveyPro.com",
+      notes: [
+        "End on nearly the same brightness/white level as the start of Scene 1 for looping.",
+        "Keep motion slow and smooth so the cut back to Scene 1 feels natural."
+      ]
+    }
+  ]
+};

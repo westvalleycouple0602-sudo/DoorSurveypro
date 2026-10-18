@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Door Survey Pro — Pricing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-gray-50 text-gray-900 font-[Inter]">
+  <header class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+    <h1 class="text-2xl font-bold">Door Survey Pro</h1>
+    <a href="/" class="text-sm underline">Back to app</a>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <section class="mb-6 flex items-center justify-between">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Simple pricing for field & office</h2>
+        <p class="text-gray-600 mt-2">Pay monthly or save 20% with annual billing. 14‑day free trial on all plans.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-sm">Monthly</span>
+        <label class="inline-flex items-center cursor-pointer">
+          <input id="billing-toggle" type="checkbox" class="sr-only peer">
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700
+                      peer-checked:after:translate-x-full peer-checked:after:border-white after:content-['']
+                      after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border
+                      after:rounded-full after:h-5 after:w-5 after:transition-all relative"></div>
+        </label>
+        <span class="text-sm">Annual <span class="ml-1 text-green-600 font-semibold">Save 20%</span></span>
+      </div>
+    </section>
+
+    <section id="tiers" class="grid md:grid-cols-3 gap-6"></section>
+
+    <section class="max-w-3xl mx-auto mt-12">
+      <h3 class="text-xl font-semibold mb-4">Popular add‑ons</h3>
+      <div id="addons" class="grid md:grid-cols-3 gap-4"></div>
+    </section>
+
+    <section class="max-w-3xl mx-auto mt-12">
+      <h3 class="text-xl font-semibold mb-2">What’s included</h3>
+      <ul class="list-disc ml-5 text-gray-700 space-y-1">
+        <li>Mobile + desktop data collection (doors, frames, hardware)</li>
+        <li>Barcode/label scanning with manufacturer documentation</li>
+        <li>Quoting with tariffs, freight, shipping costs</li>
+        <li>Calendar integrations (Google & Outlook)</li>
+        <li>Project & API integrations (Jira, Confluence, ERP)</li>
+        <li>Reporting, bug tracking, and self-diagnostics</li>
+        <li>Cloud sync, collaboration, and role permissions</li>
+      </ul>
+    </section>
+
+    <section class="max-w-3xl mx-auto mt-12">
+      <h3 class="text-xl font-semibold mb-2">FAQ</h3>
+      <details class="mb-2 bg-white rounded-xl p-4 shadow-sm">
+        <summary class="font-medium cursor-pointer">Do you offer a free trial?</summary>
+        <p class="text-gray-700 mt-2">Yes — all plans include a 14‑day free trial. Cancel anytime during the trial.</p>
+      </details>
+      <details class="mb-2 bg-white rounded-xl p-4 shadow-sm">
+        <summary class="font-medium cursor-pointer">Can I switch between monthly and annual?</summary>
+        <p class="text-gray-700 mt-2">Absolutely. You can change your billing interval at any time.</p>
+      </details>
+      <details class="mb-2 bg-white rounded-xl p-4 shadow-sm">
+        <summary class="font-medium cursor-pointer">Do you support purchase orders?</summary>
+        <p class="text-gray-700 mt-2">Enterprise customers can request invoicing, purchase orders, or custom contracts.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-center text-sm text-gray-500">
+    © <span id="year"></span> Door Survey Pro
+  </footer>
+
+  <script src="/pricing.js" type="module"></script>
+</body>
+</html>

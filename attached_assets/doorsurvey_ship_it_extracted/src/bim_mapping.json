@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "version": "1.0.0"
+  },
+  "map": [
+    {
+      "rule_id": "HW_MH_001",
+      "elements": [
+        "door.lever",
+        "door.pull"
+      ],
+      "measure_anchors": [
+        {
+          "name": "lever_center_aff",
+          "type": "point",
+          "path": "hardware.height_aff",
+          "units": "in"
+        }
+      ],
+      "overlay": {
+        "style": "highlight",
+        "color": "#ff6b6b",
+        "label": "Mount 34\u201348 in AFF"
+      }
+    },
+    {
+      "rule_id": "THRESHOLD_003",
+      "elements": [
+        "frame.threshold"
+      ],
+      "measure_anchors": [
+        {
+          "name": "threshold_height",
+          "type": "point",
+          "path": "threshold.height_in",
+          "units": "in"
+        },
+        {
+          "name": "threshold_slope",
+          "type": "slope",
+          "path": "threshold.bevel_slope_ratio",
+          "units": "ratio"
+        }
+      ],
+      "overlay": {
+        "style": "outline",
+        "color": "#ffd166",
+        "label": "\u2264 1/2 in (new); \u2264 3/4 in beveled (existing)"
+      }
+    },
+    {
+      "rule_id": "EG_ONE_MOTION",
+      "elements": [
+        "door.latchset",
+        "door.deadbolt"
+      ],
+      "overlay": {
+        "style": "badge",
+        "color": "#4cc9f0",
+        "label": "Single-motion egress"
+      }
+    },
+    {
+      "rule_id": "FD_NO_MECH_HO",
+      "elements": [
+        "door.closer",
+        "door.hold_open"
+      ],
+      "overlay": {
+        "style": "badge",
+        "color": "#a29bfe",
+        "label": "No mechanical hold-open on fire doors"
+      }
+    }
+  ]
+}

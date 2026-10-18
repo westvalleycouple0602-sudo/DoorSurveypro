@@ -1,0 +1,570 @@
+[
+  {
+    "id": "swing_single_left",
+    "label": "Single Swing (LH)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_left.svg",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ],
+    "hand": [
+      "LH"
+    ]
+  },
+  {
+    "id": "swing_single_right",
+    "label": "Single Swing (RH)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_right.svg",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ],
+    "hand": [
+      "RH"
+    ]
+  },
+  {
+    "id": "swing_double",
+    "label": "Double Swing (Equal)",
+    "category": "Hinged",
+    "icon": "icons/swing_double.svg",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ],
+    "leaves": 2
+  },
+  {
+    "id": "glazing_none",
+    "label": "Glazing: None",
+    "category": "Glazing",
+    "icon": "icons/glazing_none.svg"
+  },
+  {
+    "id": "glazing_vision_panel",
+    "label": "Glazing: Vision Panel",
+    "category": "Glazing",
+    "icon": "icons/glazing_vision_panel.svg"
+  },
+  {
+    "id": "glazing_half_lite",
+    "label": "Glazing: Half-Lite",
+    "category": "Glazing",
+    "icon": "icons/glazing_half_lite.svg"
+  },
+  {
+    "id": "glazing_full_lite",
+    "label": "Glazing: Full-Lite",
+    "category": "Glazing",
+    "icon": "icons/glazing_full_lite.svg"
+  },
+  {
+    "id": "pivot",
+    "label": "Pivot Door",
+    "category": "Pivot",
+    "icon": "icons/pivot.svg",
+    "glazing": [
+      "none",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "french_double",
+    "label": "French Doors (Double)",
+    "category": "Hinged",
+    "icon": "icons/french_double.svg",
+    "glazing": [
+      "full_lite"
+    ],
+    "tags": [
+      "muntins"
+    ]
+  },
+  {
+    "id": "barn_surface_slider",
+    "label": "Barn Door (Surface Slider)",
+    "category": "Sliding",
+    "icon": "icons/barn_surface_slider.svg",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "louvered",
+    "label": "Louvered Door",
+    "category": "Hinged",
+    "icon": "icons/louvered.svg",
+    "glazing": [
+      "none"
+    ]
+  },
+  {
+    "id": "security_grille",
+    "label": "Security/Grille Door",
+    "category": "Security",
+    "icon": "icons/security_grille.svg",
+    "glazing": [
+      "none",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "roller_shutter",
+    "label": "Roller/Shutter Door",
+    "category": "Overhead",
+    "icon": "icons/roller_shutter.svg",
+    "glazing": [
+      "none"
+    ]
+  },
+  {
+    "id": "automatic_sliding",
+    "label": "Automatic Sliding (Bi-Parting)",
+    "category": "Automatic",
+    "icon": "icons/automatic_sliding.svg",
+    "glazing": [
+      "full_lite"
+    ],
+    "panels": 2
+  },
+  {
+    "id": "sliding_2p_OX",
+    "label": "Sliding 2-Panel (OX)",
+    "category": "Sliding",
+    "icon": "icons/sliding_2p_OX.svg",
+    "panels": 2,
+    "opening_code": "OX",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_2p_XO",
+    "label": "Sliding 2-Panel (XO)",
+    "category": "Sliding",
+    "icon": "icons/sliding_2p_XO.svg",
+    "panels": 2,
+    "opening_code": "XO",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_3p_OXO",
+    "label": "Sliding 3-Panel (OXO)",
+    "category": "Sliding",
+    "icon": "icons/sliding_3p_OXO.svg",
+    "panels": 3,
+    "opening_code": "OXO",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_3p_XOX",
+    "label": "Sliding 3-Panel (XOX)",
+    "category": "Sliding",
+    "icon": "icons/sliding_3p_XOX.svg",
+    "panels": 3,
+    "opening_code": "XOX",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_3p_OXX",
+    "label": "Sliding 3-Panel (OXX)",
+    "category": "Sliding",
+    "icon": "icons/sliding_3p_OXX.svg",
+    "panels": 3,
+    "opening_code": "OXX",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_3p_XXO",
+    "label": "Sliding 3-Panel (XXO)",
+    "category": "Sliding",
+    "icon": "icons/sliding_3p_XXO.svg",
+    "panels": 3,
+    "opening_code": "XXO",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_4p_OXXO",
+    "label": "Sliding 4-Panel (OXXO)",
+    "category": "Sliding",
+    "icon": "icons/sliding_4p_OXXO.svg",
+    "panels": 4,
+    "opening_code": "OXXO",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_4p_XOOX",
+    "label": "Sliding 4-Panel (XOOX)",
+    "category": "Sliding",
+    "icon": "icons/sliding_4p_XOOX.svg",
+    "panels": 4,
+    "opening_code": "XOOX",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_4p_OXOX",
+    "label": "Sliding 4-Panel (OXOX)",
+    "category": "Sliding",
+    "icon": "icons/sliding_4p_OXOX.svg",
+    "panels": 4,
+    "opening_code": "OXOX",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "sliding_4p_XOXO",
+    "label": "Sliding 4-Panel (XOXO)",
+    "category": "Sliding",
+    "icon": "icons/sliding_4p_XOXO.svg",
+    "panels": 4,
+    "opening_code": "XOXO",
+    "glazing": [
+      "none",
+      "half_lite",
+      "full_lite"
+    ],
+    "notes": "O=fixed, X=operable. Colored panels."
+  },
+  {
+    "id": "swing_single_LHR",
+    "label": "Single Swing LHR (inswing)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_LHR.svg",
+    "hand": [
+      "LHR"
+    ],
+    "swing": "inswing",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "swing_single_RHR",
+    "label": "Single Swing RHR (inswing)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_RHR.svg",
+    "hand": [
+      "RHR"
+    ],
+    "swing": "inswing",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "swing_single_LHO",
+    "label": "Single Swing LHO (outswing)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_LHO.svg",
+    "hand": [
+      "LHO"
+    ],
+    "swing": "outswing",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "swing_single_RHO",
+    "label": "Single Swing RHO (outswing)",
+    "category": "Hinged",
+    "icon": "icons/swing_single_RHO.svg",
+    "hand": [
+      "RHO"
+    ],
+    "swing": "outswing",
+    "glazing": [
+      "none",
+      "vision_panel",
+      "half_lite",
+      "full_lite"
+    ]
+  },
+  {
+    "id": "badge_fire_20",
+    "label": "Badge: Fire 20 min",
+    "category": "Badge",
+    "icon": "icons/badge_fire_20.svg",
+    "overlay": true,
+    "appliesTo": [
+      "Hinged",
+      "Sliding",
+      "Overhead"
+    ]
+  },
+  {
+    "id": "badge_fire_45",
+    "label": "Badge: Fire 45 min",
+    "category": "Badge",
+    "icon": "icons/badge_fire_45.svg",
+    "overlay": true,
+    "appliesTo": [
+      "Hinged",
+      "Sliding",
+      "Overhead"
+    ]
+  },
+  {
+    "id": "badge_fire_60",
+    "label": "Badge: Fire 60 min",
+    "category": "Badge",
+    "icon": "icons/badge_fire_60.svg",
+    "overlay": true,
+    "appliesTo": [
+      "Hinged",
+      "Sliding",
+      "Overhead"
+    ]
+  },
+  {
+    "id": "badge_fire_90",
+    "label": "Badge: Fire 90 min",
+    "category": "Badge",
+    "icon": "icons/badge_fire_90.svg",
+    "overlay": true,
+    "appliesTo": [
+      "Hinged",
+      "Sliding",
+      "Overhead"
+    ]
+  },
+  {
+    "id": "badge_fire_180",
+    "label": "Badge: Fire 180 min",
+    "category": "Badge",
+    "icon": "icons/badge_fire_180.svg",
+    "overlay": true,
+    "appliesTo": [
+      "Hinged",
+      "Sliding",
+      "Overhead"
+    ]
+  },
+  {
+    "id": "badge_panic",
+    "label": "Badge: Panic Device",
+    "category": "Badge",
+    "icon": "icons/badge_panic.svg",
+    "overlay": true
+  },
+  {
+    "id": "badge_closer",
+    "label": "Badge: Door Closer",
+    "category": "Badge",
+    "icon": "icons/badge_closer.svg",
+    "overlay": true
+  },
+  {
+    "id": "badge_threshold",
+    "label": "Badge: Threshold/Ramp",
+    "category": "Badge",
+    "icon": "icons/badge_threshold.svg",
+    "overlay": true
+  },
+  {
+    "id": "badge_ada_pull",
+    "label": "Badge: ADA Pull-Side Clearance",
+    "category": "Badge",
+    "icon": "icons/badge_ada_pull.svg",
+    "overlay": true
+  },
+  {
+    "id": "badge_ada_push",
+    "label": "Badge: ADA Push-Side Clearance",
+    "category": "Badge",
+    "icon": "icons/badge_ada_push.svg",
+    "overlay": true
+  },
+  {
+    "id": "revolving_3wing_manual",
+    "label": "Revolving Door (3-wing, manual)",
+    "category": "Revolving",
+    "icon": "icons/revolving_3wing_manual.svg",
+    "panels": 3,
+    "automation": false,
+    "material": "glass",
+    "use_type": "exterior"
+  },
+  {
+    "id": "revolving_4wing_auto",
+    "label": "Revolving Door (4-wing, automatic)",
+    "category": "Revolving",
+    "icon": "icons/revolving_4wing_auto.svg",
+    "panels": 4,
+    "automation": true,
+    "material": "glass",
+    "use_type": "exterior"
+  },
+  {
+    "id": "bifold_2",
+    "label": "Bi-Fold Door (2-panel)",
+    "category": "Folding",
+    "icon": "icons/bifold_2.svg",
+    "panels": 2,
+    "material": "glass"
+  },
+  {
+    "id": "accordion_4",
+    "label": "Accordion Door (4-panel)",
+    "category": "Folding",
+    "icon": "icons/accordion_4.svg",
+    "panels": 4,
+    "material": "glass"
+  },
+  {
+    "id": "sectional_overhead",
+    "label": "Sectional Overhead Door",
+    "category": "Overhead",
+    "icon": "icons/sectional_overhead.svg",
+    "use_type": "industrial",
+    "material": "metal"
+  },
+  {
+    "id": "tilt_up_canopy",
+    "label": "Tilt-Up Canopy Door",
+    "category": "Overhead",
+    "icon": "icons/tilt_up_canopy.svg",
+    "use_type": "industrial",
+    "material": "metal"
+  },
+  {
+    "id": "telescoping_sliding_3",
+    "label": "Telescoping Sliding (3-panel)",
+    "category": "Sliding",
+    "icon": "icons/telescoping_sliding_3.svg",
+    "panels": 3,
+    "opening_code": "XXO",
+    "automation": true
+  },
+  {
+    "id": "curved_sliding",
+    "label": "Curved Sliding Door",
+    "category": "Sliding",
+    "icon": "icons/curved_sliding.svg",
+    "automation": true,
+    "material": "glass"
+  },
+  {
+    "id": "turnstile_tripod",
+    "label": "Turnstile (Tripod)",
+    "category": "Security",
+    "icon": "icons/turnstile_tripod.svg",
+    "security_level": "controlled"
+  },
+  {
+    "id": "barrier_gate",
+    "label": "Barrier Arm Gate",
+    "category": "Security",
+    "icon": "icons/barrier_gate.svg",
+    "security_level": "perimeter"
+  },
+  {
+    "id": "badge_stc_40",
+    "label": "Badge: Sound-Rated STC 40",
+    "category": "Badge",
+    "icon": "icons/badge_stc_40.svg",
+    "overlay": true,
+    "rating_type": "acoustic"
+  },
+  {
+    "id": "badge_stc_50",
+    "label": "Badge: Sound-Rated STC 50",
+    "category": "Badge",
+    "icon": "icons/badge_stc_50.svg",
+    "overlay": true,
+    "rating_type": "acoustic"
+  },
+  {
+    "id": "badge_stc_60",
+    "label": "Badge: Sound-Rated STC 60",
+    "category": "Badge",
+    "icon": "icons/badge_stc_60.svg",
+    "overlay": true,
+    "rating_type": "acoustic"
+  },
+  {
+    "id": "badge_radiation",
+    "label": "Badge: Radiation (Lead-Lined)",
+    "category": "Badge",
+    "icon": "icons/badge_radiation.svg",
+    "overlay": true,
+    "rating_type": "radiation"
+  },
+  {
+    "id": "badge_blast",
+    "label": "Badge: Blast/Impact Resistant",
+    "category": "Badge",
+    "icon": "icons/badge_blast.svg",
+    "overlay": true,
+    "rating_type": "blast"
+  },
+  {
+    "id": "badge_keycard",
+    "label": "Badge: Access-Controlled",
+    "category": "Badge",
+    "icon": "icons/badge_keycard.svg",
+    "overlay": true,
+    "security_level": "controlled"
+  }
+]

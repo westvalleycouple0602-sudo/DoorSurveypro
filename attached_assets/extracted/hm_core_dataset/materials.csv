@@ -1,0 +1,5 @@
+material_id,name,is_default,corrosion_resistance_rank,paint_adhesion,notes,source_ref
+A40,Galvannealed A40,True,2,High (paint-lock),Standard at DCI; heat-treated zinc coating; good paint adhesion.,HM101_Doors;HM101_Frames;HM101_Specialties
+A60,Galvannealed A60,False,2,High,Similar to A40 with slightly thicker zinc coating.,HM101_Doors;HM101_Frames;HM101_Specialties
+G90,Galvanized G90,False,3,Moderate,No annealing; highest corrosion resistance among the three; visible spangle.,HM101_Doors;HM101_Frames;HM101_Specialties
+CRS,Cold Rolled Steel (CRS),False,1,Low w/o phosphate wash,Raw finish; less protection; requires phosphate wash for paint.,HM101_Doors;HM101_Frames;HM101_Specialties

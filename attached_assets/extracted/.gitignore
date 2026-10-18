@@ -1,0 +1,36 @@
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.venv/
+venv/
+.env
+env/
+
+# Replit/Virtual
+replit.nix
+.replit
+start.sh
+
+# Build / Cache
+*.log
+*.bak
+.DS_Store
+storage/
+*.zip
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Test/Artifacts
+__snapshots__/
+public/__pycache__/
+*.dxf
+*.obj
+*.ply
+*.json

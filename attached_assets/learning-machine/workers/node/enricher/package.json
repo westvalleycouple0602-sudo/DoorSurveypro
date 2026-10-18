@@ -1,0 +1,25 @@
+{
+  "name": "doorsurvey-enricher",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "0.45.4",
+    "nats": "^2.22.0",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0",
+    "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "uuid": "11.1.1",
+    "esbuild": "^0.25.0",
+    "@tootallnate/once": "2.0.1"
+  }
+}

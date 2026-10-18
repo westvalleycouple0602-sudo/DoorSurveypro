@@ -1,0 +1,5 @@
+hw_id,category,name,definition,common_use,notes,source_ref
+FAIL_SAFE,Locking mode,Fail Safe,Unlocked when power is interrupted; power applied to lock.,Egress/life-safety pathways; maglocks,Releases upon fire alarm or outage for safe egress.,HM201_Electrified
+FAIL_SECURE,Locking mode,Fail Secure,Locked when power is removed; power applied to unlock.,"IT rooms, secured areas",Stays locked during outages; mechanical override typically required.,HM201_Electrified
+RACEWAY,Power transfer,Raceway (conduit),Internal conduit path through door/frame for wiring.,From EPT/electric hinge to lock edge,DCI door raceways ~0.5in dia with pull-wire; Molex connectors typically won’t pass.,HM201_Electrified
+EPT10,Power transfer,Von Duprin EPT-10 (example),Electrical Power Transfer between frame and door on hinge side.,Transfers power to electrified locks/REX/LE.,Locate per hardware schedule; mirrored or single depending on design.,HM201_Electrified

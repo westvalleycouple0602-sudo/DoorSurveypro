@@ -1,0 +1,228 @@
+// src/engine/doorComplianceEngine.ts
+
+import {
+  DoorHardwareRule,
+  getEffectiveRulesForJurisdiction,
+  RuleCategory
+} from "../config/doorHardwareRules";
+
+// How your scanning pipeline describes a door opening & hardware.
+// You can adapt these interfaces to match your actual DB schema.
+
+export type MeasurementSource = "manual" | "lidar" | "photo_estimate";
+
+export interface HardwareMeasurement {
+  hardwareId: string;
+  type: string;
+  role?: string;
+  required_for_normal_egress_or_entry?: boolean;
+  required_for_egress?: boolean;
+  centerline_height_aff_in?: number;
+  threshold_height_in?: number;
+  measurement_source?: MeasurementSource;
+}
+
+export interface DoorOpeningContext {
+  openingId: string;
+  jurisdiction: string; // e.g. "US-AZ", "US-CA"
+  on_accessible_route: boolean;
+  is_means_of_egress_door: boolean;
+  occupancy_group?: string;
+  required_fire_rating_minutes?: number;
+  has_threshold?: boolean;
+  has_vision_lite?: boolean;
+  approach_type?: "front" | "hinge_side" | "latch_side";
+  metadata?: Record<string, unknown>;
+}
+
+export type ViolationSeverity = "info" | "warning" | "life_safety";
+
+export interface RuleEvaluationResult {
+  ruleId: string;
+  openingId: string;
+  hardwareId?: string;
+  passed: boolean;
+  severity?: ViolationSeverity;
+  message: string;
+  remediation?: string;
+  codeReferences: string[];
+  confidence: number;
+  measurement_source?: MeasurementSource;
+  evidence?: string[]; // image or AR capture IDs
+}
+
+// Helper: simple templating for explanations
+function fillTemplate(template: string, values: Record<string, unknown>): string {
+  return template.replace(/{{\s*([\w]+)\s*}}/g, (_, key) => {
+    const v = values[key];
+    return v !== undefined && v !== null ? String(v) : "";
+  });
+}
+
+/**
+ * Very simple evaluator:
+ *  - Uses only numeric height/dimension checks for now.
+ *  - You can extend with more complex logic (gap checks, approach clearances, etc.).
+ */
+export function evaluateOpeningAgainstRules(
+  opening: DoorOpeningContext,
+  hardwareList: HardwareMeasurement[]
+): RuleEvaluationResult[] {
+  const rules = getEffectiveRulesForJurisdiction(opening.jurisdiction);
+  const results: RuleEvaluationResult[] = [];
+
+  for (const rule of rules) {
+    // For simplicity, we check each hardware item against each rule.
+    // In practice, you might route per category/type.
+    const applicableHardware =
+      hardwareList.length > 0 ? hardwareList : [({ hardwareId: undefined } as HardwareMeasurement)];
+
+    for (const hw of applicableHardware) {
+      const evalResult = evaluateRule(rule, opening, hw);
+      if (evalResult) {
+        results.push(evalResult);
+      }
+    }
+  }
+
+  return results;
+}
+
+// Does this rule care about this piece of hardware?
+function ruleAppliesToHardware(rule: DoorHardwareRule, hw: HardwareMeasurement): boolean {
+  const condStr = rule.conditions.join(" ").toLowerCase();
+
+  if (condStr.includes("hardware.type") && hw.type) {
+    // naive check: if hardware.type is mentioned, require it matches somewhere in conditions
+    if (!condStr.includes(hw.type.toLowerCase())) return false;
+  }
+
+  if (condStr.includes("hardware.role") && hw.role) {
+    if (!condStr.includes(hw.role.toLowerCase())) return false;
+  }
+
+  // You can make this smarter, but this keeps it simple.
+  return true;
+}
+
+function evaluateRule(
+  rule: DoorHardwareRule,
+  opening: DoorOpeningContext,
+  hw: HardwareMeasurement
+): RuleEvaluationResult | null {
+  // Basic applicability checks
+  if (!appliesToOpening(rule, opening)) return null;
+
+  // If rule is clearly hardware-specific and this hardware doesn't match, skip
+  if (!ruleAppliesToHardware(rule, hw)) return null;
+
+  // Start with pass; we will flip to fail if any numeric requirement is violated
+  let passed = true;
+  let messages: string[] = [];
+  let confidence = 0.8; // default medium-high confidence
+  let severity: ViolationSeverity = "warning";
+
+  // ---- Check height requirements ----
+  if (rule.requirements.height_aff) {
+    const { min_in, max_in } = rule.requirements.height_aff;
+    const measured = hw.centerline_height_aff_in;
+
+    if (measured !== undefined) {
+      if ((min_in !== undefined && measured < min_in) || (max_in !== undefined && measured > max_in)) {
+        passed = false;
+        messages.push(
+          `Measured height ${measured.toFixed(1)} in AFF is outside required range ` +
+            `${min_in ?? "-"}–${max_in ?? "-"} in AFF.`
+        );
+      }
+    } else {
+      // No measurement present: lower confidence
+      messages.push("No height measurement provided for this hardware; unable to fully verify.");
+      confidence = 0.4;
+    }
+  }
+
+  // ---- Check threshold height ----
+  if (rule.requirements.dimensions?.threshold_max_height_in !== undefined && opening.has_threshold) {
+    const maxTh = rule.requirements.dimensions.threshold_max_height_in;
+    const measuredTh = hw.threshold_height_in;
+
+    if (measuredTh !== undefined && maxTh !== undefined && measuredTh > maxTh) {
+      passed = false;
+      messages.push(
+        `Threshold height ${measuredTh.toFixed(2)} in exceeds allowed maximum ${maxTh.toFixed(2)} in.`
+      );
+    }
+  }
+
+  // ---- Determine severity (simple heuristic) ----
+  if (!passed) {
+    if (rule.category === "fire_door_assembly" || rule.category === "operable_parts_egress") {
+      severity = "life_safety";
+    } else if (rule.category === "accessibility_reach_operability") {
+      severity = "warning";
+    } else {
+      severity = "info";
+    }
+  }
+
+  // If everything passed and no messages, return a pass result (optional – you may choose to omit passes)
+  const effectiveMessage = buildMessage(rule, opening, hw, messages);
+
+  return {
+    ruleId: rule.id,
+    openingId: opening.openingId,
+    hardwareId: hw.hardwareId,
+    passed,
+    severity,
+    message: effectiveMessage,
+    remediation: passed ? undefined : rule.remediation?.generic_fix,
+    codeReferences: rule.code_references.map((cr) => `${cr.source} ${cr.section}`),
+    confidence,
+    measurement_source: hw.measurement_source,
+    evidence: [] // you can attach photo/scan IDs here
+  };
+}
+
+function appliesToOpening(rule: DoorHardwareRule, opening: DoorOpeningContext): boolean {
+  const condStr = rule.conditions.join(" ").toLowerCase();
+
+  if (condStr.includes("opening.on_accessible_route") && !opening.on_accessible_route) {
+    return false;
+  }
+
+  if (condStr.includes("opening.is_means_of_egress_door") && !opening.is_means_of_egress_door) {
+    return false;
+  }
+
+  if (condStr.includes("opening.required_fire_rating_minutes") && !opening.required_fire_rating_minutes) {
+    return false;
+  }
+
+  // You can extend this logic to parse occupancy, approach_type, etc.
+  return true;
+}
+
+function buildMessage(
+  rule: DoorHardwareRule,
+  opening: DoorOpeningContext,
+  hw: HardwareMeasurement,
+  extraMessages: string[]
+): string {
+  const baseTemplate =
+    rule.explanation_template ??
+    "Rule {{ruleId}} evaluated for opening {{openingId}} and hardware {{hardwareId}}.";
+
+  const values: Record<string, unknown> = {
+    ruleId: rule.id,
+    openingId: opening.openingId,
+    hardwareId: hw.hardwareId,
+    measuredHeight: hw.centerline_height_aff_in,
+    thresholdHeight: hw.threshold_height_in,
+    requiredRating: opening.required_fire_rating_minutes
+  };
+
+  const filled = fillTemplate(baseTemplate, values);
+  if (extraMessages.length === 0) return filled;
+  return `${filled} ${extraMessages.join(" ")}`;
+}

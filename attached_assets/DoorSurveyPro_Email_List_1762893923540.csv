@@ -1,0 +1,31 @@
+Category,Email Address,Description
+Support,support@doorsurveypro.com,Main contact for all user issues and questions.
+Technical Support,techsupport@doorsurveypro.com,"For bug reports, app crashes, AR/LiDAR or AI issues."
+Compliance,compliance@doorsurveypro.com,"Handles questions about ADA, NFPA, IBC, and code validations."
+Billing,billing@doorsurveypro.com,"Subscription, invoice, refund, and payment assistance."
+Privacy,privacy@doorsurveypro.com,"Data requests, GDPR/CCPA inquiries, and user data deletions."
+Onboarding,onboarding@doorsurveypro.com,Guides new customers through setup and integrations.
+Marketing,marketing@doorsurveypro.com,"Oversees campaigns, branding, SEO, and promotions."
+Partnerships,partners@doorsurveypro.com,For strategic collaborations and affiliate programs.
+Press & Media,press@doorsurveypro.com,"Handles media inquiries, interviews, and PR releases."
+Events & Webinars,events@doorsurveypro.com,"Coordinates trade shows, demos, and webinars."
+Social Media,social@doorsurveypro.com,"Manages social engagement, community responses, and brand mentions."
+Newsletter & Updates,news@doorsurveypro.com,"For product updates, blog content, and announcements."
+Sales,sales@doorsurveypro.com,"Core contact for new business, pricing, and demos."
+Enterprise Sales,enterprise@doorsurveypro.com,For large-scale facility and enterprise clients.
+Resellers,resellers@doorsurveypro.com,"For channel partners, manufacturers, and distributors."
+Quotes,quotes@doorsurveypro.com,Manages RFQs and quote generation support.
+Regional Sales - US,us-sales@doorsurveypro.com,Region-specific contacts for US clients.
+Regional Sales - Canada,canada-sales@doorsurveypro.com,Region-specific contacts for Canadian clients.
+Human Resources,hr@doorsurveypro.com,"Hiring, recruiting, and HR-related questions."
+Accounting,accounting@doorsurveypro.com,"Vendor payments, financial records, and audits."
+Legal,legal@doorsurveypro.com,"Terms of service, contracts, and intellectual property inquiries."
+System Status,status@doorsurveypro.com,Automatic system alerts or maintenance notices.
+API & Integrations,api@doorsurveypro.com,"For integration partners (HubSpot, Jira, Replit, etc.)."
+CEO / Founder,ceo@doorsurveypro.com,Direct leadership contact (optional to share publicly).
+Operations Director,ops@doorsurveypro.com,Internal coordination and project oversight.
+Investor Relations,investors@doorsurveypro.com,"Funding, partnerships, and investor communications."
+Hello,hello@doorsurveypro.com,Friendly catch-all for general inquiries.
+Info,info@doorsurveypro.com,Basic information request inbox.
+Team,team@doorsurveypro.com,Internal alias that forwards to multiple team members.
+Contact,contact@doorsurveypro.com,Universal public contact email.

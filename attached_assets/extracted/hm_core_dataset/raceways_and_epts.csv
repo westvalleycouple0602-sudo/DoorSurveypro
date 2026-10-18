@@ -1,0 +1,2 @@
+id,applies_to,diameter_in,installed_by_default,frame_policy,molex_passes,source_ref
+RW_DOOR_STD,door,0.5,Yes when electric hinge/EPT requested,No raceway in 3-sided frames; run in mullion/transom if required,No,HM201_Electrified

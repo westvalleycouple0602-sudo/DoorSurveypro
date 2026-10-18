@@ -1,0 +1,133 @@
+# DoorSurvey Pro – Door & Hardware Compliance Engine Enhancements
+
+## 1. Layered Rule Engine (Base + Overlays)
+
+- Introduce a **stacked rule architecture**:
+  - Base layer: US model codes (ADA, IBC, NFPA 80/101, ICC A117.1, BHMA).
+  - Jurisdiction overlays: state/city-specific amendments (e.g., US-CA, US-TX, US-NY-NYC).
+  - Project overlays: owner standards or facility policies.
+- Add fields:
+  - `base_of` (id this rule is the base version for).
+  - `override_of` (id of rule this one overrides).
+  - `code_edition` (e.g., `"IBC_2018"`, `"IBC_2021"`).
+  - `effective_from_year` / `effective_to_year`.
+- Engine behavior:
+  - Load base rules.
+  - Apply jurisdiction overlays.
+  - Apply project overrides.
+  - Keep a trace of which rule overrode which for transparency.
+
+---
+
+## 2. AR/LiDAR-Aware Checks
+
+- Use LiDAR and AR data to improve precision:
+  - Detect hardware centerlines (lever, panic bar, viewers).
+  - Measure threshold height and door gaps.
+  - Determine clear width with door at 90°.
+- Tie rules to 3D geometry:
+  - Approach type: `front`, `hinge_side`, `latch_side`.
+  - Latch-side clearances and required maneuvering spaces.
+- Track measurement source and confidence:
+  - `measurement_source`: `"manual" | "lidar" | "photo_estimate"`.
+  - Confidence score for each measurement.
+
+---
+
+## 3. Explainable AI for Violations
+
+- Each rule includes a human-readable `explanation_template`:
+  - Example:  
+    - `"Hardware measured at {{measured}} in AFF. Required range is {{min}}–{{max}} in AFF per {{code_source}} {{section}}."`
+- The engine fills in values to generate understandable messages.
+- Optional AI layer:
+  - Summarize all violations for an opening in plain English.
+  - Provide a technical summary for spec writers and engineers.
+
+---
+
+## 4. Remediation & Spec Suggestions
+
+- Each rule includes a `remediation` block:
+  - `generic_fix`: simple guidance on how to correct the issue.
+  - `preferred_products`: optional hardware IDs from your database.
+  - `cost_impact_estimate`: `"low" | "medium" | "high"`.
+- Benefits:
+  - Turn violations into **actionable work orders**.
+  - Support upsell / quote generation automatically.
+
+---
+
+## 5. Expanded Rule Coverage
+
+- Add more categories and rule types:
+  - Access control: card readers, REX devices, electric strikes, maglocks.
+  - Special locking arrangements (healthcare, detention, controlled egress).
+  - Signage and tactile characters: height and location relative to door hardware.
+  - Automatic doors: sensors, hold-open timings, safety rails/guards.
+- Extend `RuleCategory` to include:
+  - `"access_control"`, `"special_locking_arrangements"`, `"signage"`.
+
+---
+
+## 6. Temporal & Code-Edition Awareness
+
+- Codes change by edition and jurisdiction.
+- Add:
+  - `code_edition`: `"IBC_2015"`, `"IBC_2018"`, `"IBC_2021"`, etc.
+  - `effective_from_year` / `effective_to_year`.
+- Engine behavior:
+  - Use adopted code edition per project/jurisdiction.
+  - Differentiate:
+    - “Non-compliant under **current code**.”
+    - “Likely **grandfathered** under original construction code.”
+
+---
+
+## 7. Confidence Scoring
+
+- For each evaluated rule, store:
+  - `confidence` (0–1).
+  - `measurement_source` (manual, LiDAR, photo).
+  - `evidence` (IDs of images, AR captures, scans).
+- UI:
+  - Green = high-confidence pass.
+  - Yellow = medium confidence / needs review.
+  - Red = high-confidence violation.
+
+---
+
+## 8. UX Enhancements – Visual Storyboard
+
+- Generate a **door elevation** with overlays:
+  - Hardware locations, threshold, viewers, vision lites.
+  - Color-coded violation markers (green/amber/red).
+- Tap a violation to see:
+  - Rule name.
+  - Code references.
+  - Measured vs allowed values.
+  - Suggested fix and potential cost.
+
+---
+
+## 9. RAG / Code-Library Backend
+
+- Build a **code knowledge base**:
+  - ADA, IBC, NFPA, ICC A117.1 excerpts and your commentary.
+  - Store as text with embeddings (pgvector).
+- On violation:
+  - Retrieve relevant code paragraphs.
+  - Provide cited justifications in reports.
+  - Allow “Why is this required?” Q&A inside the app.
+
+---
+
+## 10. Testability & Telemetry
+
+- Unit tests:
+  - For every rule, create “pass” and “fail” mock openings.
+- Versioning & changelog:
+  - Track updates to rule definitions and reasons for change.
+- Telemetry:
+  - Track which rules fail most often.
+  - Support analytics for owners (compliance heatmaps, cost of remediation).

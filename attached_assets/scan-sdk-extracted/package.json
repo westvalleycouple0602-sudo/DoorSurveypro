@@ -1,0 +1,17 @@
+{
+  "name": "doorsurvey-scan-sdk-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*",
+    "server",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm -ws run build",
+    "version:bump": "npm version patch -w @doorsurvey/scan-core -w @doorsurvey/scan-platform -w @doorsurvey/scan-react",
+    "dev:server": "npm --workspace server run dev",
+    "dev:app": "npm --workspace apps/console-example run dev",
+    "publish:all": "npm publish --workspaces --if-present"
+  }
+}

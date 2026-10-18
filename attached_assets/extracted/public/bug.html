@@ -1,0 +1,95 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Report a Bug</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 16px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  input, select, textarea, button { padding:10px; border-radius:10px; border:1px solid #ddd; }
+  textarea { width: 100%; min-height: 120px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .muted { color:#6b7280; }
+</style>
+</head>
+<body>
+<h1>🐞 Report a Bug</h1>
+<div class="row">
+  <input id="user_id" placeholder="Your name or email"/>
+  <select id="platform">
+    <option value="Web">Web</option>
+    <option value="iOS">iOS</option>
+    <option value="Android">Android</option>
+  </select>
+  <select id="severity">
+    <option>Low</option><option selected>Medium</option><option>High</option>
+  </select>
+</div>
+<div class="row">
+  <input id="scan_id" class="mono" placeholder="scan_id (optional)"/>
+  <input id="page" placeholder="Page (dashboard/process/viewer)"/>
+</div>
+<div class="row">
+  <textarea id="desc" placeholder="Describe what happened, what you expected, and steps to reproduce."></textarea>
+</div>
+<div class="row">
+  <input type="file" id="shot" accept="image/*"/>
+  <button id="uploadShot">Upload Screenshot</button>
+  <span class="muted mono" id="shotUrl"></span>
+</div>
+<div class="row">
+  <button id="submit" style="background:#111; color:#fff;">Submit Bug</button>
+  <a href="/bugs" target="_blank">View Bug List</a>
+</div>
+<pre id="out" class="mono">—</pre>
+
+<script>
+function qp(k){ return new URL(window.location.href).searchParams.get(k); }
+window.addEventListener('load', ()=>{
+  const sid = qp('scan_id'); const pg = qp('page'); const user = qp('user');
+  if (sid) document.getElementById('scan_id').value = sid;
+  if (pg) document.getElementById('page').value = pg;
+  if (user) document.getElementById('user_id').value = user;
+});
+
+document.getElementById('uploadShot').addEventListener('click', async ()=>{
+  const f = document.getElementById('shot').files[0];
+  if (!f) { alert('Pick an image'); return; }
+  const fd = new FormData(); fd.append('file', f);
+  const r = await fetch('/uploadBugFile', { method:'POST', body: fd });
+  const j = await r.json();
+  if (!r.ok){ alert('Upload failed: '+JSON.stringify(j)); return; }
+  document.getElementById('shotUrl').textContent = j.url;
+});
+
+document.getElementById('submit').addEventListener('click', async ()=>{
+  const payload = {
+    user_id: document.getElementById('user_id').value.trim() || "anonymous",
+    platform: document.getElementById('platform').value,
+    severity: document.getElementById('severity').value,
+    scan_id: document.getElementById('scan_id').value.trim() || null,
+    page: document.getElementById('page').value.trim() || null,
+    description: document.getElementById('desc').value.trim(),
+    screenshot_url: document.getElementById('shotUrl').textContent || null,
+    logs_url: null
+  };
+  if (!payload.description){ alert('Please add a description'); return; }
+  const r = await fetch('/reportBug', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  const j = await r.json();
+  document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+  if (r.ok){ alert('Thanks! Bug submitted. ID: ' + j.bug_id); }
+});
+
+const attach = new URL(window.location.href).searchParams.get('attachLogs');
+if (attach === '1') {
+  const sid = document.getElementById('scan_id').value.trim();
+  if (sid) {
+    // show hint; backend will append logs excerpt
+    const out = document.getElementById('out');
+    out.textContent = (out.textContent||'') + "\n(Logs will be attached from server if available)";
+  }
+}
+</script>
+</body>
+</html>

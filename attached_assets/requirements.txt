@@ -1,0 +1,18 @@
+fastapi==0.141.0
+uvicorn[standard]==0.30.*
+httpx==0.27.*
+pydantic==2.*
+python-json-logger==2.*
+redis==5.*
+rq==1.16.*
+tenacity==9.*
+sentry-sdk[fastapi]==2.*
+opentelemetry-sdk==1.27.0
+opentelemetry-instrumentation-fastapi==0.48b0
+opentelemetry-instrumentation-requests==0.48b0
+opentelemetry-exporter-otlp==1.27.0
+posthog==3.*
+playwright==1.47.*
+pytest>=9.0.3
+# pip-audit: subdependency explicitly fixed
+starlette==1.3.1

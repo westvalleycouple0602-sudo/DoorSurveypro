@@ -1,0 +1,69 @@
+{
+  "manufacturers": {
+    "SCHLAGE": {
+      "aliases": ["SCHLAGE", "AL", "ND", "L SERIES", "AD"],
+      "docs_base": "https://www.schlage.com/en/home.html"
+    },
+    "SARGENT": {
+      "aliases": ["SARGENT", "10 LINE", "7 LINE", "BHW"],
+      "docs_base": "https://www.sargentlock.com/"
+    },
+    "YALE": {
+      "aliases": ["YALE", "5300", "5400", "7000"],
+      "docs_base": "https://www.yalesecurity.com/"
+    },
+    "VON DUPRIN": {
+      "aliases": ["VON DUPRIN", "98", "99", "33A", "35A"],
+      "docs_base": "https://www.allegion.com/corp/en/brands/von-duprin.html"
+    },
+    "LCN": {
+      "aliases": ["LCN", "4040", "4041", "4021", "1460", "1260"],
+      "docs_base": "https://www.allegion.com/corp/en/brands/lcn.html"
+    },
+    "HES": {
+      "aliases": ["HES", "1500", "1600", "5000", "7000"],
+      "docs_base": "https://www.hesinnovations.com/"
+    },
+    "SDC": {
+      "aliases": ["SDC", "1500", "2340", "1581"],
+      "docs_base": "https://www.sdcsecurity.com/"
+    },
+    "ADAMS RITE": {
+      "aliases": ["ADAMS RITE", "4510", "4900", "HERCULITE"],
+      "docs_base": "https://www.adamsrite.com/"
+    },
+    "BEST": {
+      "aliases": ["BEST", "9K", "7K"],
+      "docs_base": "https://www.bestaccess.com/"
+    },
+    "CORBIN RUSSWIN": {
+      "aliases": ["CORBIN", "RUSSWIN", "CLX", "ML2000"],
+      "docs_base": "https://www.corbinrusswin.com/"
+    }
+  },
+  "finishes": {
+    "626": "Satin Chrome",
+    "625": "Bright Chrome",
+    "630": "Satin Stainless Steel",
+    "605": "Bright Brass",
+    "606": "Satin Brass",
+    "612": "Satin Bronze",
+    "613": "Dark Oxidized Satin Bronze - Oil Rubbed",
+    "619": "Satin Nickel Plated, Bright Chrome Plated",
+    "622": "Flat Black Coated",
+    "689": "Aluminum Powder Coat",
+    "690": "Dark Bronze Powder Coat",
+    "695": "Blackened Satin Bronze"
+  },
+  "bhma_functions": {
+    "F75": "Classroom Function - Key locks or unlocks outside lever, inside always free",
+    "F76": "Storeroom Function - Outside lever always locked, requires key, inside always free",
+    "F82": "Institutional Function - Key retracts latchbolt, key in either side locks out other side",
+    "F84": "Classroom Security Function - Lever locked/unlocked by key outside, inside unlocks by turning lever, key locks both levers",
+    "F85": "Hospital Privacy Function - Push button locks outside lever, inside lever always free, key unlocks from outside",
+    "F86": "Privacy Function - Push button locks outside lever, emergency key unlocks from outside, inside lever always free",
+    "F90": "Public Restroom Privacy - Thumbturn or push button locks outside, emergency release unlocks from outside",
+    "F93": "Office/Entry Function - Key locks/unlocks outside lever, inside lever always free",
+    "F109": "Exit Function - Lever always unlocked, free mechanical egress both sides"
+  }
+}

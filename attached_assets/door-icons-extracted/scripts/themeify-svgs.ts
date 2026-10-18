@@ -1,0 +1,7 @@
+import fs from 'fs/promises'; import path from 'path';
+const ROOT=process.cwd(); const ICONS_DIR = path.join(ROOT,'public','door_icons_pack','icons');
+const FROM_TO:[string,string][]= [ ['#444444','var(--door-stroke)'], ['#444','var(--door-stroke)'], ['#9ecff3','var(--door-glass)'], ['#E5E7EB','var(--door-fixed)'], ['#e5e7eb','var(--door-fixed)'], ['#BCDFFB','var(--door-op)'], ['#bcdffb','var(--door-op)'] ] as any;
+function ensureRootClass(svg:string, cls:string){ const has=/<svg[^>]*class=/i.test(svg); if(has){ return svg.replace(/<svg([^>]*?)class=("|')(.*?)\2/i, (_m,rest:string,q:string,c:string)=>`<svg${rest}class=${q}${cls} ${c}${q}`);} return svg.replace('<svg', `<svg class="${cls}"`); }
+async function processSvg(fp:string){ let t=await fs.readFile(fp,'utf8'); for(const [f,to] of FROM_TO){ const re=new RegExp(f.replace('#','#'),'gi'); t=t.replace(re,to);} t=ensureRootClass(t,'door-svg'); await fs.writeFile(fp,t,'utf8'); }
+async function walk(dir:string){ const es=await fs.readdir(dir,{withFileTypes:true}); for(const e of es){ const p=path.join(dir,e.name); if(e.isDirectory()) await walk(p); else if(/\.svg$/i.test(e.name)) await processSvg(p);} }
+(async()=>{ try{ await walk(ICONS_DIR); console.log('✅ Themeified SVGs under', ICONS_DIR);} catch(e){ console.error('❌ Failed to themeify SVGs:', e); process.exit(1);} })();

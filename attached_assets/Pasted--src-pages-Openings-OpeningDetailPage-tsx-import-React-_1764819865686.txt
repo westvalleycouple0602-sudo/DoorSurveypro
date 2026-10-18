@@ -1,0 +1,76 @@
+// src/pages/Openings/OpeningDetailPage.tsx
+
+import React, { useEffect, useState } from "react";
+import DoorElevationView from "../../components/DoorElevationView";
+import HardwareComplianceDetails from "../../components/HardwareComplianceDetails";
+import type { DoorElevationOverlay } from "../../engine/doorElevationOverlay";
+import type { RuleEvaluationResult } from "../../engine/doorComplianceEngine";
+
+type ApiResponse = {
+  overlay: DoorElevationOverlay;
+  violations: RuleEvaluationResult[];
+  passes: RuleEvaluationResult[];
+};
+
+const OpeningDetailPage: React.FC<{ openingId: string }> = ({ openingId }) => {
+  const [overlay, setOverlay] = useState<DoorElevationOverlay | null>(null);
+  const [evaluations, setEvaluations] = useState<RuleEvaluationResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedMarker, setSelectedMarker] =
+    useState<DoorElevationOverlay["markers"][number] | null>(null);
+
+  useEffect(() => {
+    const fetchOverlay = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `/api/openings/${openingId}/lidar-compliance`
+        );
+        const data: ApiResponse = await res.json();
+
+        const allEvaluations = [...data.violations, ...data.passes];
+
+        setOverlay(data.overlay);
+        setEvaluations(allEvaluations);
+        setSelectedMarker(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOverlay();
+  }, [openingId]);
+
+  if (loading || !overlay) {
+    return (
+      <div className="p-4 text-sm text-gray-600">
+        Loading door data…
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-4 space-y-4">
+      <h1 className="text-lg font-semibold mb-2">
+        Door Opening {overlay.openingId}
+      </h1>
+
+      <div className="flex flex-col md:flex-row md:items-start md:gap-4">
+        <div className="flex-1">
+          <DoorElevationView
+            overlay={overlay}
+            onMarkerClick={(marker) => setSelectedMarker(marker)}
+          />
+        </div>
+
+        <HardwareComplianceDetails
+          marker={selectedMarker}
+          evaluations={evaluations}
+          onClose={() => setSelectedMarker(null)}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default OpeningDetailPage;

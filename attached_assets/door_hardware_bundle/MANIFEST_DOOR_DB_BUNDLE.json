@@ -1,0 +1,102 @@
+{
+  "package_name": "door_hardware_database_bundle",
+  "version": "1.6",
+  "created_utc": "2025-11-03T06:03:37Z",
+  "files": [
+    {
+      "path": "/mnt/data/door_hardware_database_v1.xlsx",
+      "name": "door_hardware_database_v1.xlsx",
+      "size_bytes": 17921
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1.json",
+      "name": "door_hardware_database_v1.json",
+      "size_bytes": 19175
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_1.xlsx",
+      "name": "door_hardware_database_v1_1.xlsx",
+      "size_bytes": 26932
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_1.json",
+      "name": "door_hardware_database_v1_1.json",
+      "size_bytes": 38449
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_2.xlsx",
+      "name": "door_hardware_database_v1_2.xlsx",
+      "size_bytes": 29318
+    },
+    {
+      "path": "/mnt/data/importer_normalizer.py",
+      "name": "importer_normalizer.py",
+      "size_bytes": 3528
+    },
+    {
+      "path": "/mnt/data/distributor_pricelist_template.csv",
+      "name": "distributor_pricelist_template.csv",
+      "size_bytes": 143
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_3.xlsx",
+      "name": "door_hardware_database_v1_3.xlsx",
+      "size_bytes": 34814
+    },
+    {
+      "path": "/mnt/data/code_validator.py",
+      "name": "code_validator.py",
+      "size_bytes": 2952
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_4.xlsx",
+      "name": "door_hardware_database_v1_4.xlsx",
+      "size_bytes": 40052
+    },
+    {
+      "path": "/mnt/data/door_hardware_seed_schema.sql",
+      "name": "door_hardware_seed_schema.sql",
+      "size_bytes": 1263
+    },
+    {
+      "path": "/mnt/data/seed_loader.ts",
+      "name": "seed_loader.ts",
+      "size_bytes": 3384
+    },
+    {
+      "path": "/mnt/data/door_hardware_seed_records.json",
+      "name": "door_hardware_seed_records.json",
+      "size_bytes": 41139
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_5.xlsx",
+      "name": "door_hardware_database_v1_5.xlsx",
+      "size_bytes": 45843
+    },
+    {
+      "path": "/mnt/data/validators.ts",
+      "name": "validators.ts",
+      "size_bytes": 2140
+    },
+    {
+      "path": "/mnt/data/psu_calc.ts",
+      "name": "psu_calc.ts",
+      "size_bytes": 775
+    },
+    {
+      "path": "/mnt/data/psu_calc.py",
+      "name": "psu_calc.py",
+      "size_bytes": 781
+    },
+    {
+      "path": "/mnt/data/bhma_function_map.json",
+      "name": "bhma_function_map.json",
+      "size_bytes": 2133
+    },
+    {
+      "path": "/mnt/data/door_hardware_database_v1_6.xlsx",
+      "name": "door_hardware_database_v1_6.xlsx",
+      "size_bytes": 51064
+    }
+  ]
+}

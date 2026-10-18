@@ -1,0 +1,76 @@
+[
+  {
+    "id": "fire_full_lite_resistive",
+    "applies_to": "door",
+    "severity": "error",
+    "when": {
+      "attribute_group": "Fire/Code",
+      "attribute_name": "Fire Rating",
+      "value_regex": "^(60|90|180)"
+    },
+    "require_any_of": [
+      {
+        "attribute_group": "Glazing",
+        "attribute_name": "Fire-Resistive Glass",
+        "allowed_codes": [
+          "GL-FR-CER"
+        ]
+      },
+      {
+        "attribute_group": "Glazing",
+        "attribute_name": "Vision Panel",
+        "allowed_codes": [
+          "LITE-0"
+        ]
+      }
+    ],
+    "message": "60/90/180 min doors require fire\u2011resistive glazing for large lites; otherwise use limited or no lite.",
+    "references": [
+      "NFPA 80",
+      "IBC 716"
+    ]
+  },
+  {
+    "id": "reader_requires_power_transfer",
+    "applies_to": "door",
+    "severity": "error",
+    "when_any_of": [
+      {
+        "attribute_group": "Electrified",
+        "attribute_name": "Access Reader",
+        "value_regex": ".+"
+      }
+    ],
+    "require_any_of": [
+      {
+        "attribute_group": "Electrified",
+        "attribute_name": "Power Transfer",
+        "allowed_codes": [
+          "ELEC-EPT"
+        ]
+      }
+    ],
+    "message": "Electrified readers/locks require a power transfer (EPT or electric hinge).",
+    "references": [
+      "BHMA A156 series",
+      "NEC"
+    ]
+  },
+  {
+    "id": "ada_clear_width",
+    "applies_to": "door",
+    "severity": "warning",
+    "when": {
+      "attribute_group": "Size/Handing",
+      "attribute_name": "Nominal Width",
+      "value_regex": "3'-0\\"
+    },
+    "validate": {
+      "min_clear_width_mm": 813
+    },
+    "message": "Verify \u2265 32\" clear width with selected frame/hardware projection.",
+    "references": [
+      "2010 ADA \u00a7404"
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "addTheseTo.package.json.scripts": {
+    "themeify:icons": "tsx scripts/themeify-svgs.ts",
+    "postinstall": "tsx scripts/themeify-svgs.ts || true"
+  },
+  "note": "Merge these scripts into your existing package.json. Requires devDependency 'tsx'."
+}

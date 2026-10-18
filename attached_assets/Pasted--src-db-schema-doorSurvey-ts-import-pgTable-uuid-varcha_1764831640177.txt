@@ -1,0 +1,91 @@
+// src/db/schema/doorSurvey.ts
+import {
+  pgTable,
+  uuid,
+  varchar,
+  integer,
+  boolean,
+  jsonb,
+  timestamp,
+  numeric,
+} from "drizzle-orm/pg-core";
+
+export const doorProjects = pgTable("door_projects", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  location: varchar("location", { length: 255 }).notNull(),
+  customerId: uuid("customer_id"),
+  buildingType: varchar("building_type", { length: 100 }).notNull(),
+  quoteType: varchar("quote_type", { length: 50 }).notNull(), // none, budget, proposal, etc.
+  standards: jsonb("standards").$type<string[]>().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const doorOpenings = pgTable("door_openings", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  projectId: uuid("project_id")
+    .notNull()
+    .references(() => doorProjects.id, { onDelete: "cascade" }),
+  doorTag: varchar("door_tag", { length: 50 }).notNull(),
+  floor: varchar("floor", { length: 50 }).notNull(),
+  spaceName: varchar("space_name", { length: 255 }).notNull(),
+  openingType: varchar("opening_type", { length: 50 }).notNull(),
+  handing: varchar("handing", { length: 10 }).notNull(),
+
+  // Measurements
+  roughWidthMm: integer("rough_width_mm").notNull(),
+  roughHeightMm: integer("rough_height_mm").notNull(),
+  clearWidthMm: integer("clear_width_mm").notNull(),
+  headHeightMm: integer("head_height_mm").notNull(),
+  jambDepthMm: integer("jamb_depth_mm").notNull(),
+  doorThicknessMm: integer("door_thickness_mm").notNull(),
+  sillHeightMm: integer("sill_height_mm"),
+
+  // Door leaf (simplified)
+  leafType: varchar("leaf_type", { length: 50 }).notNull(),
+  coreType: varchar("core_type", { length: 50 }).notNull(),
+  fireRatingMinutes: integer("fire_rating_minutes").notNull(),
+  hasVisionLite: boolean("has_vision_lite").notNull().default(false),
+  visionLiteDescription: varchar("vision_lite_description", { length: 255 }),
+  doorManufacturer: varchar("door_manufacturer", { length: 255 }),
+  doorModel: varchar("door_model", { length: 255 }),
+
+  // Frame
+  frameMaterial: varchar("frame_material", { length: 50 }).notNull(),
+  frameProfile: varchar("frame_profile", { length: 50 }).notNull(),
+  frameAnchorType: varchar("frame_anchor_type", { length: 50 }).notNull(),
+  frameConditionScore: integer("frame_condition_score").notNull(),
+
+  // Hardware – store as JSON for flexibility
+  hardwareSet: jsonb("hardware_set").$type<any>().notNull(),
+
+  // Compliance
+  compliance: jsonb("compliance").$type<any>().notNull(),
+
+  // Evidence
+  evidence: jsonb("evidence").$type<any>().notNull(),
+
+  // Engineering
+  engineeringReview: jsonb("engineering_review").$type<any>().notNull(),
+
+  // Quote
+  materialCost: numeric("material_cost", { precision: 12, scale: 2 })
+    .notNull()
+    .default("0"),
+  laborCost: numeric("labor_cost", { precision: 12, scale: 2 })
+    .notNull()
+    .default("0"),
+  shippingCost: numeric("shipping_cost", { precision: 12, scale: 2 })
+    .notNull()
+    .default("0"),
+  marginPercent: numeric("margin_percent", { precision: 5, scale: 2 })
+    .notNull()
+    .default("35"),
+  totalPrice: numeric("total_price", { precision: 12, scale: 2 })
+    .notNull()
+    .default("0"),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

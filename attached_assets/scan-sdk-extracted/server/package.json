@@ -1,0 +1,21 @@
+{
+  "name": "doorsurvey-server-sample",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "node --watch ./src/index.js",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "express": "4.22.3",
+    "cookie-parser": "^1.4.6",
+    "negotiator": "^0.6.3"
+  },
+  "overrides": {
+    "uuid": "11.1.1",
+    "esbuild": "^0.25.0",
+    "@tootallnate/once": "2.0.1"
+  }
+}

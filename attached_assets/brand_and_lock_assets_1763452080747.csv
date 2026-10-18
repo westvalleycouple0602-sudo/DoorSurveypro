@@ -1,0 +1,59 @@
+asset_key,asset_type,logical_group,file_name,file_format,suggested_path,theme_variant,width_px,height_px,dpi,description
+logos/yale,logo,brand,yale-logo.svg,svg,/assets/logos/yale-logo.svg,neutral,320,120,72,Yale primary horizontal logo
+logos/sargent,logo,brand,sargent-logo.svg,svg,/assets/logos/sargent-logo.svg,neutral,320,120,72,SARGENT primary logo
+logos/corbin_russwin,logo,brand,corbin-russwin-logo.svg,svg,/assets/logos/corbin-russwin-logo.svg,neutral,320,120,72,Corbin Russwin primary logo
+logos/adams_rite,logo,brand,adams-rite-logo.svg,svg,/assets/logos/adams-rite-logo.svg,neutral,320,120,72,Adams Rite primary logo
+logos/medeco,logo,brand,medeco-logo.svg,svg,/assets/logos/medeco-logo.svg,neutral,320,120,72,Medeco high-security logo
+logos/multlock,logo,brand,mul-t-lock-logo.svg,svg,/assets/logos/mul-t-lock-logo.svg,neutral,320,120,72,Mul-T-Lock primary logo
+logos/abloy,logo,brand,abloy-logo.svg,svg,/assets/logos/abloy-logo.svg,neutral,320,120,72,Abloy logo
+logos/schlage,logo,brand,schlage-logo.svg,svg,/assets/logos/schlage-logo.svg,neutral,320,120,72,Schlage primary blue logo
+logos/falcon,logo,brand,falcon-logo.svg,svg,/assets/logos/falcon-logo.svg,neutral,320,120,72,Falcon hardware logo
+logos/vonduprin,logo,brand,von-duprin-logo.svg,svg,/assets/logos/von-duprin-logo.svg,neutral,320,120,72,Von Duprin primary logo
+logos/dormakaba,logo,brand,dormakaba-logo.svg,svg,/assets/logos/dormakaba-logo.svg,neutral,320,120,72,dormakaba corporate logo
+logos/best,logo,brand,best-logo.svg,svg,/assets/logos/best-logo.svg,neutral,320,120,72,BEST Access logo
+logos/rci,logo,brand,rci-logo.svg,svg,/assets/logos/rci-logo.svg,neutral,320,120,72,RCI electric strikes logo
+logos/kwikset,logo,brand,kwikset-logo.svg,svg,/assets/logos/kwikset-logo.svg,neutral,320,120,72,Kwikset residential logo
+logos/baldwin,logo,brand,baldwin-logo.svg,svg,/assets/logos/baldwin-logo.svg,neutral,320,120,72,Baldwin decorative hardware logo
+logos/weiser,logo,brand,weiser-logo.svg,svg,/assets/logos/weiser-logo.svg,neutral,320,120,72,Weiser residential logo
+logos/hager,logo,brand,hager-logo.svg,svg,/assets/logos/hager-logo.svg,neutral,320,120,72,Hager Companies logo
+logos/pdq,logo,brand,pdq-logo.svg,svg,/assets/logos/pdq-logo.svg,neutral,320,120,72,PDQ locks logo
+logos/calroyal,logo,brand,cal-royal-logo.svg,svg,/assets/logos/cal-royal-logo.svg,neutral,320,120,72,Cal-Royal hardware logo
+logos/emtek,logo,brand,emtek-logo.svg,svg,/assets/logos/emtek-logo.svg,neutral,320,120,72,Emtek decorative hardware logo
+logos/masterlock,logo,brand,master-lock-logo.svg,svg,/assets/logos/master-lock-logo.svg,neutral,320,120,72,Master Lock logo
+logos/americanlock,logo,brand,american-lock-logo.svg,svg,/assets/logos/american-lock-logo.svg,neutral,320,120,72,American Lock logo
+logos/abus,logo,brand,abus-logo.svg,svg,/assets/logos/abus-logo.svg,neutral,320,120,72,Abus logo
+logos/evva,logo,brand,evva-logo.svg,svg,/assets/logos/evva-logo.svg,neutral,320,120,72,EVVA logo
+logos/iseo,logo,brand,iseo-logo.svg,svg,/assets/logos/iseo-logo.svg,neutral,320,120,72,ISEO logo
+logos/winkhaus,logo,brand,winkhaus-logo.svg,svg,/assets/logos/winkhaus-logo.svg,neutral,320,120,72,Winkhaus logo
+logos/roto,logo,brand,roto-logo.svg,svg,/assets/logos/roto-logo.svg,neutral,320,120,72,Roto logo
+logos/siegenia,logo,brand,siegenia-logo.svg,svg,/assets/logos/siegenia-logo.svg,neutral,320,120,72,Siegenia logo
+locks/cylindrical_grade1,icon,lock_type,icon-cylindrical-grade1.svg,svg,/assets/icons/locks/icon-cylindrical-grade1.svg,neutral,64,64,72,Icon for Grade 1 cylindrical lock
+locks/cylindrical_grade2,icon,lock_type,icon-cylindrical-grade2.svg,svg,/assets/icons/locks/icon-cylindrical-grade2.svg,neutral,64,64,72,Icon for Grade 2 cylindrical lock
+locks/cylindrical_grade3,icon,lock_type,icon-cylindrical-grade3.svg,svg,/assets/icons/locks/icon-cylindrical-grade3.svg,neutral,64,64,72,Icon for Grade 3 cylindrical lock
+locks/mortise_institutional,icon,lock_type,icon-mortise-institutional.svg,svg,/assets/icons/locks/icon-mortise-institutional.svg,neutral,64,64,72,Icon for institutional mortise lock
+locks/mortise_hotel,icon,lock_type,icon-mortise-hotel.svg,svg,/assets/icons/locks/icon-mortise-hotel.svg,neutral,64,64,72,Icon for hotel mortise lock
+locks/tubular_residential,icon,lock_type,icon-tubular-residential.svg,svg,/assets/icons/locks/icon-tubular-residential.svg,neutral,64,64,72,Icon for residential tubular lock
+locks/deadbolt_single,icon,lock_type,icon-deadbolt-single.svg,svg,/assets/icons/locks/icon-deadbolt-single.svg,neutral,64,64,72,Icon for single-cylinder deadbolt
+locks/deadbolt_double,icon,lock_type,icon-deadbolt-double.svg,svg,/assets/icons/locks/icon-deadbolt-double.svg,neutral,64,64,72,Icon for double-cylinder deadbolt
+locks/deadbolt_classroom,icon,lock_type,icon-deadbolt-classroom.svg,svg,/assets/icons/locks/icon-deadbolt-classroom.svg,neutral,64,64,72,Icon for classroom security deadbolt
+locks/interconnected_residential,icon,lock_type,icon-interconnected-residential.svg,svg,/assets/icons/locks/icon-interconnected-residential.svg,neutral,64,64,72,Icon for residential interconnected lock
+locks/exit_rim,icon,lock_type,icon-exit-rim.svg,svg,/assets/icons/locks/icon-exit-rim.svg,neutral,64,64,72,Icon for rim exit device
+locks/exit_svr,icon,lock_type,icon-exit-svr.svg,svg,/assets/icons/locks/icon-exit-svr.svg,neutral,64,64,72,Icon for surface vertical rod exit device
+locks/exit_cvr,icon,lock_type,icon-exit-cvr.svg,svg,/assets/icons/locks/icon-exit-cvr.svg,neutral,64,64,72,Icon for concealed vertical rod exit device
+locks/exit_mortise,icon,lock_type,icon-exit-mortise.svg,svg,/assets/icons/locks/icon-exit-mortise.svg,neutral,64,64,72,Icon for mortise exit device
+locks/elec_cylindrical,icon,lock_type,icon-elec-cylindrical.svg,svg,/assets/icons/locks/icon-elec-cylindrical.svg,neutral,64,64,72,Icon for electrified cylindrical lock
+locks/elec_mortise,icon,lock_type,icon-elec-mortise.svg,svg,/assets/icons/locks/icon-elec-mortise.svg,neutral,64,64,72,Icon for electrified mortise lock
+locks/deadbolt_motorized,icon,lock_type,icon-deadbolt-motorized.svg,svg,/assets/icons/locks/icon-deadbolt-motorized.svg,neutral,64,64,72,Icon for motorized smart deadbolt
+locks/electric_strike_grade1,icon,lock_type,icon-electric-strike-grade1.svg,svg,/assets/icons/locks/icon-electric-strike-grade1.svg,neutral,64,64,72,Icon for Grade 1 electric strike
+locks/electric_strike_storefront,icon,lock_type,icon-electric-strike-storefront.svg,svg,/assets/icons/locks/icon-electric-strike-storefront.svg,neutral,64,64,72,Icon for storefront electric strike
+locks/maglock_surface,icon,lock_type,icon-maglock-surface.svg,svg,/assets/icons/locks/icon-maglock-surface.svg,neutral,64,64,72,Icon for surface magnetic lock
+locks/maglock_shear,icon,lock_type,icon-maglock-shear.svg,svg,/assets/icons/locks/icon-maglock-shear.svg,neutral,64,64,72,Icon for shear magnetic lock
+locks/multipoint_residential,icon,lock_type,icon-multipoint-residential.svg,svg,/assets/icons/locks/icon-multipoint-residential.svg,neutral,64,64,72,Icon for residential multipoint lock
+locks/multipoint_commercial,icon,lock_type,icon-multipoint-commercial.svg,svg,/assets/icons/locks/icon-multipoint-commercial.svg,neutral,64,64,72,Icon for commercial multipoint lock
+locks/cylinder_highsec,icon,lock_type,icon-cylinder-highsec.svg,svg,/assets/icons/locks/icon-cylinder-highsec.svg,neutral,64,64,72,Icon for high-security cylinder
+locks/sfic_core,icon,lock_type,icon-sfic-core.svg,svg,/assets/icons/locks/icon-sfic-core.svg,neutral,64,64,72,Icon for SFIC core
+locks/cam_lock,icon,lock_type,icon-cam-lock.svg,svg,/assets/icons/locks/icon-cam-lock.svg,neutral,64,64,72,Icon for cam lock
+locks/pushbutton_mech,icon,lock_type,icon-pushbutton-mech.svg,svg,/assets/icons/locks/icon-pushbutton-mech.svg,neutral,64,64,72,Icon for mechanical pushbutton lock
+locks/hotel_online,icon,lock_type,icon-hotel-online.svg,svg,/assets/icons/locks/icon-hotel-online.svg,neutral,64,64,72,Icon for online hotel lock
+locks/hotel_offline,icon,lock_type,icon-hotel-offline.svg,svg,/assets/icons/locks/icon-hotel-offline.svg,neutral,64,64,72,Icon for offline hotel lock
+locks/detention_mortise,icon,lock_type,icon-detention-mortise.svg,svg,/assets/icons/locks/icon-detention-mortise.svg,neutral,64,64,72,Icon for detention mortise lock

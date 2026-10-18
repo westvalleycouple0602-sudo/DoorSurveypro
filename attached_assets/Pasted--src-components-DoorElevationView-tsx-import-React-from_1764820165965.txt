@@ -1,0 +1,214 @@
+// src/components/DoorElevationView.tsx
+
+import React from "react";
+import type {
+  DoorElevationOverlay,
+  OverlayStatus,
+  DoorElevationOverlayHardwareMarker
+} from "../engine/doorElevationOverlay";
+
+type Props = {
+  overlay: DoorElevationOverlay;
+  className?: string;
+  onMarkerClick?: (marker: DoorElevationOverlayHardwareMarker) => void;
+};
+
+const STATUS_COLOR: Record<OverlayStatus, string> = {
+  pass: "#22c55e",      // green-500
+  violation: "#ef4444", // red-500
+  unknown: "#9ca3af"    // gray-400
+};
+
+const STATUS_LABEL: Record<OverlayStatus, string> = {
+  pass: "Pass",
+  violation: "Violation",
+  unknown: "Unknown"
+};
+
+export const DoorElevationView: React.FC<Props> = ({
+  overlay,
+  className,
+  onMarkerClick
+}) => {
+  const viewBoxWidth = 100;
+  const viewBoxHeight = 220;
+
+  return (
+    <div className={className ?? "flex flex-col gap-3"}>
+      {/* Header */}
+      <div className="flex items-center justify-between text-sm text-slate-700">
+        <div className="flex flex-col">
+          <span className="text-xs uppercase tracking-wide text-orange-500 font-semibold">
+            DoorSurvey Pro – LiDAR View
+          </span>
+          <span className="font-medium">
+            Opening <span className="text-slate-900">#{overlay.openingId}</span>
+          </span>
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <LegendItem status="pass" />
+          <LegendItem status="violation" />
+          <LegendItem status="unknown" />
+        </div>
+      </div>
+
+      {/* Door card */}
+      <div className="border rounded-xl bg-slate-50/80 p-4 shadow-sm shadow-slate-200">
+        <svg
+          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+          className="w-full h-auto block"
+        >
+          {/* Frame */}
+          <rect
+            x={8}
+            y={8}
+            width={viewBoxWidth - 16}
+            height={viewBoxHeight - 16}
+            rx={3}
+            ry={3}
+            fill="#e5e7eb"
+            stroke="#cbd5f5"
+            strokeWidth={1.2}
+          />
+
+          {/* Door leaf */}
+          <rect
+            x={13}
+            y={13}
+            width={viewBoxWidth - 26}
+            height={viewBoxHeight - 26}
+            rx={2}
+            ry={2}
+            fill="#f9fafb"
+            stroke="#e5e7eb"
+            strokeWidth={0.9}
+          />
+
+          {/* “Hinge” edge accent (left side) */}
+          <rect
+            x={13}
+            y={13}
+            width={2}
+            height={viewBoxHeight - 26}
+            fill="#f97316"
+            opacity={0.25}
+          />
+
+          {/* Hardware markers */}
+          {overlay.markers.map((marker, index) => {
+            const bbox = marker.bboxDoorSpace;
+
+            const fallbackX = viewBoxWidth * 0.7;
+            const fallbackSpacing = 12;
+            const fallbackY = 24 + index * fallbackSpacing;
+
+            const doorInsetX = 13;
+            const doorInsetY = 13;
+            const doorWidth = viewBoxWidth - 26;
+            const doorHeight = viewBoxHeight - 26;
+
+            const cx =
+              bbox && typeof bbox.x === "number"
+                ? doorInsetX + bbox.x * doorWidth + (bbox.width || 0) * doorWidth * 0.5
+                : fallbackX;
+
+            const cy =
+              bbox && typeof bbox.y === "number"
+                ? doorInsetY + bbox.y * doorHeight + (bbox.height || 0) * doorHeight * 0.5
+                : fallbackY;
+
+            const color = STATUS_COLOR[marker.status];
+
+            return (
+              <g
+                key={marker.hardwareId ?? `${marker.type}-${index}`}
+                onClick={() => onMarkerClick?.(marker)}
+                style={{ cursor: onMarkerClick ? "pointer" : "default" }}
+              >
+                {/* Drop shadow-ish aura for violations */}
+                {marker.status === "violation" && (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={6}
+                    fill={color}
+                    opacity={0.12}
+                  />
+                )}
+
+                {/* Marker */}
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={marker.status === "violation" ? 4 : 3}
+                  fill={color}
+                  stroke="#0f172a"
+                  strokeWidth={0.4}
+                />
+
+                {/* Label */}
+                <text
+                  x={cx + 4}
+                  y={cy + 1.5}
+                  fontSize={3}
+                  fill="#0f172a"
+                  style={{ userSelect: "none" }}
+                >
+                  {shortType(marker.type)}
+                </text>
+
+                {/* Native tooltip */}
+                <title>
+                  {`Type: ${marker.type}
+Status: ${STATUS_LABEL[marker.status]}
+Violations: ${
+                    marker.violations && marker.violations.length > 0
+                      ? marker.violations.join(", ")
+                      : "None"
+                  }`}
+                </title>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const LegendItem: React.FC<{ status: OverlayStatus }> = ({ status }) => (
+  <div className="flex items-center gap-1">
+    <span
+      className="inline-block rounded-full"
+      style={{
+        width: 10,
+        height: 10,
+        backgroundColor: STATUS_COLOR[status]
+      }}
+    />
+    <span className="text-slate-600">{STATUS_LABEL[status]}</span>
+  </div>
+);
+
+function shortType(type: string): string {
+  switch (type) {
+    case "lever":
+    case "lockset":
+      return "LV";
+    case "panic_device":
+    case "fire_exit_device":
+      return "PD";
+    case "door_viewer":
+      return "DV";
+    case "threshold":
+      return "TH";
+    case "door_closer":
+      return "CL";
+    case "auto_operator_actuator_plate":
+      return "AP";
+    default:
+      return type.slice(0, 2).toUpperCase();
+  }
+}
+
+export default DoorElevationView;
