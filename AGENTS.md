@@ -4,6 +4,13 @@ Read `replit.md`, `docs/architecture-overview.md`, and the relevant topic in
 `.agents/memory/` before changing a feature. Use `docs/PROJECT_ROADMAP.md` for
 workstream boundaries and `docs/ENGINEERING_FOUNDATION.md` for check commands.
 
+## Branch workflow
+
+Use `docs/GIT_WORKFLOW.md`. Start a separate task branch from `develop`, push
+committed work to that same branch, and open the PR into `develop`. Keep source
+control pushes separate from publishing. Preserve Replit-only changes before
+switching history; never force-push or import the original oversized history.
+
 ## Required boundaries
 
 - Improve the existing application; do not replace it with a new scaffold.
@@ -31,3 +38,4 @@ existing application's data. Register new tests in `tests/test-manifest.json`.
 Use the provided workflow, database, auth, secrets and integration skills for
 their respective operations. The local tenant-boundary and media-session skills
 add focused procedures; they do not replace platform safety instructions.
+

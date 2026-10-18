@@ -6,6 +6,14 @@ DoorSurvey Pro is an enterprise-grade multi-tenant SaaS platform for the commerc
 ## User Preferences
 I prefer clear, concise communication and detailed explanations when necessary. I value an iterative development approach and want to be involved in major architectural decisions. When making changes, please prioritize robust solutions and maintain the existing project structure. Avoid making changes to the `shared/schema.ts` file without explicit discussion.
 
+## Source control workflow
+
+The shared repository is `westvalleycouple0602-sudo/DoorSurveypro`. Use `develop`
+as the integration base and a separate short task branch for each change. Follow
+`docs/GIT_WORKFLOW.md` for the clean-history handoff, `work:start` / `work:push`
+helpers, PR targets, known failing checks, and release steps. Preserve unpushed
+workspace changes before switching. A GitHub push is separate from publishing.
+
 ## System Architecture
 
 ### UI/UX Decisions
