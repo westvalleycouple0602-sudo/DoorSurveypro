@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Scan Capture"
+  short_description: "Build calibrated photo and LiDAR capture flows"
+  default_prompt: "Use $dsp-build-scan-capture to handle the requested Door Survey Pro task using the current project code."

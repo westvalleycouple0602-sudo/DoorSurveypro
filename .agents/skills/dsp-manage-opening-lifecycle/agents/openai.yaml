@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Opening Lifecycle"
+  short_description: "Preserve opening history, warranties, and maps"
+  default_prompt: "Use $dsp-manage-opening-lifecycle to handle the requested Door Survey Pro task using the current project code."
