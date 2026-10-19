@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP SEO Optimization"
+  short_description: "Improve DSP search visibility and qualified traffic"
+  default_prompt: "Use $dsp-optimize-seo to audit DSP public pages and implement the highest-impact authorized SEO improvements."

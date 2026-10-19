@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Tenant Access"
+  short_description: "Verify tenant boundaries and private records"
+  default_prompt: "Use $dsp-enforce-tenant-access to handle the requested Door Survey Pro task using the current project code."

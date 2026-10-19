@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Application Maintenance"
+  short_description: "Maintain DSP using verified project conventions"
+  default_prompt: "Use $dsp-maintain-application to handle the requested Door Survey Pro task using the current project code."

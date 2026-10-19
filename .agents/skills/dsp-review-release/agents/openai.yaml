@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Release Review"
+  short_description: "Review changes, migrations, and release readiness"
+  default_prompt: "Use $dsp-review-release to handle the requested Door Survey Pro task using the current project code."
