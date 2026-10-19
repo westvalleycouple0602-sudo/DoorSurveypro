@@ -9,6 +9,7 @@
     "tests/git-workflow.test.mjs"
   ],
   "jestServer": [
+    "server/__tests__/zapier-auth.test.ts",
     "server/__tests__/logger.test.ts",
     "server/__tests__/cache.test.ts",
     "server/__tests__/calculators.test.ts",

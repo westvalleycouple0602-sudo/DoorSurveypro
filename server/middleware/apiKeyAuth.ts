@@ -6,6 +6,24 @@ import { hashApiKey, isIpAllowed } from "../utils/apiKey";
 import { logger, logSecurityEvent } from "../logger";
 import { atomicRateLimitIncrement } from "../utils/redis";
 
+declare global {
+  namespace Express {
+    interface Request {
+      apiKey?: { id: string; organizationId: string; createdBy: string; scopes: string[]; name: string };
+    }
+  }
+}
+
+export function rateLimitWindowSeconds(window: string): number {
+  switch (window) {
+    case "hour": return 3600;
+    case "day": return 86400;
+    // Fixed rolling window, not a calendar billing month.
+    case "month": return 30 * 86400;
+    default: throw new Error("Invalid API key rate-limit window");
+  }
+}
+
 /**
  * Extract API key from request headers
  * Supports both "Authorization: Bearer sk_live_..." and "X-API-Key: sk_live_..."
@@ -131,12 +149,12 @@ export async function apiKeyAuth(req: Request, res: Response, next: NextFunction
     
     // Rate limiting using atomic Redis operations (prevents race conditions)
     const rateLimitKey = `api_rate_limit:${apiKeyRecord.id}`;
-    const rateLimitWindowSeconds: number = (apiKeyRecord.rateLimitWindow !== null ? apiKeyRecord.rateLimitWindow : 3600);
+    const windowSeconds = rateLimitWindowSeconds(apiKeyRecord.rateLimitWindow ?? "hour");
     const rateLimit: number = (apiKeyRecord.rateLimit !== null ? apiKeyRecord.rateLimit : 1000);
     
     try {
       // ATOMIC: Increment counter and set expiry if first request (Lua script ensures atomicity)
-      const currentCount = await atomicRateLimitIncrement(rateLimitKey, rateLimitWindowSeconds);
+      const currentCount = await atomicRateLimitIncrement(rateLimitKey, windowSeconds);
       
       // If Redis is unavailable, skip rate limiting (graceful degradation)
       if (currentCount === null) {
@@ -157,8 +175,8 @@ export async function apiKeyAuth(req: Request, res: Response, next: NextFunction
         
         return res.status(429).json({
           error: "Too Many Requests",
-          message: `Rate limit exceeded. Limit: ${rateLimit} requests per ${rateLimitWindowSeconds} seconds`,
-          retryAfter: rateLimitWindowSeconds,
+          message: `Rate limit exceeded. Limit: ${rateLimit} requests per ${windowSeconds} seconds`,
+          retryAfter: windowSeconds,
         });
       }
     } catch (rateLimitError) {
@@ -170,7 +188,7 @@ export async function apiKeyAuth(req: Request, res: Response, next: NextFunction
     }
     
     // Attach API key info to request for use in route handlers
-    (req as any).apiKey = {
+    req.apiKey = {
       id: apiKeyRecord.id,
       organizationId: apiKeyRecord.organizationId,
       createdBy: apiKeyRecord.createdBy,
@@ -228,7 +246,7 @@ export async function apiKeyAuth(req: Request, res: Response, next: NextFunction
  */
 export function requireScope(requiredScopes: string | string[]) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const apiKey = (req as any).apiKey;
+    const apiKey = req.apiKey;
     
     if (!apiKey) {
       return res.status(401).json({
