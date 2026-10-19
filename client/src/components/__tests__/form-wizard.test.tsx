@@ -33,7 +33,7 @@ describe('FormWizard', () => {
     it('renders with basic props', () => {
       render(<FormWizard steps={mockSteps} onComplete={mockOnComplete} />);
       
-      expect(screen.getByText('Personal Info')).toBeInTheDocument();
+      expect(screen.getAllByText('Personal Info')).toHaveLength(2); // Step indicator and current panel title
       expect(screen.getByTestId('step-1-content')).toBeInTheDocument();
     });
 
@@ -63,7 +63,7 @@ describe('FormWizard', () => {
     it('renders all step titles', () => {
       render(<FormWizard steps={mockSteps} onComplete={mockOnComplete} />);
       
-      expect(screen.getByText('Personal Info')).toBeInTheDocument();
+      expect(screen.getAllByText('Personal Info')).toHaveLength(2); // Step indicator and current panel title
       expect(screen.getByText('Address')).toBeInTheDocument();
       expect(screen.getByText('Review')).toBeInTheDocument();
     });
@@ -344,7 +344,7 @@ describe('FormWizard', () => {
       
       render(<FormWizard steps={singleStep} onComplete={mockOnComplete} />);
       
-      expect(screen.getByText('Only Step')).toBeInTheDocument();
+      expect(screen.getAllByText('Only Step')).toHaveLength(2);
       expect(screen.getByText('Complete')).toBeInTheDocument();
       expect(screen.getByTestId('wizard-button-previous')).toBeDisabled();
     });

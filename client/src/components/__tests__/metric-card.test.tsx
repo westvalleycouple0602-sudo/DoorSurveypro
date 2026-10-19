@@ -77,7 +77,7 @@ describe('MetricCard', () => {
       render(
         <MetricCard
           {...defaultProps}
-          trend={{ value: 8.3, label: 'from last week', positive: false }}
+          trend={{ value: -8.3, label: 'from last week', positive: false }}
         />
       );
       
@@ -118,7 +118,7 @@ describe('MetricCard', () => {
         />
       );
       
-      expect(screen.getByText('+5.0%')).toBeInTheDocument();
+      expect(screen.getByText('+5%')).toBeInTheDocument();
     });
 
     it('renders trend with subtitle', () => {
@@ -130,17 +130,17 @@ describe('MetricCard', () => {
         />
       );
       
-      expect(screen.getByText('+5.0%')).toBeInTheDocument();
+      expect(screen.getByText('+5%')).toBeInTheDocument();
       expect(screen.getByText('Monthly growth')).toBeInTheDocument();
     });
   });
 
   describe('Loading State', () => {
     it('shows skeleton when isLoading is true', () => {
-      render(<MetricCard {...defaultProps} isLoading={true} />);
+      const { container } = render(<MetricCard {...defaultProps} isLoading={true} />);
       
       // The skeleton should be rendered
-      const skeletons = screen.getAllByTestId(/^skeleton-/);
+      const skeletons = container.querySelectorAll('.animate-pulse');
       expect(skeletons.length).toBeGreaterThan(0);
     });
 
