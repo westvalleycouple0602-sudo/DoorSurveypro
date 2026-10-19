@@ -1,6 +1,8 @@
 // Reference: blueprint:javascript_database
 // From Replit Auth blueprint integration
 import {
+  notificationPreferences,
+  type NotificationPreference,
   users,
   organizations,
   memberships,
@@ -2321,7 +2323,6 @@ export class DatabaseStorage implements IStorage {
     await db.update(users)
       .set({
         emailVerificationToken: token,
-        emailVerificationTokenExpiresAt: expiresAt,
       })
       .where(eq(users.id, userId));
     
@@ -2355,7 +2356,6 @@ export class DatabaseStorage implements IStorage {
       .set({
         emailVerifiedAt: now,
         emailVerificationToken: null,
-        emailVerificationTokenExpiresAt: null,
       })
       .where(eq(users.id, userId));
     
@@ -2744,7 +2744,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createProject(insertProject: InsertProject): Promise<Project> {
-    const [project] = await db.insert(projects).values(insertProject).returning();
+    const { organizationId } = insertProject;
+    if (!organizationId) {
+      throw new Error("Organization ID is required to create a project");
+    }
+    const [project] = await db.insert(projects).values({ ...insertProject, organizationId }).returning();
     return project;
   }
 

@@ -514,7 +514,7 @@ export const cache = new CacheManager();
 export const CacheKeys = {
   // Product catalog
   catalogItem: (id: number) => `catalog:item:${id}`,
-  catalogByOrg: (orgId: number) => `catalog:org:${orgId}`,
+  catalogByOrg: (orgId: string) => `catalog:org:${orgId}`,
   catalogByCategory: (category: string) => `catalog:category:${category}`,
   
   // Organization settings

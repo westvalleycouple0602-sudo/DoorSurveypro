@@ -10,6 +10,8 @@ import {
   insertCustomerLocationSchema,
   insertCustomerProductHistorySchema,
   insertProjectSchema,
+  insertServiceHistorySchema,
+  updateServiceHistorySchema,
   insertDoorOpeningSchema,
   insertPhotoSchema,
   insertHardwareItemSchema,
@@ -671,7 +673,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      const opening = await storage.updateOpening(req.params.id, req.body);
+      const opening = await storage.updateOpening(req.params.id, orgContext.organizationId, req.body);
       if (!opening) {
         return res.status(404).json({ error: "Opening not found" });
       }
@@ -712,7 +714,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Opening not found" });
       }
       
-      const success = await storage.deleteOpening(req.params.id);
+      const success = await storage.deleteOpening(req.params.id, orgContext.organizationId);
       if (!success) {
         return res.status(404).json({ error: "Opening not found" });
       }
@@ -1294,7 +1296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (metrics.depth) {
             updateData.jamb_depth = metrics.depth;
           }
-          await storage.updateOpening(openingId, updateData);
+          await storage.updateOpening(openingId, orgContext.organizationId, updateData);
           logger.info("Applied processed measurements to newly linked opening", {
             scanId: req.params.id,
             openingId,
@@ -1398,7 +1400,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             updateData.swing = metrics.swing;
           }
           
-          await storage.updateOpening(scan.openingId, updateData);
+          await storage.updateOpening(scan.openingId, orgContext.organizationId, updateData);
         }
 
         // Trigger compliance validation on the updated opening
@@ -1717,7 +1719,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         // Update the linked opening with measurements
         if (scan.openingId && metrics.width && metrics.height) {
-          await storage.updateOpening(scan.openingId, {
+          await storage.updateOpening(scan.openingId, orgContext.organizationId, {
             clearWidth: metrics.width,
             clearHeight: metrics.height,
             frameDepth: metrics.frameDepth || undefined,
@@ -2439,7 +2441,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate drawings
       const openingData = {
         id: session.openingId,
-        name: opening.name || `Opening ${opening.id}`,
+        name: `Opening ${opening.openingNumber || opening.id}`,
         openingNumber: opening.openingNumber || "",
         location: opening.location || "",
         projectName: project?.name
@@ -2455,8 +2457,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const drawingSet = generateDoorDrawingSet(session.analysisResult, openingData, {
         scale: drawingOptions.scale || "1:10",
-        units: drawingOptions.units || "mm",
-        colorScheme: drawingOptions.colorScheme || "print-friendly"
+        units: drawingOptions.units === "in" ? "inches" : "mm",
+        colorScheme: drawingOptions.colorScheme === "color" ? "color-coded" : "print-friendly"
       });
 
       // Store in session
@@ -3029,7 +3031,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      const item = await storage.updateHardwareItem(req.params.id, req.body);
+      const item = await storage.updateHardwareItem(req.params.id, orgContext.organizationId, req.body);
       if (!item) {
         return res.status(404).json({ error: "Hardware item not found" });
       }
@@ -3062,7 +3064,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Hardware item not found" });
       }
       
-      const deleted = await storage.deleteHardwareItem(req.params.id);
+      const deleted = await storage.deleteHardwareItem(req.params.id, orgContext.organizationId);
       if (!deleted) {
         return res.status(404).json({ error: "Hardware item not found" });
       }
@@ -7007,7 +7009,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "Unauthorized" });
       }
       
-      const customer = await storage.getCustomer(req.params.id);
+      const customer = await storage.getCustomer(req.params.id, orgContext.organizationId);
       if (!customer) {
         return res.status(404).json({ error: "Customer not found" });
       }
@@ -7852,7 +7854,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertLeadSchema.parse(req.body);
       const lead = await storage.createLead(data);
       
-      logSecurityEvent("lead_created", {
+      logSecurityEvent("lead_created", "low", {
         leadId: lead.id,
         email: lead.email,
         source: lead.source,
@@ -8237,7 +8239,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Check if user is already a member
-      const existingMembership = await storage.getMembershipByUserAndOrg(user.id, demoOrg.id);
+      const existingMembership = (await storage.getUserMemberships(user.id))
+        .find(membership => membership.organizationId === demoOrg.id);
       if (existingMembership) {
         return res.json({ 
           success: true, 
@@ -8942,7 +8945,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
 
       const assignment = await storage.createProjectAssignment(validated);
       
-      logAuditEvent(orgContext.userId, "create", "project_assignment", assignment.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "create", "project_assignment", assignment.id, {
         projectId: assignment.projectId,
       });
       
@@ -9024,7 +9027,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project assignment not found" });
       }
 
-      logAuditEvent(orgContext.userId, "update", "project_assignment", updated.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "update", "project_assignment", updated.id, {
         projectId: updated.projectId,
       });
 
@@ -9048,7 +9051,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project assignment not found" });
       }
 
-      logAuditEvent(orgContext.userId, "delete", "project_assignment", req.params.id, {});
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "delete", "project_assignment", req.params.id, {});
 
       res.json({ message: "Project assignment deleted successfully" });
     } catch (error) {
@@ -9075,7 +9078,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
 
       const item = await storage.createProcurementItem(validated);
       
-      logAuditEvent(orgContext.userId, "create", "procurement_item", item.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "create", "procurement_item", item.id, {
         projectId: item.projectId,
         manufacturer: item.manufacturer,
       });
@@ -9153,7 +9156,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Procurement item not found" });
       }
 
-      logAuditEvent(orgContext.userId, "update", "procurement_item", updated.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "update", "procurement_item", updated.id, {
         projectId: updated.projectId,
         status: updated.status,
       });
@@ -9178,7 +9181,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Procurement item not found" });
       }
 
-      logAuditEvent(orgContext.userId, "delete", "procurement_item", req.params.id, {});
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "delete", "procurement_item", req.params.id, {});
 
       res.json({ message: "Procurement item deleted successfully" });
     } catch (error) {
@@ -9205,7 +9208,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
 
       const issue = await storage.createProjectIssue(validated);
       
-      logAuditEvent(orgContext.userId, "create", "project_issue", issue.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "create", "project_issue", issue.id, {
         projectId: issue.projectId,
         type: issue.type,
         severity: issue.severity,
@@ -9292,7 +9295,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project issue not found" });
       }
 
-      logAuditEvent(orgContext.userId, "update", "project_issue", updated.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "update", "project_issue", updated.id, {
         projectId: updated.projectId,
         status: updated.status,
       });
@@ -9317,7 +9320,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project issue not found" });
       }
 
-      logAuditEvent(orgContext.userId, "delete", "project_issue", req.params.id, {});
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "delete", "project_issue", req.params.id, {});
 
       res.json({ message: "Project issue deleted successfully" });
     } catch (error) {
@@ -9343,7 +9346,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
 
       const milestone = await storage.createProjectMilestone(validated);
       
-      logAuditEvent(orgContext.userId, "create", "project_milestone", milestone.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "create", "project_milestone", milestone.id, {
         projectId: milestone.projectId,
         name: milestone.name,
       });
@@ -9437,7 +9440,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project milestone not found" });
       }
 
-      logAuditEvent(orgContext.userId, "update", "project_milestone", updated.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "update", "project_milestone", updated.id, {
         projectId: updated.projectId,
         status: updated.status,
       });
@@ -9558,7 +9561,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Project milestone not found" });
       }
 
-      logAuditEvent(orgContext.userId, "delete", "project_milestone", req.params.id, {});
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "delete", "project_milestone", req.params.id, {});
 
       res.json({ message: "Project milestone deleted successfully" });
     } catch (error) {
@@ -9585,7 +9588,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
 
       const form = await storage.createManufacturerOrderForm(validated);
       
-      logAuditEvent(orgContext.userId, "create", "manufacturer_order_form", form.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "create", "manufacturer_order_form", form.id, {
         projectId: form.projectId,
         manufacturer: form.manufacturer,
       });
@@ -9663,7 +9666,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Manufacturer order form not found" });
       }
 
-      logAuditEvent(orgContext.userId, "update", "manufacturer_order_form", updated.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "update", "manufacturer_order_form", updated.id, {
         projectId: updated.projectId,
         manufacturer: updated.manufacturer,
       });
@@ -9688,7 +9691,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         return res.status(404).json({ error: "Manufacturer order form not found" });
       }
 
-      logAuditEvent(orgContext.userId, "delete", "manufacturer_order_form", req.params.id, {});
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "delete", "manufacturer_order_form", req.params.id, {});
 
       res.json({ message: "Manufacturer order form deleted successfully" });
     } catch (error) {
@@ -9751,7 +9754,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
         pdfGeneratedAt: new Date(),
       });
 
-      logAuditEvent(orgContext.userId, "generate_pdf", "manufacturer_order_form", form.id, {
+      logAuditEvent(orgContext.userId, orgContext.organizationId, "generate_pdf", "manufacturer_order_form", form.id, {
         projectId: form.projectId,
         manufacturer: form.manufacturer,
       });

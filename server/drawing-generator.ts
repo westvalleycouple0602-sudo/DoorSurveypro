@@ -1732,5 +1732,5 @@ export {
   dimToValue,
   formatDimension,
   parseScale,
-  generateUUID
+  uuidv4 as generateUUID
 };

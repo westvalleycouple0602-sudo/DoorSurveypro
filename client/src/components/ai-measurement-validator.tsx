@@ -56,7 +56,7 @@ export function AIMeasurementValidator({
         buildingType,
       });
 
-      setResult(response);
+      setResult(await response.json());
     } catch (err) {
       setError("Failed to validate measurements. Please try again.");
     } finally {

@@ -39,9 +39,9 @@ export function AIPhotoAnalyzer({ imageBase64, buildingType, onApplyData }: AIPh
     setError(null);
     
     try {
-      const response = await apiRequest("POST", "/api/ai/analyze-photo", { imageBase64, buildingType }) as AIAnalysisResult;
+      const response = await apiRequest("POST", "/api/ai/analyze-photo", { imageBase64, buildingType });
       
-      setResult(response);
+      setResult(await response.json());
     } catch (err) {
       setError("Failed to analyze photo. Please try again.");
     } finally {

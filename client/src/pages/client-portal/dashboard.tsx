@@ -449,7 +449,6 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
                 variant="ghost"
                 size="icon"
                 onClick={handlePrint}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handlePrint(); }}
                 aria-label="Print project"
                 data-testid={`button-print-project-${project.id}`}
               >

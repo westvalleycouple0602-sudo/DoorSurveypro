@@ -170,7 +170,7 @@ export function CommentItem({
         </div>
 
         {/* Attachments */}
-        {!isDeleted && comment.attachments && Array.isArray(comment.attachments) && (comment.attachments as unknown[]).length > 0 && (
+        {!isDeleted && Array.isArray(comment.attachments) && (comment.attachments as unknown[]).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
             {((comment.attachments as unknown[]) as Array<{ url: string; filename: string }>).map((attachment, index) => (
               <a

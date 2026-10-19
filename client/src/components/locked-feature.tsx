@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, type KeyboardEventHandler } from "react";
 import { Lock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ export interface LockedFeatureProps {
   children: ReactNode;
   locked: boolean;
   onClick: () => void;
+  onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   tierBadgeText?: string;
   className?: string;
   variant?: "overlay" | "inline" | "disabled";
@@ -23,6 +24,7 @@ export function LockedFeature({
   children,
   locked,
   onClick,
+  onKeyDown,
   tierBadgeText,
   className,
   variant = "overlay",
@@ -36,7 +38,14 @@ export function LockedFeature({
     return (
       <div className={cn("relative opacity-60", className)}>
         {children}
-        <div className="absolute inset-0 cursor-not-allowed" onClick={(e) => {
+        <div role="button" tabIndex={0} aria-label={featureName || "Upgrade to unlock feature"}
+          onKeyDown={onKeyDown ?? ((event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              event.currentTarget.click();
+            }
+          })}
+          className="absolute inset-0 cursor-not-allowed" onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           trackEvent("feature_locked_click", {
@@ -82,6 +91,15 @@ export function LockedFeature({
     <div className={cn("relative group", className)}>
       {children}
       <div
+        role="button"
+        tabIndex={0}
+        aria-label={featureName || "Upgrade to unlock feature"}
+        onKeyDown={onKeyDown ?? ((event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            event.currentTarget.click();
+          }
+        })}
         className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center cursor-pointer transition-opacity hover:bg-background/90"
         onClick={(e) => {
           e.preventDefault();

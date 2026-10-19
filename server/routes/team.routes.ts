@@ -786,7 +786,7 @@ export function registerTeamRoutes(app: Router, deps: RouteDependencies) {
 
       const permissions = validation.data;
 
-      if (permissions["owner"] || permissions["admin"]) {
+      if ("owner" in permissions || "admin" in permissions) {
         return res.status(400).json({ 
           error: "Owner and Admin roles cannot be customized - they always have full access" 
         });

@@ -168,7 +168,7 @@ async function renderCommentMentionTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderCommentMention(data);
-  const html = await renderAsync(React.createElement(CommentMentionEmail, data), options);
+  const html = await renderAsync(React.createElement(CommentMentionEmail, data));
   
   return {
     ...result,
@@ -181,7 +181,7 @@ async function renderCommentReplyTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderCommentReply(data);
-  const html = await renderAsync(React.createElement(CommentReplyEmail, data), options);
+  const html = await renderAsync(React.createElement(CommentReplyEmail, data));
   
   return {
     ...result,
@@ -194,7 +194,7 @@ async function renderApprovalRequestedTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderApprovalRequested(data);
-  const html = await renderAsync(React.createElement(ApprovalRequestedEmail, data), options);
+  const html = await renderAsync(React.createElement(ApprovalRequestedEmail, data));
   
   return {
     ...result,
@@ -207,7 +207,7 @@ async function renderApprovalApprovedTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderApprovalApproved(data);
-  const html = await renderAsync(React.createElement(ApprovalApprovedEmail, data), options);
+  const html = await renderAsync(React.createElement(ApprovalApprovedEmail, data));
   
   return {
     ...result,
@@ -220,7 +220,7 @@ async function renderApprovalRejectedTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderApprovalRejected(data);
-  const html = await renderAsync(React.createElement(ApprovalRejectedEmail, data), options);
+  const html = await renderAsync(React.createElement(ApprovalRejectedEmail, data));
   
   return {
     ...result,
@@ -233,7 +233,7 @@ async function renderMilestoneNotificationTemplate(
   options?: RenderOptions
 ): Promise<RenderResult> {
   const result = renderMilestoneNotification(data);
-  const html = await renderAsync(React.createElement(MilestoneNotificationEmail, data), options);
+  const html = await renderAsync(React.createElement(MilestoneNotificationEmail, data));
   
   return {
     ...result,

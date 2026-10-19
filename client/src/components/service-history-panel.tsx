@@ -129,7 +129,7 @@ export function ServiceHistoryPanel({ openingId, serviceHistory: providedHistory
   const { toast } = useToast();
 
   // Fetch opening details to get projectId
-  const { data: opening } = useQuery({
+  const { data: opening } = useQuery<{ projectId: string }>({
     queryKey: ['/api/openings', openingId],
     enabled: !!openingId && !onAddService,
   });

@@ -187,7 +187,7 @@ export function ActivityTimeline({
               </div>
 
               {/* Metadata display */}
-              {activity.metadata &&
+              {activity.metadata != null &&
                 typeof activity.metadata === "object" &&
                 Object.keys(activity.metadata as object).length > 0 && (
                   <div className="mt-2 text-xs text-muted-foreground bg-muted/50 rounded p-2">

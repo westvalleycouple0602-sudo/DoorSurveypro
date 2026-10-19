@@ -599,7 +599,7 @@ export default function HardwareSchedule() {
                             )}
                             {item.hardware.masterKeySystemId && (
                               <div className="text-muted-foreground">
-                                System: {masterKeySystems.find(s => s.id === item.hardware.masterKeySystemId)?.systemName || "Unknown"}
+                                System: {masterKeySystems.find(s => s.id === item.hardware.masterKeySystemId)?.name || "Unknown"}
                               </div>
                             )}
                             {item.hardware.lockSetId && (

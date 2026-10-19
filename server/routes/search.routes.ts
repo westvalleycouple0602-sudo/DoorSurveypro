@@ -312,7 +312,7 @@ export function registerSearchRoutes(app: Router, deps: RouteDependencies) {
       });
 
       if (!validation.success) {
-        return handleValidationError(res, validation.error);
+        return handleValidationError(validation.error, res);
       }
 
       const [savedSearch] = await db
