@@ -66,15 +66,15 @@ export default function ProductCatalogImport() {
   const [activeBatchId, setActiveBatchId] = useState<string | null>(null);
 
   // Fetch import history
-  const { data: historyData, refetch: refetchHistory } = useQuery({
+  const { data: historyData, refetch: refetchHistory } = useQuery<{ batches: ImportBatch[] }>({
     queryKey: ["/api/products/bulk-import/history"],
   });
 
   // Fetch active batch status
-  const { data: batchStatus, refetch: refetchBatch } = useQuery({
+  const { data: batchStatus, refetch: refetchBatch } = useQuery<{ batch: ImportBatch }>({
     queryKey: ["/api/products/bulk-import/status", activeBatchId],
     enabled: !!activeBatchId,
-    refetchInterval: (data: any) => {
+    refetchInterval: (data) => {
       // Auto-refresh every 2s if processing
       if (data?.state?.data?.batch?.status === "processing") {
         return 2000;

@@ -160,16 +160,18 @@ async function seedManufacturerTimelines() {
   let updated = 0;
 
   for (const row of records) {
-    const existing = await db
-      .select()
-      .from(manufacturerTimelines)
-      .where(sql`LOWER(${manufacturerTimelines.brandName}) = LOWER(${row.brand_name})`)
-      .limit(1);
-
     const foundedYear = row.founded_year_approx ? parseInt(row.founded_year_approx, 10) : null;
     const acquisitionYear = row.acquisition_year_approx ? parseInt(row.acquisition_year_approx, 10) : null;
 
+    const year = Number.isFinite(foundedYear) ? foundedYear : acquisitionYear;
+    if (year === null || !Number.isFinite(year)) {
+      console.warn(`Skipping timeline without a known year: ${row.brand_name}`);
+      continue;
+    }
     const data = {
+      year,
+      event: Number.isFinite(foundedYear) ? "Founded" : "Acquired",
+      metadata: { ...row },
       brandName: row.brand_name,
       parentGroup: row.parent_group || null,
       regionPrimary: row.region_primary || null,
@@ -185,14 +187,19 @@ async function seedManufacturerTimelines() {
       isActive: "yes",
     };
 
+    const existing = await db.select().from(manufacturerTimelines)
+      .where(sql`LOWER(${manufacturerTimelines.brandName}) = LOWER(${row.brand_name})
+        AND ${manufacturerTimelines.year} = ${data.year}
+        AND ${manufacturerTimelines.event} = ${data.event}`)
+      .limit(1);
     if (existing.length === 0) {
       await db.insert(manufacturerTimelines).values(data);
       inserted++;
     } else {
       await db
         .update(manufacturerTimelines)
-        .set({ ...data, updatedAt: sql`now()` })
-        .where(sql`LOWER(${manufacturerTimelines.brandName}) = LOWER(${row.brand_name})`);
+        .set(data)
+        .where(eq(manufacturerTimelines.id, existing[0].id));
       updated++;
     }
   }
@@ -226,6 +233,8 @@ async function seedBrandMarketTiers() {
     const data = {
       brandName: row.brand_name,
       parentGroup: row.parent_group || null,
+      tier: row.price_tier || row.market_segment || "Unspecified",
+      metadata: { ...row },
       marketSegment: row.market_segment || null,
       priceTier: row.price_tier || null,
       primaryChannels: row.primary_channels || null,
@@ -277,6 +286,8 @@ async function seedBrandComplianceProfiles() {
     const data = {
       brandName: row.brand_name,
       parentGroup: row.parent_group || null,
+      complianceType: "brand_profile",
+      metadata: { ...row },
       bhmaGradeFocus: row.bhma_grade_focus || null,
       ulFireListingFocus: row.ul_fire_listing_focus || null,
       adaRelevance: row.ada_relevance || null,
@@ -336,6 +347,9 @@ async function seedBrandLockAssets() {
       assetKey: row.asset_key,
       assetType: row.asset_type,
       logicalGroup: row.logical_group,
+      name: row.file_name,
+      url: row.suggested_path || null,
+      metadata: { ...row },
       fileName: row.file_name,
       fileFormat: row.file_format,
       suggestedPath: row.suggested_path || null,

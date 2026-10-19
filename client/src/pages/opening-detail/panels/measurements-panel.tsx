@@ -273,7 +273,7 @@ export default function MeasurementsPanel() {
                       </p>
                     </div>
 
-                    {scan.processingStatus === "processed" && scan.processedMetrics && (
+                    {scan.processingStatus === "processed" && scan.processedMetrics != null && (
                       <div className="mt-4 p-4 bg-muted rounded-md space-y-2">
                         <h5 className="font-medium">Processed Measurements</h5>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
@@ -309,7 +309,7 @@ export default function MeasurementsPanel() {
                           </div>
                         </div>
 
-                        {scan.confidenceScores && (
+                        {scan.confidenceScores != null && (
                           <div className="mt-3">
                             <h6 className="text-sm font-medium mb-2">Confidence Scores</h6>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">

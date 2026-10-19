@@ -3,7 +3,7 @@ import multer from "multer";
 import sharp from "sharp";
 import { extractLogoPalette } from "../lib/logo-palette";
 import { db } from "../db";
-import { organizations, exportBranding } from "@shared/schema";
+import { organizations, exportBranding, insertExportBrandingSchema } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import { getOrganizationContext } from "../clerkAuth";
 import { z } from "zod";
@@ -29,7 +29,7 @@ const logoUpload = multer({
 // Zod schemas for validation
 const brandingOnboardingStepSchema = z.object({
   stepId: z.enum(["step1", "step2", "step3", "step4"]),
-  data: z.record(z.any()),
+  data: insertExportBrandingSchema.omit({ organizationId: true }).partial(),
 });
 
 const brandingOnboardingCompleteSchema = z.object({
@@ -108,7 +108,7 @@ router.patch("/api/onboarding/branding/progress", async (req, res, next) => {
 
     // Auto-advance status from not_started to in_progress
     let newStatus = org.brandingOnboardingStatus;
-    if (newStatus === "not_started") {
+    if (!newStatus || newStatus === "not_started") {
       newStatus = "in_progress";
     }
 

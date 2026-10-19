@@ -134,7 +134,7 @@ export default function HubSpotSettings() {
     <div className="flex flex-col items-center gap-3 p-8 text-center">
       <AlertTriangle className="h-8 w-8 text-destructive" />
       <p className="text-sm text-muted-foreground">Failed to load data. Please refresh the page.</p>
-      <Button variant="outline" size="sm" onClick={() => window.location.reload()}>Refresh</Button>
+      <Button variant="outline" size="sm" onClick={() => refetchStatus()}>Retry</Button>
     </div>
   );
 
@@ -165,33 +165,6 @@ export default function HubSpotSettings() {
         <h1 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2" data-testid="text-hubspot-settings-title">HubSpot Integration</h1>
         <p className="text-muted-foreground text-xs sm:text-sm">Configure your organization's HubSpot CRM integration</p>
       </div>
-
-      {/* Error State */}
-      {statusError && (
-        <Card className="border-destructive" data-testid="card-status-error">
-          <CardHeader className="p-3 sm:p-4">
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <XCircle className="h-5 w-5 sm:h-6 sm:w-6 text-destructive shrink-0" />
-              <div className="min-w-0">
-                <CardTitle className="text-sm sm:text-base">Error Loading Status</CardTitle>
-                <CardDescription className="text-xs sm:text-sm">Failed to fetch HubSpot integration status</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="p-3 sm:p-4 pt-0 sm:pt-0">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => refetchStatus()}
-              className="w-full sm:w-auto text-xs sm:text-sm"
-              data-testid="button-retry-status"
-            >
-              <RefreshCw className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 shrink-0" />
-              Retry
-            </Button>
-          </CardContent>
-        </Card>
-      )}
 
       {/* Status Card */}
       {!statusError && (

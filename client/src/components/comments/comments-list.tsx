@@ -35,6 +35,8 @@ type CommentWithAuthor = ProjectComment & {
   mentions: Array<{ id: string; mentionedUserId: string }>;
 };
 
+type CommentNode = CommentWithAuthor & { replies: CommentNode[] };
+
 export function CommentsList({
   projectId,
   currentUser,
@@ -167,8 +169,8 @@ export function CommentsList({
     // Flatten all comments from all pages
     const allComments = data.pages.flatMap((page) => page.comments);
 
-    const commentMap = new Map<string, CommentWithAuthor & { replies: CommentWithAuthor[] }>();
-    const rootComments: (CommentWithAuthor & { replies: CommentWithAuthor[] })[] = [];
+    const commentMap = new Map<string, CommentNode>();
+    const rootComments: CommentNode[] = [];
 
     // Initialize all comments with empty replies array
     allComments.forEach((comment) => {
@@ -213,7 +215,7 @@ export function CommentsList({
     });
   };
 
-  const renderComment = (comment: CommentWithAuthor & { replies: CommentWithAuthor[] }, depth = 0) => {
+  const renderComment = (comment: CommentNode, depth = 0) => {
     const isEditing = editingComment?.id === comment.id;
 
     return (

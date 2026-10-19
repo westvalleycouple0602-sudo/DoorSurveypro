@@ -458,12 +458,12 @@ export class CalendarService {
     });
     
     if (!integration) {
-      return await db.query.calendarIntegrations.findFirst({
+      return (await db.query.calendarIntegrations.findFirst({
         where: and(
           eq(schema.calendarIntegrations.organizationId, organizationId),
           eq(schema.calendarIntegrations.isActive, true)
         ),
-      });
+      })) ?? null;
     }
     
     return integration;

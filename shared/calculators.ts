@@ -1279,16 +1279,19 @@ function toFloat(value: any, defaultValue: number = 0): number {
   return isNaN(parsed) ? defaultValue : parsed;
 }
 
-function validateNumeric(value: any, fieldName: string, allowZero: boolean = true): number {
+function validateNumeric(value: unknown, fieldName: string, allowZero: boolean = true): number {
   if (value === null || value === undefined || value === '') {
     throw new Error(`${fieldName} is required`);
   }
   const parsed = typeof value === 'string' ? parseFloat(value) : Number(value);
-  if (isNaN(parsed)) {
+  if (!Number.isFinite(parsed)) {
     throw new Error(`${fieldName} must be a valid number, got: ${value}`);
   }
   if (!allowZero && parsed <= 0) {
     throw new Error(`${fieldName} must be greater than zero, got: ${parsed}`);
+  }
+  if (parsed < 0) {
+    throw new Error(`${fieldName} cannot be negative, got: ${parsed}`);
   }
   return parsed;
 }
@@ -1304,6 +1307,9 @@ export function calculateLandedCost(item: LandedCostLineItem): LandedCostResult 
   const discountPct = item.discountPercent !== undefined && item.discountPercent !== null
     ? validateNumeric(item.discountPercent, 'discountPercent', true) 
     : 0;
+  if (discountPct > 100) {
+    throw new Error('discountPercent cannot exceed 100');
+  }
   
   // Calculate net unit cost (after discount)
   let netUnitCost = item.netUnitCost;

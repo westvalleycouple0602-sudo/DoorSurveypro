@@ -3,6 +3,7 @@ import {
   projectComments,
   commentMentions,
   users,
+  memberships,
   type ProjectComment,
   type CommentMention,
 } from "@shared/schema";
@@ -86,13 +87,14 @@ async function resolveUsernames(
       email: users.email,
     })
     .from(users)
+    .innerJoin(memberships, eq(memberships.userId, users.id))
     .where(
       and(
         inArray(
           sql`LOWER(${users.email})`,
           lowercaseUsernames
         ),
-        eq(users.organizationId, organizationId) // Cross-tenant protection
+        eq(memberships.organizationId, organizationId) // Cross-tenant protection
       )
     );
 

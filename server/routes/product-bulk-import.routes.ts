@@ -82,7 +82,7 @@ router.post("/upload", upload.single("file"), async (req: Request, res: Response
       .values({
         organizationId, // CRITICAL: Multi-tenant isolation
         fileName,
-        fileSize: req.file.size,
+        metadata: { fileSize: req.file.size },
         fileType,
         status: "pending",
         totalRows: rows.length,

@@ -88,7 +88,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         ...req.body,
         organizationId: orgContext.organizationId,
         changeOrderNumber,
-        createdBy: orgContext.userEmail || orgContext.userId,
+        createdBy: req.identity?.email || orgContext.userId,
       });
       
       const changeOrder = await storage.createChangeOrder(data);
@@ -187,7 +187,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         orgContext.organizationId,
         {
           reviewStatus: "approved",
-          reviewedBy: orgContext.userEmail || orgContext.userId,
+          reviewedBy: req.identity?.email || orgContext.userId,
           reviewedAt: new Date(),
           reviewNotes,
         }
@@ -203,7 +203,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         'change_order.approved',
         'change_order',
         changeOrder.id,
-        { changeOrderNumber: changeOrder.changeOrderNumber, reviewedBy: orgContext.userEmail }
+        { changeOrderNumber: changeOrder.changeOrderNumber, reviewedBy: req.identity?.email }
       );
       
       res.json(changeOrder);
@@ -228,7 +228,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         {
           status: "rejected",
           reviewStatus: "rejected",
-          reviewedBy: orgContext.userEmail || orgContext.userId,
+          reviewedBy: req.identity?.email || orgContext.userId,
           reviewedAt: new Date(),
           reviewNotes,
         }
@@ -244,7 +244,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         'change_order.rejected',
         'change_order',
         changeOrder.id,
-        { changeOrderNumber: changeOrder.changeOrderNumber, reviewedBy: orgContext.userEmail }
+        { changeOrderNumber: changeOrder.changeOrderNumber, reviewedBy: req.identity?.email }
       );
       
       res.json(changeOrder);
@@ -269,7 +269,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         {
           status: "approved",
           customerApprovalStatus: "approved",
-          customerApprovedBy: orgContext.userEmail || orgContext.userId,
+          customerApprovedBy: req.identity?.email || orgContext.userId,
           customerApprovedAt: new Date(),
           customerApprovalNotes,
           approvedAt: new Date(),
@@ -286,7 +286,7 @@ export async function registerChangeOrdersRoutes(app: Express, deps: RouteDepend
         'change_order.customer_approved',
         'change_order',
         changeOrder.id,
-        { changeOrderNumber: changeOrder.changeOrderNumber, customerApprovedBy: orgContext.userEmail }
+        { changeOrderNumber: changeOrder.changeOrderNumber, customerApprovedBy: req.identity?.email }
       );
       
       res.json(changeOrder);

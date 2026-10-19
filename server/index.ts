@@ -26,7 +26,8 @@ import healthRouter from "./routes/health.routes";
 import { setupSecurityMiddleware } from "./middleware/security";
 import { performanceMiddleware } from "./utils/performance-alerts";
 import { cache } from "./utils/cache";
-import { cleanupZapierRateLimiting, cleanupGeneralRateLimiting } from "./zapier-middleware";
+import { cleanupZapierRateLimiting, cleanupGeneralRateLimiting, rateLimitZapierApi } from "./zapier-middleware";
+import zapierRouter from "./routes/zapier.routes";
 import { createAuditMiddleware } from "./audit-middleware";
 import { storage } from "./storage";
 import { webhookLimiter } from "./middleware/rateLimiting";
@@ -80,6 +81,11 @@ app.use(
 // Increase body size limit to 50MB for photo uploads (base64 images can be large)
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
+// Machine credentials are independent of Clerk cookies and browser CSRF.
+// The router authenticates every request; unknown paths must not fall through.
+app.use("/api/zapier", rateLimitZapierApi, zapierRouter, (_req, res) => {
+  res.status(404).json({ error: "Zapier endpoint not found" });
+});
 app.use(cookieParser());
 app.use(
   clerkMiddleware((req) => ({

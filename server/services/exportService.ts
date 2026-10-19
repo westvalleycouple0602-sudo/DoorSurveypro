@@ -110,7 +110,7 @@ export async function generateProjectExport(params: GenerateExportParams): Promi
         branding,
         alternativeLabel,
         templateType: templateType || profile?.templateType || "proposal",
-        language,
+        language: language || "en",
       });
       mimetype = "application/pdf";
     } else {

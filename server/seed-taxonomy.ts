@@ -68,7 +68,6 @@ async function seedManufacturerGroups() {
             .insert(manufacturerGroups)
             .values({
               name: groupName,
-              slug,
               isActive: "yes",
             })
             .returning();
@@ -101,8 +100,7 @@ async function seedManufacturerGroups() {
             .update(manufacturers)
             .set({
               groupId,
-              productFocus: record.product_focus || null,
-              segment: record.segment || null,
+              metadata: sql`COALESCE(${manufacturers.metadata}, '{}'::jsonb) || ${JSON.stringify({ productFocus: record.product_focus || null, segment: record.segment || null })}::jsonb`,
               description: record.notes || null,
             })
             .where(sql`LOWER(${manufacturers.name}) = LOWER(${record.brand_name})`);
@@ -111,13 +109,11 @@ async function seedManufacturerGroups() {
         } else {
           await db.insert(manufacturers).values({
             name: record.brand_name,
-            slug,
+            code: slug,
             groupId,
-            productFocus: record.product_focus || null,
-            segment: record.segment || null,
+            metadata: { productFocus: record.product_focus || null, segment: record.segment || null },
             description: record.notes || null,
             isActive: "yes",
-            hasApiIntegration: "no",
           });
 
           console.log(`  + Created manufacturer: ${record.brand_name} (${record.group_name})`);
@@ -170,6 +166,7 @@ async function seedProductCategories() {
           skipCount++;
         } else {
           await db.insert(productCategories).values({
+            name: record.item_name,
             categoryLevel1: record.category_level1,
             categoryLevel2: record.category_level2 || null,
             itemName: record.item_name,

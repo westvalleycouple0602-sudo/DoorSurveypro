@@ -116,8 +116,8 @@ export function ExportPanel({ projectId, projectName }: ExportPanelProps) {
     });
   };
 
-  const defaultProfile = profiles?.find((p) => p.isDefault);
-  const defaultBranding = branding?.find((b) => b.isDefault);
+  const defaultProfile = profiles?.find((p) => p.isDefaultForTenant);
+  const defaultBranding = branding?.find((b) => b.isDefaultForTenant);
 
   const isLoading = loadingProfiles || loadingBranding || loadingAlternatives;
   const isExporting = exportMutation.isPending;
@@ -185,7 +185,7 @@ export function ExportPanel({ projectId, projectName }: ExportPanelProps) {
 
             {defaultBranding && (
               <div className="rounded-md border p-3 text-sm text-muted-foreground">
-                Using default branding: <span className="font-medium">{defaultBranding.name}</span>
+                Using default branding: <span className="font-medium">{defaultBranding.headerText || "Default branding"}</span>
               </div>
             )}
 
@@ -275,7 +275,7 @@ export function ExportPanel({ projectId, projectName }: ExportPanelProps) {
                     {profiles?.map((profile) => (
                       <SelectItem key={profile.id} value={profile.id}>
                         {profile.name}
-                        {profile.isDefault && " (Default)"}
+                        {profile.isDefaultForTenant && " (Default)"}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -295,8 +295,8 @@ export function ExportPanel({ projectId, projectName }: ExportPanelProps) {
                     <SelectItem value="none">Use default branding</SelectItem>
                     {branding?.map((brand) => (
                       <SelectItem key={brand.id} value={brand.id}>
-                        {brand.name}
-                        {brand.isDefault && " (Default)"}
+                        {brand.headerText || "Branding"}
+                        {brand.isDefaultForTenant && " (Default)"}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -317,7 +317,7 @@ export function ExportPanel({ projectId, projectName }: ExportPanelProps) {
                       <SelectItem value="none">Base pricing</SelectItem>
                       {alternatives.map((alt) => (
                         <SelectItem key={alt.id} value={alt.id}>
-                          {alt.label} - {alt.name}
+                          {alt.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

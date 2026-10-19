@@ -108,7 +108,7 @@ export function ValidationResults({ opening }: ValidationResultsProps) {
           clear_height_in: opening.doorHeight ? parseFloat(opening.doorHeight) : undefined,
           threshold_height_in: validationConfig.thresholdHeight 
             ? parseFloat(validationConfig.thresholdHeight) 
-            : (opening.sillHeight ? parseFloat(opening.sillHeight) : undefined),
+            : undefined,
           hardware_height_in: validationConfig.hardwareHeight 
             ? parseFloat(validationConfig.hardwareHeight) 
             : undefined,

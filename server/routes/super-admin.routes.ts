@@ -173,7 +173,7 @@ router.get("/api/super-admin/organizations", requireSuperAdmin, async (req: Requ
 
 router.get("/api/super-admin/organizations/:id/users", requireSuperAdmin, async (req: Request, res: Response) => {
   try {
-    const orgId = parseInt(req.params.id);
+    const orgId = req.params.id;
     const members = await db
       .select({
         id: users.id,
@@ -181,7 +181,7 @@ router.get("/api/super-admin/organizations/:id/users", requireSuperAdmin, async 
         firstName: users.firstName,
         lastName: users.lastName,
         role: memberships.role,
-        lastLogin: users.lastLoginAt,
+        lastLogin: sql<Date | null>`NULL`,
         createdAt: users.createdAt,
       })
       .from(memberships)
@@ -196,7 +196,7 @@ router.get("/api/super-admin/organizations/:id/users", requireSuperAdmin, async 
 
 router.patch("/api/super-admin/organizations/:id/status", requireSuperAdmin, async (req: Request, res: Response) => {
   try {
-    const orgId = parseInt(req.params.id);
+    const orgId = req.params.id;
     const { status } = req.body as { status: string };
     const allowed = ["active", "suspended", "canceled", "trialing"];
     if (!allowed.includes(status)) {
@@ -215,7 +215,7 @@ router.patch("/api/super-admin/organizations/:id/status", requireSuperAdmin, asy
 
 router.patch("/api/super-admin/organizations/:id/plan", requireSuperAdmin, async (req: Request, res: Response) => {
   try {
-    const orgId = parseInt(req.params.id);
+    const orgId = req.params.id;
     const { plan } = req.body as { plan: string };
     const allowed = ["free", "starter", "professional", "enterprise"];
     if (!allowed.includes(plan)) {

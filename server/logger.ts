@@ -64,14 +64,15 @@ export function logAuditEvent(
 }
 
 export function logError(
-  error: Error,
-  context?: Record<string, any>
+  error: unknown,
+  context?: Record<string, unknown>
 ) {
+  const normalized = error instanceof Error ? error : new Error(String(error));
   logger.error('Application error', {
     error: {
-      message: error.message,
-      stack: error.stack,
-      name: error.name,
+      message: normalized.message,
+      stack: normalized.stack,
+      name: normalized.name,
     },
     ...context,
   });

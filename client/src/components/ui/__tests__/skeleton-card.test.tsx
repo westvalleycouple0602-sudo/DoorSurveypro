@@ -6,7 +6,7 @@ describe('SkeletonCard', () => {
     it('renders skeleton card', () => {
       const { container } = render(<SkeletonCard />);
       
-      const card = container.querySelector('.rounded-lg.border');
+      const card = container.querySelector('.border.bg-card');
       expect(card).toBeInTheDocument();
     });
 
@@ -54,7 +54,7 @@ describe('SkeletonCard', () => {
     it('has proper spacing', () => {
       const { container } = render(<SkeletonCard />);
       
-      const content = container.querySelector('.space-y-2');
+      const content = container.querySelector('.space-y-3');
       expect(content).toBeInTheDocument();
     });
 
@@ -79,15 +79,15 @@ describe('SkeletonTable', () => {
     it('renders skeleton table', () => {
       const { container } = render(<SkeletonTable />);
       
-      const card = container.querySelector('.rounded-lg.border');
-      expect(card).toBeInTheDocument();
+      const table = container.querySelector('.space-y-3');
+      expect(table).toBeInTheDocument();
     });
 
     it('renders default number of rows (5)', () => {
       const { container } = render(<SkeletonTable />);
       
       // Count table rows
-      const rows = container.querySelectorAll('.border-b');
+      const rows = container.querySelectorAll('.flex.gap-4.items-center');
       expect(rows.length).toBe(5);
     });
 

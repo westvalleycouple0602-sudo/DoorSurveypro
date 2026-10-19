@@ -335,7 +335,7 @@ export default function PhotosPanel() {
                     className="w-full h-48 object-cover rounded-md"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  {photo.annotations && Array.isArray(photo.annotations) && (photo.annotations as Annotation[]).length > 0 && (
+                  {Array.isArray(photo.annotations) && (photo.annotations as Annotation[]).length > 0 && (
                     <PhotoAnnotationOverlay
                       photoUrl={photo.url}
                       annotations={photo.annotations as Annotation[]}
@@ -376,7 +376,7 @@ export default function PhotosPanel() {
                     >
                       <Crosshair className="h-4 w-4" />
                     </Button>
-                    {photo.annotations && Array.isArray(photo.annotations) && (photo.annotations as Annotation[]).some(a => a.type === "element-highlight") && (
+                    {Array.isArray(photo.annotations) && (photo.annotations as Annotation[]).some(a => a.type === "element-highlight") && (
                       <Button
                         variant="ghost"
                         size="icon"

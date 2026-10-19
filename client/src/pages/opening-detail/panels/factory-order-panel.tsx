@@ -304,7 +304,7 @@ function TechnicalDrawing({ data, mode, title }: DrawingProps) {
 
   // Hinge positions (3 hinges by default, 4 if tall)
   const numHinges = fh > 90 ? 4 : 3;
-  const hingeLabels = ["A", "B", "C", "D"].slice(0, numHinges);
+  const hingeLabels = (["A", "B", "C", "D"] as const).slice(0, numHinges);
   const hingeSpacing = doorPixH / (numHinges + 1);
   const hingeX = doorX + 8;
 
@@ -429,9 +429,9 @@ function TechnicalDrawing({ data, mode, title }: DrawingProps) {
                 <rect x={doorX - 4} y={hy - 6} width={12} height={12} fill="#fef9c3" stroke="#ca8a04" strokeWidth={1} rx={1} />
                 <text x={doorX + 2} y={hy + 4} textAnchor="middle" fontSize={7} fontWeight="bold" fill="#92400e">{label}</text>
                 {/* Dim label */}
-                {(data as Record<string, string>)[`dim${label}`] && (
+                {data[`dim${label}`] && (
                   <text x={doorX - 10} y={hy + 4} textAnchor="end" fontSize={6} fill="#64748b">
-                    {(data as Record<string, string>)[`dim${label}`]}"
+                    {data[`dim${label}`]}"
                   </text>
                 )}
               </g>
@@ -439,9 +439,9 @@ function TechnicalDrawing({ data, mode, title }: DrawingProps) {
           })}
 
           {/* Hinge stile dimension callouts (E, F, G, H on closer side) */}
-          {["E", "F", "G", "H"].map((label, i) => {
+          {(["E", "F", "G", "H"] as const).map((label, i) => {
             const hy = doorY + (doorPixH / 5) * (i + 1);
-            const hasVal = !!(data as Record<string, string>)[`dim${label}`];
+            const hasVal = !!data[`dim${label}`];
             if (!hasVal && mode !== "combined") return null;
             return (
               <g key={label}>
@@ -449,7 +449,7 @@ function TechnicalDrawing({ data, mode, title }: DrawingProps) {
                 <text x={doorX + doorPixW - 8} y={hy + 3} textAnchor="middle" fontSize={6} fontWeight="bold" fill="#831843">{label}</text>
                 {hasVal && (
                   <text x={doorX + doorPixW + 6} y={hy + 3} fontSize={6} fill="#64748b">
-                    {(data as Record<string, string>)[`dim${label}`]}"
+                    {data[`dim${label}`]}"
                   </text>
                 )}
               </g>
@@ -610,8 +610,12 @@ function SectionCard({
   );
 }
 
+type FactoryStringField = {
+  [K in keyof FactoryOrderData]: FactoryOrderData[K] extends string ? K : never
+}[keyof FactoryOrderData];
+
 function DimGrid({ pairs, data, onChange }: {
-  pairs: [string, string][];
+  pairs: [string, FactoryStringField][];
   data: FactoryOrderData;
   onChange: (field: keyof FactoryOrderData, value: string) => void;
 }) {
@@ -621,8 +625,8 @@ function DimGrid({ pairs, data, onChange }: {
         <Field
           key={field}
           label={label}
-          value={(data as Record<string, string>)[field] || ""}
-          onChange={(v) => onChange(field as keyof FactoryOrderData, v)}
+          value={data[field] || ""}
+          onChange={(v) => onChange(field, v)}
           placeholder={`${label} (in)`}
         />
       ))}

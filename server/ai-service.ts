@@ -942,7 +942,6 @@ export async function processPdfCatalog(pdfFilePath: string): Promise<CatalogIte
     // Import required modules dynamically
     const Tesseract = await import('tesseract.js');
     const fs = await import('fs');
-    const { createCanvas, loadImage } = await import('canvas');
     
     // For now, we'll use a simplified approach:
     // In production, you would convert PDF pages to images first
@@ -953,12 +952,14 @@ export async function processPdfCatalog(pdfFilePath: string): Promise<CatalogIte
     const fileBuffer = fs.readFileSync(pdfFilePath);
     
     // Perform OCR on the PDF
-    const worker = await Tesseract.createWorker();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
+    const worker = await Tesseract.createWorker('eng');
     
-    const { data: { text } } = await worker.recognize(fileBuffer);
-    await worker.terminate();
+    let text: string;
+    try {
+      ({ data: { text } } = await worker.recognize(fileBuffer));
+    } finally {
+      await worker.terminate();
+    }
     
     // Use OpenAI to parse the extracted text into structured catalog data
     const response = await openai.chat.completions.create({

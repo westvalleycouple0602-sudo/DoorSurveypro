@@ -16,8 +16,8 @@ let hardwareMappings: any = null;
 
 async function loadMappings() {
   if (!hardwareMappings) {
+    const mappingsPath = path.join(process.cwd(), "shared", "hardware-mappings.json");
     try {
-      const mappingsPath = path.join(process.cwd(), "shared", "hardware-mappings.json");
       const mappingsData = await fs.readFile(mappingsPath, "utf-8");
       hardwareMappings = JSON.parse(mappingsData);
     } catch (error) {

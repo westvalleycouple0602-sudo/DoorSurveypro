@@ -51,7 +51,7 @@ export function AIComplianceExplainer({ violation, doorSpecs }: AIComplianceExpl
         doorSpecs,
       });
 
-      setResult(response);
+      setResult(await response.json());
       setIsExpanded(true);
     } catch (err) {
       setError("Failed to explain compliance violation. Please try again.");

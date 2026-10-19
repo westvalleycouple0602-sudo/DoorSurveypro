@@ -290,6 +290,9 @@ async function sendTrialNotifications(organizationId: string, notificationType: 
       const result = await notificationService.processNotification({
         eventId: `${organizationId}:${notificationType}:${recipient.userId}:${Date.now()}`,
         eventType,
+        timestamp: new Date(),
+        actor: { userId: "system", email: null, name: "System" },
+        context: { organizationId, organizationName: org.name },
         targets: [{
           userId: recipient.userId,
           email: recipient.email,

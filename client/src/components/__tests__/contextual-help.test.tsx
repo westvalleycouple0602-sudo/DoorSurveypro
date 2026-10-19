@@ -46,7 +46,7 @@ describe('ContextualHelp', () => {
       await user.hover(helpButton);
       
       await waitFor(() => {
-        expect(screen.getByText('This is helpful information')).toBeInTheDocument();
+        expect(screen.getByRole('tooltip', { name: 'This is helpful information' })).toBeInTheDocument();
       });
     });
 
@@ -58,13 +58,16 @@ describe('ContextualHelp', () => {
       await user.hover(helpButton);
       
       await waitFor(() => {
-        expect(screen.getByText('This is helpful information')).toBeInTheDocument();
+        expect(screen.getByRole('tooltip', { name: 'This is helpful information' })).toBeInTheDocument();
       });
       
       await user.unhover(helpButton);
+      // Radix keeps the tooltip open while the pointer travels toward its
+      // hoverable content. Move outside that grace area, not just off the button.
+      fireEvent.pointerMove(document.body, { clientX: 500, clientY: 500 });
       
       await waitFor(() => {
-        expect(screen.queryByText('This is helpful information')).not.toBeInTheDocument();
+        expect(screen.queryByRole('tooltip', { name: 'This is helpful information' })).not.toBeInTheDocument();
       }, { timeout: 2000 });
     });
 
@@ -77,7 +80,7 @@ describe('ContextualHelp', () => {
       await user.hover(helpButton);
       
       await waitFor(() => {
-        expect(screen.getByText(content)).toBeInTheDocument();
+        expect(screen.getByRole('tooltip', { name: content })).toBeInTheDocument();
       });
     });
   });
@@ -116,11 +119,12 @@ describe('ContextualHelp', () => {
       expect(helpButton).toHaveAttribute('type', 'button');
     });
 
-    it('has appropriate size for touch targets', () => {
+    it('keeps the help icon compact with padded focusable control', () => {
       render(<ContextualHelp {...defaultProps} />);
       
       const helpButton = screen.getByTestId('button-help');
-      expect(helpButton).toHaveClass('h-4', 'w-4');
+      expect(helpButton).toHaveClass('p-0.5');
+      expect(helpButton.querySelector('svg')).toHaveClass('h-4', 'w-4');
     });
 
     it('is keyboard accessible', async () => {
@@ -159,7 +163,7 @@ describe('ContextualHelp', () => {
       await user.hover(helpButton);
       
       await waitFor(() => {
-        expect(screen.getByText(longContent)).toBeInTheDocument();
+        expect(screen.getByRole('tooltip', { name: longContent })).toBeInTheDocument();
       });
     });
 
@@ -172,7 +176,7 @@ describe('ContextualHelp', () => {
       await user.hover(helpButton);
       
       await waitFor(() => {
-        expect(screen.getByText(content)).toBeInTheDocument();
+        expect(screen.getByRole('tooltip', { name: content })).toBeInTheDocument();
       });
     });
 
@@ -196,7 +200,8 @@ describe('ContextualHelp', () => {
       render(<ContextualHelp {...defaultProps} />);
       
       const helpButton = screen.getByTestId('button-help');
-      expect(helpButton).toHaveClass('h-4', 'w-4');
+      expect(helpButton).toHaveClass('p-0.5');
+      expect(helpButton.querySelector('svg')).toHaveClass('h-4', 'w-4');
     });
   });
 });

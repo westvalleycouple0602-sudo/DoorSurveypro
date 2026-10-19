@@ -22,7 +22,6 @@ import {
   Clock,
   PauseCircle,
   Kanban,
-  AlertTriangle,
 } from "lucide-react";
 import type { PmTask, ProcurementPackage } from "@shared/projectManagement";
 

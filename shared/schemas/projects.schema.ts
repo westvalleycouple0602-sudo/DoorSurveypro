@@ -22,6 +22,19 @@ export const projects = pgTable("projects", {
   quoteType: text("quote_type"),
   notes: text("notes"),
   scopeOfWork: text("scope_of_work"),
+  // Existing columns from 0000_complete_longshot.sql, retained in 0001_snapshot.
+  // Restore the historical nullable/default contract; do not recreate live data.
+  scopePowerByOthers: text("scope_power_by_others").default("no"),
+  scopeDemolitionByOthers: text("scope_demolition_by_others").default("no"),
+  scopePatchingByOthers: text("scope_patching_by_others").default("no"),
+  scopePaintingByOthers: text("scope_painting_by_others").default("no"),
+  scopeAsbestosAbatementByOthers: text("scope_asbestos_abatement_by_others").default("no"),
+  scopeStructuralWorkByOthers: text("scope_structural_work_by_others").default("no"),
+  scopeFireAlarmByOthers: text("scope_fire_alarm_by_others").default("no"),
+  scopeAccessControlByOthers: text("scope_access_control_by_others").default("no"),
+  scopeItemsToRemain: text("scope_items_to_remain").array(),
+  scopeItemsToRemove: text("scope_items_to_remove").array(),
+  scopeAdditionalDisclaimers: text("scope_additional_disclaimers"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 }, (table) => [
@@ -34,6 +47,9 @@ export const insertProjectSchema = createInsertSchema(projects).omit({
   createdAt: true,
 }).extend({
   organizationId: z.string().optional(),
+  // Keep text-array inputs strict; generated PgArray validation coerces elements.
+  scopeItemsToRemain: z.array(z.string()).nullable().optional(),
+  scopeItemsToRemove: z.array(z.string()).nullable().optional(),
 });
 
 export const updateProjectSchema = insertProjectSchema.partial().omit({
@@ -58,6 +74,9 @@ export const doorOpenings = pgTable("door_openings", {
   doorMaterial: text("door_material"),
   doorWidth: text("door_width"),
   doorHeight: text("door_height"),
+  // LiDAR clear opening measurements use millimeters, unlike door leaf dimensions.
+  clearWidth: real("clear_width"),
+  clearHeight: real("clear_height"),
   doorThickness: text("door_thickness"),
   frameType: text("frame_type"),
   notes: text("notes"),

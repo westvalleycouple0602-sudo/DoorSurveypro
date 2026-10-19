@@ -17,7 +17,6 @@ import {
   ArrowRight,
   CheckCircle,
   AlertCircle,
-  AlertTriangle,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";

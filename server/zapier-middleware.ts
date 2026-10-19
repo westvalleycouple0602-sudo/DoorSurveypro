@@ -1,47 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 
-/**
- * Zapier API Key Authentication Middleware
- * 
- * This middleware validates API keys for Zapier webhook integration.
- * Users can generate API keys to authenticate Zapier zaps that interact with this application.
- * 
- * The API key should be provided in the Authorization header:
- * Authorization: Bearer YOUR_API_KEY
- */
-
-export function validateZapierApiKey(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({
-      error: 'Unauthorized',
-      message: 'Missing or invalid Authorization header. Use: Authorization: Bearer YOUR_API_KEY'
-    });
-  }
-
-  const apiKey = authHeader.substring(7); // Remove 'Bearer ' prefix
-
-  // Get the configured API key from environment
-  const validApiKey = process.env.ZAPIER_API_KEY;
-
-  if (!validApiKey) {
-    return res.status(503).json({
-      error: 'Service Unavailable',
-      message: 'Zapier API is not configured. Administrator needs to set ZAPIER_API_KEY environment variable.'
-    });
-  }
-
-  if (apiKey !== validApiKey) {
-    return res.status(401).json({
-      error: 'Unauthorized',
-      message: 'Invalid API key'
-    });
-  }
-
-  // API key is valid, proceed to the route handler
-  next();
-}
+// Compatibility export for internal callers. The global ZAPIER_API_KEY is retired.
+export { apiKeyAuth as validateZapierApiKey } from "./middleware/apiKeyAuth";
 
 /**
  * Rate Limiting Middleware

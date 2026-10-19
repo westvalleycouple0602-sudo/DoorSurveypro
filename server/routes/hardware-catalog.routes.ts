@@ -78,7 +78,7 @@ router.get("/api/hardware-catalog/brands", async (req, res, next) => {
     
     let query = db
       .selectDistinct({ brand: hardwareCatalog.brand })
-      .from(hardwareCatalog);
+      .from(hardwareCatalog).$dynamic();
     
     if (category && typeof category === "string") {
       query = query.where(eq(hardwareCatalog.category, category));
@@ -131,7 +131,7 @@ router.get("/api/lock-functions", async (req, res, next) => {
   try {
     const { category } = req.query;
     
-    let query = db.select().from(lockFunctions);
+    let query = db.select().from(lockFunctions).$dynamic();
     
     if (category && typeof category === "string") {
       query = query.where(eq(lockFunctions.category, category));

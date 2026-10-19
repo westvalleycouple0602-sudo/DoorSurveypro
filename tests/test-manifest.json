@@ -1,12 +1,17 @@
 {
   "core": [
+    "tests/server-schema-repairs.test.ts",
+    "tests/route-type-repairs.test.ts",
     "tests/foundation.test.ts",
+    "tests/project-scope-schema.test.ts",
     "server/__tests__/operator-origin.test.ts",
     "client/src/lib/__tests__/project-analytics.test.ts",
     "tests/logo-palette.test.ts",
     "tests/git-workflow.test.mjs"
   ],
   "jestServer": [
+    "server/__tests__/zapier-auth.test.ts",
+    "server/__tests__/logger.test.ts",
     "server/__tests__/cache.test.ts",
     "server/__tests__/calculators.test.ts",
     "server/__tests__/job-queue.test.ts",
@@ -15,6 +20,7 @@
     "server/__tests__/photo-verification.test.ts"
   ],
   "jestBrowser": [
+    "client/src/components/__tests__/typescript-repairs.test.tsx",
     "client/src/components/__tests__/contextual-help.test.tsx",
     "client/src/components/__tests__/form-wizard.test.tsx",
     "client/src/components/__tests__/metric-card.test.tsx",
