@@ -58,6 +58,7 @@ import { maskToken } from "./encryption";
 import multer from "multer";
 import { objectStorageService, ObjectStorageConfigError } from "./objectStorage";
 import { processPointCloud, processDualScan } from "./lidar-processor";
+import { scanOpeningMeasurements } from "./lib/scan-opening-measurements";
 import { generateDoorDrawingSet, exportToDxf } from "./drawing-generator";
 import { decodeImage, parseHardwareTokens, normalizeFields } from "./hardware-scanner";
 import type { DualScanSessionData } from "../shared/schemas/dual-scans.schema";
@@ -1289,13 +1290,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (scan.processingStatus === "processed" && scan.processedMetrics) {
         const metrics = scan.processedMetrics as any;
         if (metrics.width && metrics.height) {
-          const updateData: any = {
-            clearWidth: metrics.width,
-            clearHeight: metrics.height,
-          };
-          if (metrics.depth) {
-            updateData.jamb_depth = metrics.depth;
-          }
+          const updateData = scanOpeningMeasurements(metrics);
           await storage.updateOpening(openingId, orgContext.organizationId, updateData);
           logger.info("Applied processed measurements to newly linked opening", {
             scanId: req.params.id,
@@ -1387,18 +1382,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         // Update the linked opening with measurements
         if (scan.openingId && metrics.width && metrics.height) {
-          const updateData: any = {
-            clearWidth: metrics.width,
-            clearHeight: metrics.height,
-          };
-          
-          // Add optional measurements if available
-          if (metrics.frameDepth) {
-            updateData.frameDepth = metrics.frameDepth;
-          }
-          if (metrics.swing) {
-            updateData.swing = metrics.swing;
-          }
+          const updateData = scanOpeningMeasurements(metrics);
           
           await storage.updateOpening(scan.openingId, orgContext.organizationId, updateData);
         }
@@ -1719,11 +1703,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         // Update the linked opening with measurements
         if (scan.openingId && metrics.width && metrics.height) {
-          await storage.updateOpening(scan.openingId, orgContext.organizationId, {
-            clearWidth: metrics.width,
-            clearHeight: metrics.height,
-            frameDepth: metrics.frameDepth || undefined,
-          });
+          await storage.updateOpening(scan.openingId, orgContext.organizationId, scanOpeningMeasurements(metrics));
         }
 
         // Trigger compliance validation
@@ -3828,6 +3808,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Excel Export API
   app.post("/api/export/excel", async (req, res) => {
     try {
+      const orgContext = await getOrganizationContext(req);
+      if (!orgContext) return res.status(401).json({ error: "Unauthorized" });
       const { projectIds } = req.body;
       
       if (!Array.isArray(projectIds) || projectIds.length === 0) {
@@ -3839,7 +3821,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       workbook.created = new Date();
 
       for (const projectId of projectIds) {
-        const project = await storage.getProject(projectId);
+        const project = await storage.getProject(projectId, orgContext.organizationId);
         if (!project) continue;
 
         const openings = await storage.getOpeningsByProject(projectId);
@@ -5102,7 +5084,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!orgContext) {
         return res.status(401).json({ error: "Organization context not found" });
       }
-      const contact = await storage.getManufacturerContact(req.params.id, orgContext.organizationId);
+      const contact = await storage.getManufacturerContact(req.params.id);
       if (!contact) {
         return res.status(404).json({ error: "Manufacturer contact not found" });
       }
@@ -5119,7 +5101,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "Organization context not found" });
       }
       const validatedData = insertManufacturerContactSchema.parse({ ...req.body, organizationId: orgContext.organizationId });
-      const contact = await storage.createManufacturerContact(validatedData);
+      const contact = await storage.createManufacturerContact(validatedData, orgContext.userId, orgContext.organizationId);
       
       // Invalidate manufacturers cache
       cache.delete(CacheKeys.manufacturersByOrg(orgContext.organizationId));
@@ -5136,7 +5118,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!orgContext) {
         return res.status(401).json({ error: "Organization context not found" });
       }
-      const contact = await storage.updateManufacturerContact(req.params.id, orgContext.organizationId, req.body);
+      const data = insertManufacturerContactSchema.partial().omit({ organizationId: true }).parse(req.body);
+      const contact = await storage.updateManufacturerContact(req.params.id, data, orgContext.userId, orgContext.organizationId);
       if (!contact) {
         return res.status(404).json({ error: "Manufacturer contact not found" });
       }
@@ -5156,7 +5139,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!orgContext) {
         return res.status(401).json({ error: "Organization context not found" });
       }
-      const success = await storage.deleteManufacturerContact(req.params.id, orgContext.organizationId);
+      const success = await storage.deleteManufacturerContact(req.params.id);
       if (!success) {
         return res.status(404).json({ error: "Manufacturer contact not found" });
       }
@@ -5879,12 +5862,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create PO from Quote Request
   app.post("/api/quote-requests/:id/create-po", async (req, res) => {
     try {
+      const orgContext = await getOrganizationContext(req);
+      if (!orgContext) return res.status(401).json({ error: "Unauthorized" });
       const quoteRequest = await storage.getQuoteRequest(req.params.id);
       if (!quoteRequest) {
         return res.status(404).json({ error: "Quote request not found" });
       }
 
-      const project = await storage.getProject(quoteRequest.projectId);
+      const project = await storage.getProject(quoteRequest.projectId, orgContext.organizationId);
       if (!project) {
         return res.status(404).json({ error: "Project not found" });
       }
@@ -5908,12 +5893,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         poNumber,
         projectId: quoteRequest.projectId,
         quoteRequestId: quoteRequest.id,
-        vendorContactId: quoteRequest.vendorContactId,
+        vendorContactId: quoteRequest.manufacturerContactId,
         status: "draft",
         paymentTerms: parsedPoBody.data.paymentTerms || "Net 30",
         shipToName: parsedPoBody.data.shipToName || project.name,
         shipToAddress: parsedPoBody.data.shipToAddress || project.location,
-        notes: quoteRequest.notes || "",
+        notes: quoteRequest.responseNotes || "",
         taxRate: 0,
         shippingCost: 0,
         subtotal: 0,
@@ -5933,21 +5918,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Generate PO PDF
   app.get("/api/purchase-orders/:id/pdf", async (req, res) => {
     try {
+      const orgContext = await getOrganizationContext(req);
+      if (!orgContext) return res.status(401).json({ error: "Unauthorized" });
       const po = await storage.getPurchaseOrder(req.params.id);
       if (!po) {
         return res.status(404).json({ error: "Purchase order not found" });
       }
 
+      const project = await storage.getProject(po.projectId, orgContext.organizationId);
+      if (!project) return res.status(404).json({ error: "Purchase order not found" });
       const lineItems = await storage.getLineItemsByPO(req.params.id);
-      const project = await storage.getProject(po.projectId);
       
       // Fetch vendor contact details
       const vendorContactRecord = await storage.getManufacturerContact(po.vendorContactId);
       const vendorContact = vendorContactRecord ? {
-        name: vendorContactRecord.companyName,
+        name: vendorContactRecord.manufacturerName,
         email: vendorContactRecord.email,
         phone: vendorContactRecord.phone,
-        address: vendorContactRecord.address,
+        address: null,
       } : undefined;
 
       const { generatePurchaseOrderPDF } = await import("./pdf-generator");
@@ -7691,7 +7679,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             yPosition: loc.yPosition,
             rotation: loc.rotation || 0,
             doorType: opening.doorType,
-            status: opening.status,
+            status: opening.openingStatus,
           };
         })
         .filter(Boolean);
@@ -9360,7 +9348,7 @@ Provide accurate, helpful guidance while being concise and professional. When di
               
               const emailData = {
                 projectName: project?.name || "Project",
-                projectLocation: project?.address,
+                projectLocation: project?.location,
                 milestoneName: updated.name,
                 milestoneDescription: updated.description || undefined,
                 completionDate: updated.actualCompletionDate || new Date(),

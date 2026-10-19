@@ -20,15 +20,15 @@ async function notifySalesTeam(
   portalUser: any
 ): Promise<void> {
   try {
-    const memberships = await db.query.memberships.findMany({
-      where: eq(schema.memberships.organizationId, originalRequest.organizationId),
-      with: { user: true },
-    });
+    const memberships = await db.select({ user: schema.users, role: schema.memberships.role })
+      .from(schema.memberships)
+      .innerJoin(schema.users, eq(schema.users.id, schema.memberships.userId))
+      .where(eq(schema.memberships.organizationId, originalRequest.organizationId));
 
     const salesUsers = memberships
       .filter(m => ["owner", "admin", "manager"].includes(m.role))
       .map(m => m.user)
-      .filter(Boolean);
+      .filter((user): user is typeof user & { email: string } => !!user.email);
 
     if (salesUsers.length === 0) {
       logger.warn("No sales team members found to notify", {
@@ -49,18 +49,20 @@ async function notifySalesTeam(
     });
     const hasScans = items.some(item => item.lidarScanId !== null);
 
-    const priorityLabel = {
+    const priorityLabels: Record<string, string> = {
       low: "Low",
       normal: "Normal",
       high: "High",
       urgent: "URGENT",
-    }[originalRequest.priority] || originalRequest.priority;
+    };
+    const priorityLabel = priorityLabels[originalRequest.priority] || originalRequest.priority;
 
-    const triageLabel = {
+    const triageLabels: Record<string, string> = {
       quotable: "Ready to Quote",
       needs_site_visit: "Needs Site Visit",
       pending: "Pending Review",
-    }[updatedRequest.triageDecision] || updatedRequest.triageDecision;
+    };
+    const triageLabel = triageLabels[updatedRequest.triageDecision] || updatedRequest.triageDecision;
 
     const html = `
       <!DOCTYPE html>
@@ -2428,15 +2430,14 @@ async function validateLocationOwnership(locationId: string, portalUser: any): P
   location?: any;
   error?: string;
 }> {
-  const location = await db.query.customerLocations.findFirst({
-    where: and(
+  const [row] = await db.select({ location: schema.customerLocations })
+    .from(schema.customerLocations)
+    .innerJoin(schema.customers, eq(schema.customers.id, schema.customerLocations.customerId))
+    .where(and(
       eq(schema.customerLocations.id, locationId),
-      eq(schema.customerLocations.organizationId, portalUser.organizationId)
-    ),
-    with: {
-      customer: true,
-    },
-  });
+      eq(schema.customers.organizationId, portalUser.organizationId)
+    )).limit(1);
+  const location = row?.location;
 
   if (!location) {
     return { valid: false, error: "Location not found" };
@@ -3015,7 +3016,7 @@ router.get("/api/site-walk/appointments", async (req: Request, res: Response) =>
 
     const { status, from, to } = req.query;
 
-    let whereConditions = eq(schema.siteWalkAppointments.organizationId, user.organizationId);
+    let whereConditions: ReturnType<typeof and> = eq(schema.siteWalkAppointments.organizationId, user.organizationId);
 
     if (status && status !== "all") {
       whereConditions = and(
@@ -3308,7 +3309,7 @@ router.get("/api/portal/projects/:id/quotes", portalAuth, async (req: Request, r
     const share = await db.query.portalShares.findFirst({
       where: and(
         eq(schema.portalShares.projectId, projectId),
-        eq(schema.portalShares.email, portalUser.email.toLowerCase()),
+        eq(schema.portalShares.clientEmail, portalUser.email.toLowerCase()),
         eq(schema.portalShares.isActive, true)
       ),
     });
@@ -3398,7 +3399,7 @@ router.get("/api/portal/quotes/:id", portalAuth, async (req: Request, res: Respo
     const share = await db.query.portalShares.findFirst({
       where: and(
         eq(schema.portalShares.projectId, quote.projectId),
-        eq(schema.portalShares.email, portalUser.email.toLowerCase()),
+        eq(schema.portalShares.clientEmail, portalUser.email.toLowerCase()),
         eq(schema.portalShares.isActive, true)
       ),
     });
@@ -3422,7 +3423,7 @@ router.get("/api/portal/quotes/:id", portalAuth, async (req: Request, res: Respo
     });
 
     // Calculate totals with selections
-    const totals = await quoteService.calculateQuoteTotal(quoteId, portalUser.organizationId, portalUser.id);
+    const totals = await quoteService.calculateQuoteTotal(quoteId, portalUser.organizationId);
 
     // Update view state
     const existingViewState = await db.query.portalQuotesViewState.findFirst({
@@ -3533,7 +3534,7 @@ router.post("/api/portal/quotes/:id/selections", portalAuth, async (req: Request
     const share = await db.query.portalShares.findFirst({
       where: and(
         eq(schema.portalShares.projectId, quote.projectId),
-        eq(schema.portalShares.email, portalUser.email.toLowerCase()),
+        eq(schema.portalShares.clientEmail, portalUser.email.toLowerCase()),
         eq(schema.portalShares.isActive, true)
       ),
     });
@@ -3566,7 +3567,7 @@ router.post("/api/portal/quotes/:id/selections", portalAuth, async (req: Request
     }
 
     // Calculate updated totals
-    const totals = await quoteService.calculateQuoteTotal(quoteId, portalUser.organizationId, portalUser.id);
+    const totals = await quoteService.calculateQuoteTotal(quoteId, portalUser.organizationId);
 
     logger.info("Portal user saved quote selections", {
       quoteId,
@@ -3641,7 +3642,7 @@ router.post("/api/portal/quotes/:id/approval", portalAuth, async (req: Request, 
     const share = await db.query.portalShares.findFirst({
       where: and(
         eq(schema.portalShares.projectId, quote.projectId),
-        eq(schema.portalShares.email, portalUser.email.toLowerCase()),
+        eq(schema.portalShares.clientEmail, portalUser.email.toLowerCase()),
         eq(schema.portalShares.isActive, true)
       ),
     });
@@ -3711,6 +3712,7 @@ router.post("/api/portal/quotes/:id/approval", portalAuth, async (req: Request, 
           `;
 
           for (const member of salesTeam) {
+            if (!member.email) continue;
             await emailService.sendEmail({
               to: member.email,
               subject: `Quote ${actionLabel}: ${quote.quoteNumber || quoteId}`,
@@ -3771,7 +3773,7 @@ router.get("/api/portal/quotes/:id/confirmation-link", portalAuth, async (req: R
     const share = await db.query.portalShares.findFirst({
       where: and(
         eq(schema.portalShares.projectId, quote.projectId),
-        eq(schema.portalShares.email, portalUser.email.toLowerCase()),
+        eq(schema.portalShares.clientEmail, portalUser.email.toLowerCase()),
         eq(schema.portalShares.isActive, true)
       ),
     });

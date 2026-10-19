@@ -84,6 +84,10 @@ export const organizations = pgTable("organizations", {
   isDemo: text("is_demo").default("no"),
   isMasterAccount: text("is_master_account").default("no"),
   rolePermissions: jsonb("role_permissions").$type<Record<string, string[]>>(),
+  brandingOnboardingStatus: text("branding_onboarding_status").default("not_started"),
+  brandingOnboardingProgress: jsonb("branding_onboarding_progress").$type<Record<string, {
+    completed: boolean; updatedAt: string; data: Record<string, unknown>;
+  }>>().default({}),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -92,6 +96,11 @@ export const insertOrganizationSchema = createInsertSchema(organizations).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  rolePermissions: z.record(z.array(z.string())).nullable().optional(),
+  brandingOnboardingProgress: z.record(z.object({
+    completed: z.boolean(), updatedAt: z.string(), data: z.record(z.unknown()),
+  })).nullable().optional(),
 });
 
 export type InsertOrganization = z.infer<typeof insertOrganizationSchema>;

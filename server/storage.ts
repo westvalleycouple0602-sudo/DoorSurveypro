@@ -510,7 +510,7 @@ export interface IStorage {
   getLidarScan(id: string): Promise<LidarScan | undefined>;
   getLidarScansByOpening(openingId: string): Promise<LidarScan[]>;
   createLidarScan(scan: InsertLidarScan): Promise<LidarScan>;
-  updateLidarScan(id: string, scan: Partial<InsertLidarScan>): Promise<LidarScan | undefined>;
+  updateLidarScan(id: string, scan: Partial<InsertLidarScan> & Pick<Partial<LidarScan>, "linkedAt">): Promise<LidarScan | undefined>;
   deleteLidarScan(id: string): Promise<boolean>;
 
   // Scan Photos
@@ -3216,7 +3216,7 @@ export class DatabaseStorage implements IStorage {
     return scan;
   }
 
-  async updateLidarScan(id: string, update: Partial<InsertLidarScan>): Promise<LidarScan | undefined> {
+  async updateLidarScan(id: string, update: Partial<InsertLidarScan> & Pick<Partial<LidarScan>, "linkedAt">): Promise<LidarScan | undefined> {
     const [updated] = await db
       .update(lidarScans)
       .set({ ...update, updatedAt: new Date() })
@@ -4597,6 +4597,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateProjectHardwareCosts(projectId: string, organizationId: string): Promise<{ updated: number; orphaned: number; total: number; items: Array<{ hardwareItemId: string; openingId: string; status: "verified" | "orphaned"; catalogItemId: string | null }> }> {
+    if (!await this.getProject(projectId, organizationId)) throw new Error("Project not found");
     const openings = await this.getOpeningsByProject(projectId);
     const resultItems: Array<{ hardwareItemId: string; openingId: string; status: "verified" | "orphaned"; catalogItemId: string | null }> = [];
     let updated = 0;
@@ -9272,18 +9273,27 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getProjectTeamMembers(projectId: string): Promise<User[]> {
-    const assignments = await db.select()
+    const rows = await db.select({ assignment: projectAssignments })
       .from(projectAssignments)
+      .innerJoin(projects, and(
+        eq(projects.id, projectAssignments.projectId),
+        eq(projects.organizationId, projectAssignments.organizationId),
+      ))
       .where(eq(projectAssignments.projectId, projectId));
+    const assignments = rows.map(row => row.assignment);
     
     if (assignments.length === 0) return [];
     
-    const userIds = assignments.map(a => a.userId).filter((id): id is string => id !== null);
+    const userIds = [...new Set(assignments.flatMap(a => [
+      a.projectManagerId, a.pmManagerId, a.salesRepId, a.procurementOfficerId, a.engineerReviewerId,
+    ]).filter((id): id is string => id !== null))];
     if (userIds.length === 0) return [];
 
-    return db.select()
+    const members = await db.selectDistinct({ user: users })
       .from(users)
-      .where(inArray(users.id, userIds));
+      .innerJoin(memberships, eq(memberships.userId, users.id))
+      .where(and(inArray(users.id, userIds), eq(memberships.organizationId, assignments[0].organizationId)));
+    return members.map(row => row.user);
   }
 
   // ============================================================================

@@ -54,11 +54,12 @@ async function testNotificationProcessing() {
       timestamp: new Date(),
       actor: {
         userId: "system",
-        userEmail: "system@doorsurvey.pro",
-        userName: "System",
+        email: "system@doorsurvey.pro",
+        name: "System",
       },
       context: {
         organizationId: "test-org-001",
+        organizationName: "Test Organization",
         source: "test-script",
       },
       targets: [

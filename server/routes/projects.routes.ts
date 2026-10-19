@@ -1142,13 +1142,12 @@ export async function registerProjectsRoutes(app: Express, deps: RouteDependenci
           });
         }
 
-        const result = await hubspotService.syncProject({
-          id: project.id,
-          name: project.name,
-          buildingName: project.buildingName,
-          status: project.status,
-          totalCost: project.totalCost ? Number(project.totalCost) : undefined
-        });
+        const cost = await storage.getProjectCost(project.id);
+        const totalCost = cost ? hubspotService.calculateTotalCost({
+          ...cost, travelHours: cost.travelTime, travelHourlyRate: cost.travelRate,
+          expeditedDeliveryCost: cost.expeditedCost,
+        }) : undefined;
+        const result = await hubspotService.syncProject({ ...project, totalCost });
 
         return res.json({ 
           success: true,

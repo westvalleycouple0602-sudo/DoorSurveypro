@@ -74,6 +74,9 @@ export const doorOpenings = pgTable("door_openings", {
   doorMaterial: text("door_material"),
   doorWidth: text("door_width"),
   doorHeight: text("door_height"),
+  // LiDAR clear opening measurements use millimeters, unlike door leaf dimensions.
+  clearWidth: real("clear_width"),
+  clearHeight: real("clear_height"),
   doorThickness: text("door_thickness"),
   frameType: text("frame_type"),
   notes: text("notes"),

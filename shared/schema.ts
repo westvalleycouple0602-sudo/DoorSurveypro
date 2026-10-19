@@ -3,6 +3,12 @@ import { pgTable, text, varchar, timestamp, jsonb, serial, real, integer, boolea
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+const jsonValueSchema: z.ZodType<JsonValue> = z.lazy(() => z.union([
+  z.string(), z.number().finite(), z.boolean(), z.null(),
+  z.array(jsonValueSchema), z.record(jsonValueSchema),
+]));
+
 // ============================================================================
 // DOMAIN SCHEMA IMPORTS
 // ============================================================================
@@ -1101,8 +1107,8 @@ export const insertDetectionOverrideSchema = createInsertSchema(detectionOverrid
   createdAt: true,
 }).extend({
   fieldPath: z.string().min(1),
-  originalValue: z.any(),
-  correctedValue: z.any(),
+  originalValue: jsonValueSchema,
+  correctedValue: jsonValueSchema,
   originalConfidence: z.number().min(0).max(1).nullable().optional(),
   context: z.record(z.any()).nullable().optional(),
   scanId: z.string().nullable().optional(),
@@ -1252,6 +1258,7 @@ export type PdfCatalogImport = typeof pdfCatalogImports.$inferSelect;
 // Hardware Items - Individual hardware items attached to door openings
 export const hardwareItems = pgTable("hardware_items", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  catalogItemId: varchar("catalog_item_id"),
   openingId: varchar("opening_id").notNull().references(() => doorOpenings.id, { onDelete: "cascade" }),
   itemType: text("item_type").notNull(), // lock, hinge, closer, exit-device, sensor, reader, actuator, push-button, request-to-exit, door-contact, power-supply, automation, access-control-peripheral, misc
   manufacturer: text("manufacturer"),
@@ -6056,6 +6063,7 @@ export const insertProcurementItemSchema = createInsertSchema(procurementItems).
   createdAt: true,
   updatedAt: true,
 }).extend({
+  openingIds: z.array(z.string()).nullable().optional(),
   division: z.enum(["08", "28"]).default("08"),
   status: z.enum(["not_started", "pending_info", "ready_for_po", "po_sent", "acknowledged", "partial_shipment", "complete", "on_hold"]).default("not_started"),
 });
@@ -6252,6 +6260,14 @@ export const insertManufacturerOrderFormSchema = createInsertSchema(manufacturer
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  procurementItemIds: z.array(z.string()).optional(),
+  fields: z.array(z.object({
+    fieldId: z.string(),
+    value: jsonValueSchema,
+    status: z.enum(["ok", "missing", "invalid", "needs_review"]),
+    messages: z.array(z.string()),
+  })).optional(),
 });
 
 export type InsertManufacturerOrderForm = z.infer<typeof insertManufacturerOrderFormSchema>;
@@ -6398,6 +6414,7 @@ export const insertHROnboardingStepSchema = createInsertSchema(hrOnboardingSteps
   createdAt: true,
   updatedAt: true,
 }).extend({
+  resourceUrls: z.array(z.object({ title: z.string(), url: z.string() })).nullable().optional(),
   category: z.enum(["general", "software", "training", "compliance", "equipment", "hr_paperwork"]).default("general"),
 });
 
@@ -6553,6 +6570,9 @@ export const insertHRIntegrationCredentialSchema = createInsertSchema(hrIntegrat
   createdAt: true,
   updatedAt: true,
 }).extend({
+  fieldMappings: z.array(z.object({
+    hrField: z.string(), localField: z.string(), transform: z.string().optional(),
+  })).nullable().optional(),
   provider: z.enum(HR_INTEGRATION_PROVIDERS),
   syncFrequency: z.enum(["realtime", "hourly", "daily", "weekly", "manual"]).default("daily"),
   connectionStatus: z.enum(["pending", "connected", "error", "disconnected"]).default("pending"),

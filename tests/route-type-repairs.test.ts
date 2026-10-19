@@ -55,6 +55,35 @@ function loadHandler(method: string, path: string, dependencies: Record<string, 
   return new Function(...Object.keys(dependencies), `${compiled}\nreturn handler;`)(...Object.values(dependencies));
 }
 
+for (const [method, path] of [
+  ['post', '/api/quote-requests/:id/create-po'],
+  ['get', '/api/purchase-orders/:id/pdf'],
+] as const) {
+  test(`${path}: deny foreign project before line items, vendors, PDF generation or writes`, async () => {
+    const lookups: string[][] = [];
+    const forbidden = () => { throw new Error('cross-tenant effect'); };
+    const handler = loadHandler(method, path, {
+      getOrganizationContext: async (req: { authenticated: boolean }) => req.authenticated ? { organizationId: 'org-a' } : null,
+      storage: {
+        getQuoteRequest: async () => ({ id: 'quote-b', projectId: 'project-b' }),
+        getPurchaseOrder: async () => ({ id: 'po-b', projectId: 'project-b' }),
+        getProject: async (...args: string[]) => { lookups.push(args); return undefined; },
+        getLineItemsByPO: forbidden, getManufacturerContact: forbidden,
+        generateNextPONumber: forbidden, createPurchaseOrder: forbidden,
+      },
+      logError: () => {}, handleValidationError: (error: unknown) => { throw error; },
+    });
+    let status = 200;
+    const res = { status(code: number) { status = code; return this; }, json() { return this; } };
+    await handler({ authenticated: false, params: { id: 'foreign' }, body: {} }, res);
+    assert.equal(status, 401);
+    assert.deepEqual(lookups, []);
+    await handler({ authenticated: true, params: { id: 'foreign' }, body: { organizationId: 'org-b' } }, res);
+    assert.equal(status, 404);
+    assert.deepEqual(lookups, [['project-b', 'org-a']]);
+  });
+}
+
 for (const resource of ['openings', 'hardware']) {
   for (const method of ['patch', 'delete']) {
     test(`${method} ${resource}: session scope reaches storage; foreign IDs and anonymous access have no effects`, async () => {

@@ -1529,8 +1529,9 @@ export function registerHROnboardingRoutes(app: Express, deps: RouteDependencies
           await db
             .update(hrEmployeeInvites)
             .set({ 
-              status: emailSent ? "invited" : "pending",
-              invitedAt: emailSent ? new Date() : null,
+              status: emailSent.success ? "invited" : "pending",
+              lastEmailSentAt: emailSent.success ? new Date() : null,
+              emailSendCount: emailSent.success ? 1 : 0,
             })
             .where(eq(hrEmployeeInvites.id, invite.id));
 
@@ -1538,7 +1539,7 @@ export function registerHROnboardingRoutes(app: Express, deps: RouteDependencies
             row: rowNum,
             email: data.email,
             status: "success",
-            message: emailSent ? "Invite sent successfully" : "Invite created (email pending)",
+            message: emailSent.success ? "Invite sent successfully" : "Invite created (email pending)",
             inviteId: invite.id,
           });
           successCount++;
@@ -1561,7 +1562,7 @@ export function registerHROnboardingRoutes(app: Express, deps: RouteDependencies
           totalRecords: records.length,
           successfulImports: successCount,
           failedImports: errorCount,
-          errors: results.filter(r => r.status === "error").map(r => `Row ${r.row}: ${r.message}`),
+          errors: results.filter(r => r.status === "error").map(r => ({ row: r.row, message: r.message })),
           completedAt: new Date(),
         })
         .where(eq(hrEmployeeImportJobs.id, importJob.id));
@@ -1815,7 +1816,7 @@ export function registerHROnboardingRoutes(app: Express, deps: RouteDependencies
       // Get activation trends - when invites became active
       const activationTrends = await db
         .select({
-          date: sql<string>`DATE(${hrEmployeeInvites.accountActivatedAt})`,
+          date: sql<string>`DATE(${hrEmployeeInvites.accountCreatedAt})`,
           count: count(),
         })
         .from(hrEmployeeInvites)
@@ -1823,25 +1824,25 @@ export function registerHROnboardingRoutes(app: Express, deps: RouteDependencies
           and(
             eq(hrEmployeeInvites.organizationId, user.organizationId),
             eq(hrEmployeeInvites.status, "active"),
-            isNotNull(hrEmployeeInvites.accountActivatedAt),
-            gte(hrEmployeeInvites.accountActivatedAt, thirtyDaysAgo)
+            isNotNull(hrEmployeeInvites.accountCreatedAt),
+            gte(hrEmployeeInvites.accountCreatedAt, thirtyDaysAgo)
           )
         )
-        .groupBy(sql`DATE(${hrEmployeeInvites.accountActivatedAt})`)
-        .orderBy(sql`DATE(${hrEmployeeInvites.accountActivatedAt})`);
+        .groupBy(sql`DATE(${hrEmployeeInvites.accountCreatedAt})`)
+        .orderBy(sql`DATE(${hrEmployeeInvites.accountCreatedAt})`);
 
       // Get average time to activation (in hours)
       const activationTimeData = await db
         .select({
-          avgHours: sql<number>`AVG(EXTRACT(EPOCH FROM (${hrEmployeeInvites.accountActivatedAt} - ${hrEmployeeInvites.invitedAt})) / 3600)`,
+          avgHours: sql<number>`AVG(EXTRACT(EPOCH FROM (${hrEmployeeInvites.accountCreatedAt} - ${hrEmployeeInvites.createdAt})) / 3600)`,
         })
         .from(hrEmployeeInvites)
         .where(
           and(
             eq(hrEmployeeInvites.organizationId, user.organizationId),
             eq(hrEmployeeInvites.status, "active"),
-            isNotNull(hrEmployeeInvites.accountActivatedAt),
-            isNotNull(hrEmployeeInvites.invitedAt)
+            isNotNull(hrEmployeeInvites.accountCreatedAt),
+            isNotNull(hrEmployeeInvites.createdAt)
           )
         );
 

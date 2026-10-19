@@ -1,5 +1,6 @@
 {
   "core": [
+    "tests/server-schema-repairs.test.ts",
     "tests/route-type-repairs.test.ts",
     "tests/foundation.test.ts",
     "tests/project-scope-schema.test.ts",
