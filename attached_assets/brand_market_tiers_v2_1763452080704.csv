@@ -1,0 +1,23 @@
+brand_name,parent_group,market_segment,price_tier,primary_channels,common_end_users,primary_verticals,notes,logo_key
+Yale,ASSA ABLOY,Residential & Commercial,Standard,Retail;Wholesale distribution,Homeowners;Small business;Institutions,Residential;Commercial,,logos/yale
+SARGENT,ASSA ABLOY,Commercial,Premium,Contract hardware distributors;Project-based,Hospitals;Schools;Universities;Government,Healthcare;Education;Government,,logos/sargent
+Corbin Russwin,ASSA ABLOY,Commercial,Premium,Contract hardware distributors,Universities;Government;K-12,Education;Government,,logos/corbin_russwin
+Adams Rite,ASSA ABLOY,Commercial,Standard,Glass & storefront distributors,Retail chains;Strip centers,Retail;Mixed-Use,,logos/adams_rite
+Medeco,ASSA ABLOY,Commercial & High Security,Premium / High-security,Authorized security dealers;Institutional contracts,Banks;Government;Utilities;Correctional,Government;Energy;Financial;Detention,,logos/medeco
+Mul-T-Lock,ASSA ABLOY,Commercial & Residential,Premium / High-security,Security dealers;Key centers,Commercial buildings;High-end homes,Commercial;Residential;Industrial,,logos/multlock
+Schlage,Allegion,Residential & Commercial,Standard / Premium,Retail;Distribution;Specifier channels,Homeowners;Office buildings;Schools,Residential;Commercial;Education,,logos/schlage
+Falcon,Allegion,Commercial,Economy / Standard,Wholesale distribution,Budget-conscious projects,Commercial;Education,,logos/falcon
+Von Duprin,Allegion,Commercial,Premium,Contract hardware;Security integrators,Schools;Arenas;Hospitals,Education;Assembly;Healthcare,,logos/vonduprin
+Dormakaba,dormakaba,Commercial & Hospitality,Premium,Hotel specifiers;Security integrators,Hotels;Offices;Critical infrastructure,Hospitality;Commercial;Infrastructure,,logos/dormakaba
+BEST,dormakaba,Commercial,Premium,Contract hardware;Institutional channels,Schools;Universities;Government,Education;Government,,logos/best
+RCI,dormakaba,Commercial,Standard,Distribution;Integrators,Access-controlled openings,Commercial;Industrial,,logos/rci
+Kwikset,Spectrum/Fortune Brands,Residential,Economy / Standard,Big-box retail;Builders,Homeowners;Production builders,Residential,,logos/kwikset
+Baldwin,Spectrum/Fortune Brands,Residential / Light Commercial,Premium / Luxury,Showrooms;Design centers,Custom homes;Boutique hospitality,Residential;Hospitality,,logos/baldwin
+Weiser,Spectrum/Fortune Brands,Residential,Economy / Standard,Retail;Builders (Canada heavy),Homeowners;Builders,Residential,,logos/weiser
+Hager,Hager Companies,Commercial & Residential,Standard,Distribution;Contract hardware,Schools;Small projects;Multi-Family,Commercial;Residential;Education,,logos/hager
+PDQ,PDQ Manufacturing,Commercial,Standard / Value,US distribution;Direct to contractors,Regional schools;Offices;Healthcare,Education;Healthcare;Commercial,,logos/pdq
+Cal-Royal,Cal-Royal,Commercial & Residential,Economy / Value,Wholesale;Regional distributors,Value-focused projects;Multifamily,Residential;Commercial,,logos/calroyal
+Emtek,ASSA ABLOY,Residential,Premium / Luxury,Showrooms;Online custom ordering,High-end custom homes,Residential;Luxury,,logos/emtek
+Master Lock,Master Lock Co.,Multi-sector,Economy / Standard,Retail;Industrial supply,Consumers;Industrial users,Residential;Industrial;Commercial,,logos/masterlock
+Abus,Abus Group,Multi-sector,Standard / Premium,Retail;Industrial distributors,Commercial;Residential;Bike/security,Residential;Commercial;Industrial,,logos/abus
+EVVA,EVVA,Commercial & High Security,Premium / High-security,Specialist security dealers,Government;Corporate HQ;Infrastructure,Government;Commercial;Energy,,logos/evva

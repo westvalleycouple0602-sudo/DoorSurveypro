@@ -1,0 +1,275 @@
+And then as a result of the fire, and there was a few other incidents that happened in the 1900s the American Society of safety professionals was founded in October of 1911 so just months after the fire took place, and this ended up becoming what you see right there is the precursor
+
+to the NFPA.
+
+Two slides, I promise. Let's talk about some basics, really quick, fire labels. There's a lot of different ways to fire label out there in the world of hollow metal, we do it one of two ways. We have a mylar label and a metal label. Those are two two types of fire labels. We want to talk about two regulations or codes, NFPA, 4.1 or Wow, 4.2 point one. Listed items shall be identified by label, so that's either known to be a mylar or a metal label, and 4.2 point two labels shall be applied to locations that are readily visible and convenient for identification by the A, h j after installation of assembly. H j stands for authority having jurisdiction.
+
+I'll get that up. Caffeine is kicking in, and
+
+that's basically an inspector
+
+fire labels do move around. They're always not in the same place, just so, you know, that's why, when you see a pallet full of doors, you have fire labels in different areas. The reason being is the type of hardware, the number one driver of that is a continuous hinge. So if you have a continuous hinge, if we put the label on the hinge side that hardware would end up covering that label. And that's then that voice the fire rate, because you're not, did not apply to location that are readily visible. So fire labels do move based on type of hardware you have.
+
+We do fire rate
+
+doors at 2045,
+
+6090, 180
+
+minutes. So let's talk about that really quick. What that means is that the event of a fire, if you're in a room that has 180 minute fire rated opening that is going to last that door and frame is going to hold its structural integrity during the event of a fire for three hours. And that's exactly what fire ratings mean. So if you have 45 minute opening, you're going to have a you're going to have 45 minutes that room where that door is going to hold its structural integrity and stop that fire and smoke from coming into the best of its ability that has been tested. We get a lot of questions around smoke labels. That's a 20 minute label. That's the picture you see right here, and that is indicated by right here. You can see, I'm going to highlight it with this little free red arrow, there we go with an s. Now, having a 20 minute fire rated door is one thing. Having a smoke label is different, and that's because an S label isn't exactly a smoke rating. I'm doing air parentheses here for you, it indicates the door meets the leakage test of UL, which is underwriters, laboratories, 1780 standard for air leakage test on doors. The most important point out of this is the however. Point is, however, smoke cannot pass through if air cannot leak through the door assembly, which is awesome, however, again, an S label is usually achieved by installing UL approved gasketing. This gasketing is very, very thin to the naked eye, but it's basically adhesive, using adhesive that goes all the way around the frame, typically on the stop. We wouldn't be, typically would be absolutely on the stop of the frame itself. So when the door closes, it presses against that gasketing, and it seals it all up, hence smoke cannot penetrate that room, and that's what a smoke label means. All right, let's talk about relabeling, because this happens sometimes. Sadly, fire labels cannot be simply sent out. We we want to do that just as much as our customers do, but we are held to a standard of manufacturing, fire rated doors, frames and borrowed lights doors for this presentation, and we guarantee that they have been manufactured to meet the fire rating specifications, and so once they leave here, we can't we can't guarantee if that's been the case or not. We don't know if there's been any modifications or anything of that nature. So what happens in that event is, there we go. What happens in that event is that we have to have them relabeled. So there's some reasons why relabeling is going to have to take place,
+
+and
+
+those reasons are very important. Hold on. Really quick. I want to try to let these people in
+
+details. Oops,
+
+give me one second. So sorry. I don't want those people. There are people. Details.
+
+Hold on. Really quick.
+
+I want to let everyone in
+
+in middle, okay, and
+
+we're back. So there are a few reasons why you have to relabel, as you see in the picture, potentially, it was painted over. That's very drastic. So it's painted over. Let's say the label fell off, or peeled off, which it can happen from a mylar perspective. It does, or, let's say we simply forget to label it. We're talking about from a perspective of maybe an error that's occurred on DCI part. This does happen. So there's a couple ways that we solve for this. Number one, the easiest way is, if it's not installed, we bring the door back, we go out there, we re inspect it, we make sure everything's the same, and we slap a label on there, and then we register the label. Okay, there's that, let's say
+
+there is. It's completely painted
+
+over and it fell off. If we need to, if it's far
+
+away and it hasn't been
+
+installed, and it's just one door, we'll remake the door and we'll ship it out to you, okay, that's easy enough as well, but if it's installed, you have to secure a building, if it's going to be inspected, if you're going to hit liquidated damages, or something of that nature, where there's a sense of urgency around it is as urgent as it can be, then we're going to send out Intertek, or a company that's been certified to relabel to the job site, and it's going to go through a recertification process on site. They're going to go out there and they're going to confirm that no field modifications have been made to that door. They're going to confirm that based on the specifications to which you manufacture, we'll send them a bunch of information, and then they'll recertify it and slap a label on there. This does seem a little bit faster than the other options, but the reality is, is that we are relying on Intertek mostly, and the problem with that is sometimes that takes eight to 10 days to get out there to recertify. It's extremely expensive for us. It's extremely expensive for our customers that forgot to ask for something that needs to be fire rated. So sometimes the bringing it back or the remake is a lot faster, typically. But if needed, we will send Intertek or a third party company that's been certified out there to recertify on site and slap a bunch of labels on there. You have to be very detail oriented when this happens, we got to make sure we understand the openings. And there's a lot to it, but to summarize, that can be a possibility.
+
+All right, let's talk about some basic rules.
+
+All fire rated doors need to be self closing, which we're going to talk about, and self latching, which we're going to talk about.
+
+Rule number one, all doors must be self closing.
+
+How do you accomplish that? Well, they can do in two ways. Number one by use of an approved door closer. This is going to be the most typical way for a commercial elemental door. You can have it surface mounted. We've all seen those. That's what they look like. That's a surface mounted closer, good, old fashioned, delightful. You can get fancy, and you can do a concealed closer. That's an LC 930 101, that's going to be mortis. Or we're going to create a pocket mortise. Pockets, another word for mortis. We're going to mortise that into the head of the frame, and then that closer is going to be attached and installed into the channel of the door itself. So it's going to look very modern, and you're not going to see a lot of hardware itself. Every one of our doors comes with a reinforcement box. It's called a closer reinforcement box. You don't have to ask for these. They come automatically. You have to ask not to have it technically, or if it was a specialty build per se, like a sound transmission control, STC door, you wouldn't have that, but that is typically on 95% of the doors we go out and it automatically comes to the close reinforcement box. And that is because it's going, it knows that's going to be on the hinge side of the inside of the door, and because that's going to have a lot of activity in and out, in and out because of that closer. So we have a level of a reinforcement box there to support the traffic area. Of course, it's hollow metal. So what's hollow metal without exceptions? So if the door closer is to be through bolted reinforcement, and the door may be omitted, what that really means is that if you're going to drill those bolts of that surface and mounted closer, all the way through the skins of the door to the other side so they're exposed. You're not going to need a surface. You're not going to need a closer reinforcement box. We see that rarely, but typically it just goes through there as well. Nothing to really worry about.
+
+And closers
+
+closers. There we go.
+
+Closers may be equipped, may not be equipped, to the hold open function that is very important, because fire loves oxygen. That's what it feeds on. So in the event that you're in a hotel and you're running from a rapid fire and you keep leaving doors open as you go, it's going to keep feeding on that oxygen and keep spreading. There are some very dramatic photos of how fire rated doors have saved buildings where the hallway looks normal and then you open the door and it is literally charred. That's how important fire rated doors are. Fire rated doors should never be propped open. They shouldn't have a hold Option function they need to close specifically
+
+to to
+
+to stop the oxygen and stop the fire from spreading, and that's why they're so important. The second way a self closing door can happen is by use of spring hinges. And you say, What's spring hinge? I'm glad you asked. A closer device in the form of a hinge with built in springs used to hang and close a door. We try to bring hollow metal to life. Let's take a look at some photos. That's what they look like, right there. This is typically a residential application. If you have a door in your garage that leaves your kitchen and every time you close it, it sounds like thunder. Ba, boom. That's a spring hinge. If you're going to use that application from a in a commercial setting, you need to have two spring hinges that you see on the right. It's just a heavier door versus a residential door. So if you're going to use this, it's going to be two spring hinges. It's not typical. You normally go up the surface mounted closer or concealed closer. All doors must be closed and latch at the time of a fire. Hence they have to be self latching. So when we say self latching, positive latching, it's kind of the same thing upon closing the door. Last must engage a latch must engage automatically, without the need of human intervention in such a way that the door cannot be opened again by the application of a simple force on the face of the door. You leave a room itself closes. You hear the click. You turn around if you go to push that door in, and it doesn't open, it's most likely a fire rated door, potentially. So that's what positive latching means. Of course, we're going to take a look at some hardware that looks like that. They're spring loaded. So here is a bunch of self or positive latching hardware really quickly. DCI hollow metal does not sell hardware. We do not sell glass, and we do not install anything. We're we are hardware prep professionals, not hardware professionals, because we don't sell it, but we do talk about it. And I'm not sponsored by LCN. I'm not wearing an LCN shirt. Don't worry. I'm not biased. Here we go. We love it all. That's what we're talking about, right there. Those are all spring loaded. So when they close, they latch, and you can't push that door back open. The reason the self latching is important is because a fire generates a immense amount of heat, which would can literally blow doors open, right if not to age myself, but if you ever seen the movie Backdraft, back in the day, great movie that is gives you a good sense of how powerful the heat generated by fires are, this is non positive latching. That's a deadbolt. That means you have to, there we
+
+go. That means you
+
+have to manually lock the door, which can sometimes negate your fire rating. There's some hardware that is not allowed to be fire rateable, and that's important because hardware is so deep in such a wide, vast ocean, as we all know, on the call, it's important to have those conversations with your CSR or TDR,
+
+CVR, SVR and AFB. So concealed, concealed vertical rods, surface vertical rods, rods, not a rod. And Auto Flush bolts, while technically, bolts are considered to be positive latching. That's how we fire rate a pair of doors. They the inactive leap has to be self latching and self closing if it needs to be fire rated, which can be the case, and that is the case. So that's why you can have a fire rated pair of doors with a CBR and SVR or an Auto Flush bowl. Note, we don't say manual flush bolts, because there are manual flush bolts out there. But you can't have those fire rated on it. You can't have that hardware on a fire rated application. Because if you think about it, in the event of a fire as I'm running trying to save my life, I'm not going to be like, Oh, I should latch that manual flush bolt to save everyone else, I'm going to run out of that building instantaneously, like everyone else on this call would. So hence Auto Flush bolts, not manual flush bolts.
+
+Let's tell the fable less. Bottom rod and the fire pin. There are some hardware applications that call for a less surface vertical rod, or concealed vertical rod, bottom rod. And the picture on the left, you see a photo there, and you see that the panic hardware, the extra hardware devices, and you see that surface vertical rod, and that's on the top only, okay, that's fine. If this is a fire rated opening,
+
+which typically
+
+interior doors can be external. Exterior doors are typically not fire rated, because if you think about it, if the fire gets to those doors,
+
+the building's a total loss. But what that means
+
+that's an interior door.
+
+It's got the surface vertical rods on top. There's no vertical rod on the bottom. That's called less bottom rod, LBR. There's probably five other names you can call that. If this is a fire rated door, you're going to be required
+
+to have
+
+a fire pin at the bottom. Now we've talked about how much heat is generated by a fire, and that's we need to make sure that when this doors are self closing, as you can see, it's got a self closer. The top rod is going to secure the top of that door from the heat generated by that fire, but we have to secure the bottom and how we do that is with a fire pin. If you don't ask for a if you have a fire rated door and you ask for less bottom rod, we are going to give you that fire pin automatically. It's a requirement. You don't have to say, Hey, give me the fire pin. You're going to get the fire pit. So note that, from a hardware perspective, that fire pin, as it starts to heat up, it has a latch in there that melts. And the pin goes from the hardware prep on the out of the two pictures on the right, the very first photo, that's where the pin is, and that's the prep right there. And literally, that pin pops out and goes from the active to the inactive leaf. Typically it may be inactive to active. I'm not judging, but that's how that basically works. And this happens at 400 degrees, and possibly varies. The fire pin melts, depending on the hardware. It could be a melt at a lesser degree, 151, 85 200 or all the way up to 1000 degrees, where it gets to 1000 degrees, and that fire pin is going to activate. Remember, propping these doors open doesn't help anyone in the invent of a fire. If it's open and those doors get to a 400 degrees and that fire pin pops, and they're propped open like it is in that picture on the left, it doesn't help sustain the fire, stop the fire from moving forward. That's why you should not be propping open fire rated doors. All right, if you're wondering, self latching, self closing. Of course, I have videos for you because we want to bring it to life, and that's what it looks like, right there.
+
+Very impactful louvers.
+
+We get this question all the time here at DCI elemental, can you have a fire rated door with a louver? And the answer is very simple yes and no.
+
+Let's clarify,
+
+doors with integral louvers, also known as fixed blade louvers are not permitted to be fire rated, and we're talking about these doors right here, and these type of louvers right here. Those are beautiful, inch cool louvers. They're fixed blade. They look integrated, seamless,
+
+wonderful. Great job to our production team.
+
+A louver
+
+allows for the transfer of air, and with air comes smoke, and that's a problem. So when you see one of these doors, of these louvers, you instantly know that is not a fire rated application, because, and sadly, when the events of a fire, smoke will get you before the actual flames do. So if you see this type of door, you can't have a door that is fire rated with an intrical louver.
+
+However,
+
+you can have a fire rated door equipped with an aftermarket third party, not from DCI hollomeadow, Fusible Link louver, which is permitted to be fire rated. So you do have the ability to have a louver that is fire rated in a door, and that's what it looks like right there. The picture on the left is a fusible link louver, and on the rights the literally the fusible
+
+link. So
+
+at 165 degrees, it varies depending on what type of hardware you buy, but typically at 165 degrees, that fusible link is going to melt away, basically and fall apart. At that point, the blades will fall down on each other and stop the airflow from the outside to the inside of that room. Hence, that allows you to have a fire
+
+rated door with a louver. Now,
+
+from DCI hollow metal you we're going to provide you a door that hits some restrictions. We're going to talk about one second, but we're going to provide your door with a channeled cut out only because we don't sell or install hardware. You're going to get this channel cut out door, and it's going to be on the bottom, and there are some restrictions to it. Here's our Tech Data Book. We're going to cover this a little bit more in just a few minutes,
+
+but let's talk some of the restrictions.
+
+The maximum opening size is going to be 24 by
+
+24 it's going to be again channel cut out only. You are not allowed to have a 20 or 180 minute fire rating. No other cutouts are allowed. You can't have a fusible link louver and a integral white kit on a fire rated door.
+
+And it's bottom location only.
+
+Typically it's about seven inches up from the bottom, maximum, and that's what that kind of looks like. There's other restrictions, but you can find all of those in our Tech Data manual. All right. Shameless plug. Let's talk about door thickness. Casey, what door thickness can we fire rate? We have four of them. Let's talk about the standards. First, the
+
+minimum and maximum door thickness.
+
+There's been four that have been tested and permitted to be fire rated. So standard thickness, one and three eighths of an inch thick, we can maximum fire rate up to 90 minutes. I said that like Yoda, one to three eighths of an inch thick door, we can do a 90 minute max fire rating. There we go. So one to three eighths is considered a standard thickness because it matches residential thick doors. Hence, that's a general standard. The doors probably in your office, if you're sitting in an office currently or a commercial building, is one and three quarters of an inch. And we can maximize we can fire rate that up to 180 minutes. Non standard thickness. Now, anything outside of those two dimensions I just talked about is considered non standard thick doors. So we have two of them, two and a quarter to get you to 180 minute max and two inches can get you to 100 any Max as well. If you say Casey, I need a two and three quarter inch thick door, and I need it fire rated. I'm going to be like, oh, oh, we can't do that. And we're going to talk about other options, but these are the two non standard, thick fire rated bull doors when it comes to those dimensions right there.
+
+I just talked about it,
+
+and just to reinforce it, I made it a bullet point. Any door thickness outside of a one and three eighths, or one and three quarter is, or those four right there, it's, we can't fire rate those. This is a something we cover in Holland, metal 101, doors is non standard, thick. Doors will be constructed with a still stiffened core, Casey. I need a two inch thick honeycomb door, core door. You can't do that. You're going to get a still stiffened corridor. I need a two and a quarter inch thick. No, you're not going to get that. You're going to get a still stiffen non standard thick door. That is because, just so you know, from a manufacturing perspective, we can manipulate the height of those stiffeners, whether it's a Z still stiffener, which is common, or the most typical, or a hat still stiffener, but we can manipulate the height of those stiffeners to accommodate for the non standard thick door.
+
+Let's talk about resources.
+
+We're going to take the two most common questions we get, even today as we speak, we got these questions, the two most common questions that we get here at DCI elemental, and we're going to answer them for you using our Tech Data
+
+manual. Here we go.
+
+Casey, what is the maximum opening size that I can fire rate. I added the fire rate. What is the maximum opening size for a flush, single leaf, still stiff in 90 minute? Fire rated door has to be very exact in the question we ask you have to be very exact in the whole metal when it comes to fire rating. It comes to fire rating, and very detailed. So let's answer
+
+that question. Shall we together?
+
+This is our Tech Data manual. This is what we all use here at DCI Hall of metal. This is found on our website, along with other resources I'm going to talk about. I will tell you this. When you go to download this, it's going to ask for information, your name, your email address. We don't retarget we don't sell it. We're a manufacturer in construction. We don't do anything fancy. We just want to know who downloads it, because when we update it, we will send you the newest version. Because we always want you to have the newest version if something changes, whether that be an update from NFPA 80 or updates from a manufacturing perspective on how we do things here at DCI hollometal. So you're not going to start getting spam emails from us or spam emails from anyone else, because we just house it. I literally look up the data myself, personally, me, Casey Davis, and then we come up with an update. We send you the newest version of The Tech Data manual, because we care. All right. Tech Data manual, we're going to know this page right here, and this is our fire rated for single doors, because we're talking about a single flush door. And let's break this resource down. As you look at this, there's going to be a few things we want to call out and we're going to answer the question. Number one, this is door type. You got single, single louver, single with light. You see those little small footnote numbers right there. We got Dutch door because you can fire rated Dutch door. We're that cool, yes. And then we got all these different options. We're going to go to ratings, basically minutes. So we got 20 to 4560, to 9180, minute single louver. Got 4060, 90, because remember, if you have a fire rated North louver, you're not gonna we can't do 180 or 20, so you only got the 4560 or 90, and all the other ones you see right there, cool. And then
+
+we got core tight.
+
+We got Honeycomb, polystyrene.
+
+And of course, still stepping I said, Casey, where's the polyurethane? I don't think anyone said that, but I'm going to answer that question, polyurethane based on our shamelessly plugged, hollow metal 101, doors training that we had last week. You missed out. Polyurethane can't be fire rated. It turns into almost cyanide gas when it's on fire. So there's no polyurethane on here to talk about. So here we go. Let's pose the question, what is the maximum opening size for a flush single leaf, still stiff and 90 minute fire rated door? This is going to be very easy and
+
+and you go, there's our core. We're
+
+going to go over to still stiffen check.
+
+Oh, there we go. We're
+
+going to do door typing rating. We want 90 minute. We see single flush. 90 minute. There we are. We're good. And then we're going to do the x, y axis thingy. And we go right here, and the maximum opening size is going to be five foot wide by 12 foot tall for a 90 minute rating, that is a large commercial door. Just so everyone knows, the five foot wide door and a 12 foot tall door is a big door. You can accomplish that with a 90 minute fire rating. Now there's other compensating factors, like door thickness, things of that nature. If you need a three inch thick door, you can't fire it, because we just talked about, right? There's only four standard thick and non standard thick types of doors we can fire rate. So you would disqualify yourself, or omit for a fancier word, from being fire rated, you have to stay within those common thickness or types of door thickness. The second question we get, literally in the same email body, which we love, questions, is, what is the maximum open size for a vision like kit for the same type of door? Okay, I can fight you can fire rate for 90 minutes of five foot wide, 12 foot tall. Door still stiff, and that's cool, but what about an intro
+
+light kit or a vision like it?
+
+Well, we take the same resource we talked about and literally just move this down right there, single with light, very straight to the point. The good news is the opening dimension doesn't change. So you're like, cool. I can have a light. That's awesome. Hold on a minute.
+
+Of course, it's hollow metal,
+
+so there's going to be and it's fire rated, so there's going to be dimension restrictions to that. And so we have to go to the rated doors with lights resource page,
+
+which is right here,
+
+maximum glass opening sizes permitted for doors. This refers to visible glass dimension, regardless if we're talking about channel cutouts or intro light kits.
+
+So
+
+visible glass dimension is literally as you're looking at a door, is what you see, because an aftermarket light kit has a frame which is typically two inches on all sides. It could vary. I don't need an email about it. Or if you have an inch light kit, you're going to have removable glass stop, which is typically five, eight in height. We're talking about the visible glass dimension. That's what we need to know. That's all we need to know. That's all you got to give us. So let's break this dimension, or let's break this resource down, and let's answer the question.
+
+We have ratings just like we had on the previous page.
+
+We have max width, max height, Max area per light and Max area per leaf. That's a lot. Don't worry, I break it down. That's why you're on the train. We have three types
+
+of glass performance.
+
+We have safety rated wire glass. That's very old school. You see it in the high school I went to, if you're my age. So that's wire glass, literally has wire in the glass. We have Pilkington glass with PIMCO fire glaze, or equal. We're not judging here, but it's got to be that or equal. And that's kind of your medium performance glass. And then we got the Cadillac of fire rated glass. That's the old fire light or equal, right? We're not biased around here, and that's what we're going to talk about, because we're going to look for the maximum fire rating of that vision light kit, or integral light kit for the same door. Remember, visible glass dimensions only. Okay, here we go. So let's answer the question. We're dealing with a 90 minute fire rated door
+
+check.
+
+We're looking for the maximum dimension. So we go to the far right for that fire, right? Fire, light or equal.
+
+It's going to be nice and easy.
+
+And there we go. We're going to get maximum width, maximum height, Max area per light, Max area per leaf. I do want to call out, and this is very important, let's
+
+answer it really quick.
+
+The maximum width is 36 inches wide. The maximum height is 56 and a half inches in height. Those are independent dimensions. You cannot say, Hey, Casey, I'm going to do 26 inches wide, but I want to take that 10 extra inches I'm saving and put it to 66 inches. That's not how that works. That's not this is not a coupon. This is not some other cool analogy I can't think of currently to make my points. Long story short, DCI are, these are independent dimensions, 36 and 56, and a half. That's what it is. Maximum area is 2034 square inches cool.
+
+Let's talk about it. 36
+
+wait for it, 56, and a half.
+
+You times those little multiplication and you get 2034 square inches. That's what that looks like, right there. That's the maximum area per light. Well, you say, what's the deal with the maximum area per leaf. I'm glad you asked. Oh, wait for the square. Let's say, you say, Casey, I want two lights. Can I get two lights with a fire rated door? I say, you sure can. But you can exceed that 2034 square inches. So the maximum dimensions of those lights, each light, one
+
+light, two little Dr Seuss is 1017
+
+square inches. If you add those together, take the sum, for you math nerds, you get 2034 square inches. So that's where the maximum area per leaf comes into play. There's other modifier. There's other customizations. You can have. You can have slanted cutouts. There's things of that nature. When you start to get into those which have great pictures, which I'll add to this actually, now that I'm thinking about it, when you get into those custom cutouts, it's important to talk to your customer service rep or your TDR, so we can make sure it's always fire rateable. Please, please, please, remember the very first question you always want to ask yourself is, is this fire rated All right, so let's answer the question that's 36 inches wide by 56 and a half inches in height, for a total of 2034 square inches per light or in total per
+
+leaf width with
+
+firelight glass, or equal, if you do wired glass, which is old school or Pilkington, these dimensions are going to lessen in size because of the performance of the glass. So let's talk about glass for a second. What is the maximum thickness for fire rated glass? Great question. This conversation only impacts intro light kits, or it's brought to you by intro, light kits. Intro, light kits are not permitted on a fire rated one and three quarter inch, one and three eighths of an inch thick door. That's important. That should be probably its own slide. But here we are together learning continuous improvement. Intro, light kits are not permitted on a fire rated one and three eighths of an inch thick glass. Now this, what I would tell you, based on that small statement, is that most likely, from a manufacturer's perspective, a DCI Hall metal, that's because we might have not tested it right. We supply bullet resistant doors and frames. They're not fire readable. That doesn't mean there's not fire rated, bullet resistant doors and frames out there in the world. We simply did not test it as a manufacturer. Seven, eight, we're talking maximums here. Seven, eight of an inch thick is the maximum thickness of glass you can have up to 180
+
+minutes.
+
+So if you want that maximum fire rating, the max thickness is going to be seven, eight of an inch.
+
+If you lessen that thickness,
+
+you or if you, if
+
+you want a thicker glass, if you like, want one inch glass, we can potentially fire rate it, but it wouldn't be 180 minutes. You may get a 9060, again. Have the conversation with your TDR, your CSR, about that these that does come into play, but from a training perspective, we always train to the 80% of issues and seven eighths is the 80%
+
+here's a pro tip for you.
+
+Our quote team does a phenomenal job. They do great
+
+but quoting is a manual process. They try to manually find fire rating conflicts as much as they can.
+
+Sometimes things slip to the cracks.
+
+So when you get your quote saying, Hey, we quoted this fire rated door. Your Glass dimensions are great. No problem. At that point, you don't want to go out and buy the fire rated glass because fire rated glass is expensive as you've ever ordered it. You do know you want to wait for your confirmation from us here at DCI hallmetal, we try to get that out to as fast as possible. We are the fastest in the industry. Shameless plug, but the reason you want to wait for the confirmation is because the comfort your order has been uploaded into our internal systems that have built in conflict, fire, rating, resolution, right? It's like a therapist for your doors frames or borrowed lights. Once you get the confirmation, you know it's gone through our systems and everything is a go. We can fire rate that for 180 minutes. We can fire rate that for 90 minutes, you're good to go, go out there and purchase what is needed, fire rated exit hardware, right? Because you need F, E, H, when you have a fire rated door or fire rated opening, and you need fire rated glass for fire rated opening.
+
+Once you get the confirmation, go for it.
+
+We talk about this in this training, because it's happened to our customers who were extremely upset because they bought a lot of glass based on a quote that we actually couldn't fire rate. So they had to either go down in fire rating to use that size, because they're looking for a three hour rating, and they had all this glass, all this other great stuff. But the reality is, we had to go down in fire rating if they want to keep that same size.
+
+So that's a pro tip.
+
+Let's talk about resources. We have to
+
+make you successful on our website, we have, unless otherwise noted, we don't have a lot of standards here at DCI holometal, because we are custom we are custom quick ship holometal. That's what we do. We've done it for over four years.
+
+But
+
+there are some industry standards that every all the other manufacturers go by and that we go by as well. And we do want you to know what those are, because when you send in orders, if you're missing the type of material, we're going to default to these. These are our defaults right here, and these are typically across the
+
+hollow metal industry.
+
+So for example, if you send in 50 doors and you don't put a material on there, we're going to assume it's a 40. So here's where things happen, right? If you're new to the industry, maybe you forgot. We if you're old to the industry, maybe you didn't put it on there, because you're making an assumption. If you're older in the industry, and we say, hey, we send you an email, we're like, Hey, you didn't put a for material on there. You're gonna be like, it's a 40 duh. I'm like, okay. Then we go, okay, cool. And it's a redundant question, right? Because there's assumptions our customers make and your customers make. Hence, the assumptions your customers make that you make are the same assumptions we're making, and we're not going to ask you. So it's important to have this downloaded so you know exactly what we're talking about from a door or frame perspective or
+
+borrowed light perspective.
+
+Sending in orders is complex, especially if you're new to the business. There's a minimum for a door of almost like 25 pieces of information we need to know to apps just simply enter a flush Hall, metal door.
+
+So we have checklist for you.
+
+You can use these for anyone. We're not biased. We just want you to make better orders. So we're here to provide you with resources. On the left, it's frame ordering. On the right, ordering, and the light blue, that's our unless otherwise noted section. And then there's the other required information. So as you're filling out a door order, you got to make sure that you have all this stuff listed that you see on the right. At a minimum, we want to get your purchase order to our manufacturing as fast as possible. Hence the value of DCI holometal. So if you have 50 doors and the final line, we don't understand something. We're missing something. Or you hand wrote it right? Is it a lower lowercase J? Is it a lowercase Q? Is that a six? I'm not sure where the room was. So we're going to ask you, when everything slows down and we don't want that, you don't want that. So these help you send in complete orders. Today's training has been brought to you by our Tech Data manual. You can find that DCI, hello.com,
+
+we went into NFPA 80
+
+standards. You can find all of these standards with all their cool books@nfpa.org not sponsored, and we are part of the still door Institute, one of 13 manufacturers out there document 118
+
+or 118 for you fancy folk, and
+
+that is very important, because they set standards, performance and tolerance standards for the industry. So if you're specking in someone and they need to be part of steel door Institute. You know, any one of those 13 manufacturers
+
+can be on that spec. If
+
+you need help breaking spec, that's my sales pitch. Get with your territory development
+
+rep, all right.
+
+Next trainings, oh, 10 eight and 10 eight, that's incorrect. That's weird for me. Thank God I'm not facing anyone.
+
+But
+
+October 8 is our hollow metal 101 frames. This is In Depth. It's an hour and a half, trust me, I have to talk for the hour and a half. You have to listen. It's easier on your end. But we go in depth. We demystify types of anchors, base anchors, masonry anchors, we demystify all the different types of common frames. Frame construction, knock down, dry wall. Knock down, complete. What's the difference? I'm scared. Casey. Help me. I'm here. And then the following Wednesday, whatever that is at seven days. Carry the one we have, hollow metal, two, one, fire rated frames, that is like 45 minutes as well. So ignore that as I added this this morning and coffee had not kicked in at six in the morning. Fancy. You.
+
+You. There's our outro.
+
+Here's how to connect with us. We send emails out, Hey, join our training. Also, we put them on LinkedIn. We're only on LinkedIn. We do not have a DCI elemental Tiktok. I'm so sorry. I apologize. I tried for that. We were gonna have a lot of fun with it, but it went down in flames. Pun intended. Hence, you can follow us right there. Follow us on LinkedIn. We'll get your invites. We do all kinds of amazing stuff. It's natural National Construction week. We're gonna post all kinds of cool stuff today, tomorrow and Friday. That's awesome. Cody's question, are these PowerPoint slides available for us to download and save from our past Wednesday training sessions too. Shout out Cody for being on last week's. They are not yet. These are live trainings, but in 2026 I will tell you, they will most likely be downloadable on our website. We're working through some of that right now, so eventually, yes, they will be beyond that, I want to thank everyone for the 53 minutes today. I know you're very busy. We appreciate your business. We appreciate you attending these educational presentations. If you have feedback, if you want to see something else added, if you want to go more in depth in a topic, we can build these out for our customers. Please let me know. Reach out. You can reach out to me on LinkedIn, DCI Halla metal LinkedIn, you can email me. You can email your TDR, you can email our customer service. Rep, whatever you think you need to get better. We are here to facilitate that from an educational perspective. Beyond that, everyone. Thank you so much. Have a productive morning. I'm going to stay on the call for just a few minutes if there's any other questions with that being said, though we appreciate your business and have an amazing rest of the week. You
+
+Transcribed by https://otter.ai

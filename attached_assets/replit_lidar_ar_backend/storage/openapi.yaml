@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Door & Frame Survey API
+  version: 1.0.0
+paths:
+  /api/template:
+    get:
+      summary: Generate a CSV template with default option codes
+      parameters:
+      - name: applies_to
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - door
+          - frame
+      - name: market
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - residential
+          - commercial
+          - both
+      responses:
+        '200':
+          description: Template generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  download_url:
+                    type: string
+  /api/partners/price_multi:
+    post:
+      summary: Price compare across multiple partners
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partners:
+                  type: array
+                  items:
+                    type: string
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      opening_id:
+                        type: string
+                      qty:
+                        type: number
+                      codes:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: Sorted comparison by total
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partners:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partner_id:
+                          type: string
+                        total:
+                          type:
+                          - number
+                          - 'null'
+                        currency:
+                          type:
+                          - string
+                          - 'null'
+                        unmapped:
+                          type: array
+                          items:
+                            type: string

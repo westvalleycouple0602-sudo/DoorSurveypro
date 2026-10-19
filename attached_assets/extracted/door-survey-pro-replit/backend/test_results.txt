@@ -1,0 +1,72 @@
+================================================================================
+SSRF SECURITY PATCH VERIFICATION
+Testing regex validation in /api/google/watch endpoint
+================================================================================
+
+=== Vulnerability Demonstration (Without Patch) ===
+Without validation, an attacker could:
+  1. Access different Google APIs:
+     calendarId: '../../admin/directory/v1/users'
+     Would become: https://www.googleapis.com/calendar/v3/calendars/../../admin/directory/v1/users/events/watch
+     Resolves to: https://www.googleapis.com/admin/directory/v1/users/events/watch
+
+  2. Exfiltrate data using the OAuth token:
+     calendarId: '../../drive/v3/files'
+     Could access Google Drive files with stolen credentials
+
+  3. Access unauthorized resources:
+     Any Google API endpoint accessible with the OAuth token scope
+
+=== Testing Valid Calendar IDs ===
+  ✓ primary: PASS
+  ✓ user@example.com: PASS
+  ✓ calendar123: PASS
+  ✓ my-calendar_2024: PASS
+  ✓ test.calendar@domain.com: PASS
+  ✓ cal-123_test.name@domain.com: PASS
+  ✓ ABC-123: PASS
+  ✓ user_calendar: PASS
+
+=== Testing Malicious Calendar IDs (SSRF Attempts) ===
+  ✓ '../../admin/directory/v1/users'         - Path traversal with ../       : BLOCKED
+  ✓ '../../../etc/passwd'                    - File access attempt           : BLOCKED
+  ✓ 'primary?extra=param'                    - Query parameter injection     : BLOCKED
+  ✓ 'primary#fragment'                       - Fragment injection            : BLOCKED
+  ✓ 'primary/../../drive/v3/files'           - Path traversal in ID          : BLOCKED
+  ✓ 'calendar/../admin'                      - Relative path traversal       : BLOCKED
+  ✓ 'test<script>alert(1)</script>'          - XSS attempt with angle brackets: BLOCKED
+  ✓ 'test\ninjection'                        - Newline injection             : BLOCKED
+  ✓ 'test\rinjection'                        - Carriage return injection     : BLOCKED
+  ✓ 'cal id'                                 - Space character               : BLOCKED
+  ✓ 'cal;id'                                 - Semicolon                     : BLOCKED
+  ✓ 'cal:id'                                 - Colon (except in email context): BLOCKED
+  ✓ 'cal&id'                                 - Ampersand                     : BLOCKED
+  ✓ 'cal=id'                                 - Equals sign                   : BLOCKED
+  ✓ 'cal|id'                                 - Pipe character                : BLOCKED
+  ✓ 'cal\\id'                                - Backslash                     : BLOCKED
+  ✓ "cal'id"                                 - Single quote                  : BLOCKED
+  ✓ 'cal"id'                                 - Double quote                  : BLOCKED
+
+=== Testing URL Encoding ===
+  ✓ primary -> primary (expected: primary)
+  ✓ user@example.com -> user%40example.com (expected: user%40example.com)
+  ✓ my-calendar_2024 -> my-calendar_2024 (expected: my-calendar_2024)
+
+================================================================================
+TEST RESULTS
+================================================================================
+Valid Calendar IDs Test:     ✅ PASSED
+Malicious IDs Blocked Test:  ✅ PASSED
+URL Encoding Test:           ✅ PASSED
+
+================================================================================
+✅ ALL TESTS PASSED! SSRF VULNERABILITY IS PROPERLY PATCHED
+================================================================================
+
+Security Controls Applied:
+  ✓ Input validation using strict regex pattern
+  ✓ Only allows: alphanumeric, @, dot, underscore, hyphen
+  ✓ Blocks: slashes, backslashes, query params, fragments
+  ✓ URL encoding for defense-in-depth
+  ✓ Prevents path traversal attacks
+  ✓ Prevents API endpoint manipulation

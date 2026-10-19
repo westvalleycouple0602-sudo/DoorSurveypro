@@ -1,0 +1,180 @@
+// src/components/DoorElevationView.tsx
+
+import React from "react";
+import type { DoorElevationOverlay, OverlayStatus } from "../engine/doorElevationOverlay";
+
+type Props = {
+  overlay: DoorElevationOverlay;
+  className?: string;
+};
+
+const STATUS_COLOR: Record<OverlayStatus, string> = {
+  pass: "#16a34a",      // green-600
+  violation: "#dc2626", // red-600
+  unknown: "#6b7280"    // gray-500
+};
+
+const STATUS_LABEL: Record<OverlayStatus, string> = {
+  pass: "Pass",
+  violation: "Violation",
+  unknown: "Unknown"
+};
+
+/**
+ * Renders a simple door elevation using SVG, with markers from LiDAR overlay.
+ * Coordinate system: 0..1 (x, y) mapped into SVG viewBox.
+ */
+export const DoorElevationView: React.FC<Props> = ({ overlay, className }) => {
+  const viewBoxWidth = 100;
+  const viewBoxHeight = 220; // a bit taller than wide to feel like a door
+
+  return (
+    <div className={className ?? "flex flex-col gap-3"}>
+      <div className="text-sm text-gray-700 flex items-center justify-between">
+        <div>
+          <span className="font-semibold">Opening ID:</span> {overlay.openingId}
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <LegendItem status="pass" />
+          <LegendItem status="violation" />
+          <LegendItem status="unknown" />
+        </div>
+      </div>
+
+      <div className="border rounded-lg bg-slate-50 p-4 shadow-sm">
+        <svg
+          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+          className="w-full h-auto block"
+        >
+          {/* Door frame */}
+          <rect
+            x={10}
+            y={10}
+            width={viewBoxWidth - 20}
+            height={viewBoxHeight - 20}
+            rx={2}
+            ry={2}
+            fill="#e5e7eb" // slate-200
+            stroke="#9ca3af" // gray-400
+            strokeWidth={1}
+          />
+
+          {/* Door leaf (slightly inset) */}
+          <rect
+            x={13}
+            y={13}
+            width={viewBoxWidth - 26}
+            height={viewBoxHeight - 26}
+            rx={1.5}
+            ry={1.5}
+            fill="#f9fafb" // gray-50
+            stroke="#d1d5db" // gray-300
+            strokeWidth={0.8}
+          />
+
+          {/* Hardware markers */}
+          {overlay.markers.map((marker) => {
+            const bbox = marker.bboxDoorSpace;
+
+            // Fallback positions if no bbox was provided (stack markers down the latch side)
+            const fallbackX = viewBoxWidth * 0.7;
+            const fallbackSpacing = 12;
+            const index = overlay.markers.findIndex(
+              (m) => m.hardwareId === marker.hardwareId
+            );
+            const fallbackY = 20 + index * fallbackSpacing;
+
+            // Normalize coordinates: bboxDoorSpace is 0..1 inside door leaf area
+            const doorInsetX = 13;
+            const doorInsetY = 13;
+            const doorWidth = viewBoxWidth - 26;
+            const doorHeight = viewBoxHeight - 26;
+
+            const cx =
+              bbox && typeof bbox.x === "number"
+                ? doorInsetX + bbox.x * doorWidth + (bbox.width || 0) * doorWidth * 0.5
+                : fallbackX;
+
+            const cy =
+              bbox && typeof bbox.y === "number"
+                ? doorInsetY + bbox.y * doorHeight + (bbox.height || 0) * doorHeight * 0.5
+                : fallbackY;
+
+            const color = STATUS_COLOR[marker.status];
+
+            return (
+              <g key={marker.hardwareId ?? `${marker.type}-${index}`}>
+                {/* Marker circle */}
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={3}
+                  fill={color}
+                  stroke="#111827"
+                  strokeWidth={0.4}
+                />
+                {/* Tiny label next to marker */}
+                <text
+                  x={cx + 4}
+                  y={cy + 1.5}
+                  fontSize={3}
+                  fill="#111827"
+                >
+                  {shortType(marker.type)}
+                </text>
+
+                {/* Simple tooltip via <title> */}
+                <title>
+                  {`Type: ${marker.type}
+Status: ${STATUS_LABEL[marker.status]}
+Violations: ${
+                    marker.violations && marker.violations.length > 0
+                      ? marker.violations.join(", ")
+                      : "None"
+                  }`}
+                </title>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const LegendItem: React.FC<{ status: OverlayStatus }> = ({ status }) => (
+  <div className="flex items-center gap-1">
+    <span
+      className="inline-block rounded-full"
+      style={{
+        width: 10,
+        height: 10,
+        backgroundColor: STATUS_COLOR[status]
+      }}
+    />
+    <span>{STATUS_LABEL[status]}</span>
+  </div>
+);
+
+function shortType(type: string): string {
+  switch (type) {
+    case "lever":
+    case "lockset":
+      return "LV";
+    case "panic_device":
+    case "fire_exit_device":
+      return "PD";
+    case "door_viewer":
+      return "DV";
+    case "threshold":
+      return "TH";
+    case "door_closer":
+      return "CL";
+    case "auto_operator_actuator_plate":
+      return "AP";
+    default:
+      return type.slice(0, 2).toUpperCase();
+  }
+}
+
+export default DoorElevationView;

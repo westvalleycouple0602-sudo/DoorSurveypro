@@ -1,0 +1,12 @@
+Manufacturer,PartNumber,Role,GlassThickness_mm,Offset_mm,MaxHeight_mm,MaxWeight_kg,Finish,CompatibleParts,Notes,Source
+CRL,PH20C,TopPatch,"[10, 12]",70,2591.0,88.0,"['BrushedStainless', 'Polished', 'MatteBlack']","['PH10C', '1NT403', '1NT304']",Adjustable top patch; ±3° alignment; North American setback.,https://www.crlaurence.com/
+CRL,PH21,TopPatch,"[10, 12]",65,2591.0,80.0,"['BrushedStainless', 'Polished', 'MatteBlack']","['PH10C', '1NT300', '1NT304']",European-style top patch; ~65 mm setback.,https://www.crlaurence.com/
+CRL,PH10C,BottomPatch,"[10, 12]",70,,,"['BrushedStainless', 'Polished', 'MatteBlack']","['PH20C', 'PH21', '1NT403']",Bottom patch used with North American/European top patches.,https://www.crlaurence.com/
+CRL,0PF10RBS,OffsetBottomPatch,"[10, 12]",,,,['BrushedStainless'],"['PH20C', 'PH21']",Right-hand offset bottom patch enabling 180° swing near sidelites.,https://www.crlaurence.com/
+CRL,1NT300,TopPivotInsert,,"[70, 65]",,,['Stainless'],"['PH34', 'PH40', 'PH41', 'PH42', 'PH43', 'PH51', 'PH20', 'PH21']",Reversible insert to support 70mm (US) or 65mm (EU) setback.,https://www.crlaurence.com/
+CRL,1NT304,OverheadCloserInsert,,,,,['Stainless'],"['PH20', 'PH21']",Front-loading OHC insert for top door patch fittings.,https://www.crlaurence.com/
+CRL,PHA2,PatchDoorKit,"[10, 12]",70,2591.0,88.0,"['BrushedStainless', 'MatteBlack']","['PH20C', 'PH10C', '1NT403', '(optional)AMR205']",North American patch door kit; overhead closer/lock ordered separately (kit variant with lock includes AMR205).,https://www.crlaurence.com/
+Rockwood / ASSA ABLOY,PFD-20,TopPatchPivot,"[10, 12]",,,,['Stainless'],"['PFD-10', 'PF-FM', 'PF-SM']",Top patch pivot fitting for glass doors.,https://www.tmhardware.com/
+ASSA ABLOY,PF-SM,SurfaceMountPivot,,,,,['Stainless'],"['PFD-20', 'PatchFittings']",Surface-mount pivot for patch-fitting systems.,https://www.tmhardware.com/
+ASSA ABLOY,PF-FM,FloorMountPivot,,,,,['Stainless'],['PatchFittings'],Floor-mounted pivot for glass patch systems.,https://www.tmhardware.com/
+Sugatsune,GPH-40L,InsetPivotHinge,,,,,['Stainless'],[],Left-side inset pivot hinge for glass doors.,https://www.sugatsune.com/

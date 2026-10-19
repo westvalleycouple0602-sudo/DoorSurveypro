@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Door Reference UI</title>
+    <style>
+      body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:0;background:#0b0f14;color:#eaeef2}
+      header{padding:16px 20px;border-bottom:1px solid #1e293b;display:flex;gap:12px;align-items:center;background:#0f172a;position:sticky;top:0}
+      .pill{background:#0b5; color:#031; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px}
+      .container{display:grid;grid-template-columns:360px 1fr;gap:16px;padding:16px}
+      .card{background:#0f172a;border:1px solid #1e293b;border-radius:14px;overflow:hidden}
+      .card h3{margin:0;padding:12px 14px;border-bottom:1px solid #1e293b;background:#111827;font-size:14px;color:#cbd5e1}
+      .pad{padding:12px 14px}
+      input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #243044;background:#0b1220;color:#eaeef2}
+      table{width:100%;border-collapse:collapse}
+      th,td{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
+      tr:hover{background:#0b1220}
+      .muted{color:#93a3b5}
+      .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#14213d;color:#cbd5e1;font-size:12px;border:1px solid #1f2a44}
+      .row{display:flex;gap:8px;align-items:center}
+      .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px}
+      footer{padding:10px 16px;color:#8aa; font-size:12px;border-top:1px solid #1e293b}
+      a{color:#7dd3fc}
+      .btn{padding:8px 10px;border:1px solid #1e293b;border-radius:10px;background:#0b1220;color:#eaeef2;cursor:pointer}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="pill">Door Ref</div>
+      <div class="muted">Survey & Ordering Helper</div>
+      <div style="flex:1"></div>
+      <a href="/docs" class="btn" title="Swagger UI">API Docs</a>
+    </header>
+    <div class="container">
+      <div class="card">
+        <h3>Filters</h3>
+        <div class="pad">
+          <div class="grid2">
+            <div>
+              <label class="muted">Category</label>
+              <select id="category"></select>
+            </div>
+            <div>
+              <label class="muted">Material</label>
+              <select id="material"></select>
+            </div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="row">
+            <button class="btn" id="load">Load</button>
+            <div class="muted" id="count"></div>
+          </div>
+        </div>
+        <h3>Results</h3>
+        <div class="pad" style="max-height:55vh; overflow:auto">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Category</th><th>Material</th><th>Door Type</th><th>Image</th></tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Details</h3>
+        <div class="pad">
+          <div id="details" class="muted">Select a row to view details.</div>
+        </div>
+        <footer>
+          Built for field use • <span id="health" class="mono">checking…</span>
+        </footer>
+      </div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script>
+      const api = (p)=>fetch(p).then(r=>r.json());
+      const el = (id)=>document.getElementById(id);
+
+      async function initOptions() {
+        // Build category and material from options if present; fallback to known values
+        const catSel = el('category'); const matSel = el('material');
+        // Categories aren't in options_lookup; derive from door list (first 200)
+        const doors = await api('/doors?limit=200');
+        const cats = Array.from(new Set(doors.map(d=>d.category).filter(Boolean))).sort();
+        const mats = Array.from(new Set(doors.map(d=>d.material).filter(Boolean))).sort();
+        catSel.innerHTML = '<option value="">(any)</option>' + cats.map(c=>`<option>${c}</option>`).join('');
+        matSel.innerHTML = '<option value="">(any)</option>' + mats.map(c=>`<option>${c}</option>`).join('');
+      }
+
+      async function load() {
+        const cat = el('category').value;
+        const mat = el('material').value;
+        const q = new URLSearchParams({limit: 200, offset: 0});
+        if (cat) q.set('category', cat);
+        if (mat) q.set('material', mat);
+        const rows = await api('/doors?'+q.toString());
+        el('count').textContent = rows.length + ' records';
+        const tbody = el('rows'); tbody.innerHTML = '';
+        rows.forEach(r=>{
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${r.id}</td><td>${r.category||''}</td><td>${r.material||''}</td><td>${r.door_type||''}</td><td class="mono">${r.image_reference||''}</td>`;
+          tr.onclick = ()=>showDetails(r.id);
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function showDetails(id) {
+        const d = await api('/doors/'+id);
+        const fields = Object.keys(d);
+        const html = fields.map(k=>`<div class="row"><div class="muted" style="width:220px">${k}</div><div class="mono">${(d[k]??'')+''}</div></div>`).join('');
+        el('details').innerHTML = html;
+      }
+
+      async function health() {
+        try{
+          const h = await api('/health');
+          el('health').textContent = 'ok: ' + (h.ok ? 'true' : 'false');
+        } catch(e) {
+          el('health').textContent = 'api not reachable';
+        }
+      }
+
+      el('load').onclick = load;
+      initOptions().then(load);
+      health();
+    </script>
+  </body>
+</html>

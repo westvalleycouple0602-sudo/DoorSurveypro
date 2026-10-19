@@ -1,0 +1,44 @@
+{
+  "name": "door-survey-pro",
+  "version": "1.0.0",
+  "description": "DoorSurveyPro — AR/LiDAR + AI Door Inspection System for ADA/IBC/NFPA compliance",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web-admin dev",
+    "build": "pnpm --recursive run build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "start": "node packages/api-server/dist/index.js"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "express": "4.22.3",
+    "fastify": "^5.0.0",
+    "pg": "^8.11.1",
+    "aws-sdk": "^2.1470.0",
+    "ajv": "8.20.0",
+    "json-logic-js": "^2.0.3",
+    "open-policy-agent": "^1.0.0",
+    "zod": "^3.23.0",
+    "uuid": "11.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "ts-node": "^10.9.1",
+    "eslint": "^8.56.0",
+    "vitest": "^1.5.0",
+    "prettier": "^3.2.0",
+    "@types/node": "^20.12.7"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "overrides": {
+    "uuid": "$uuid",
+    "esbuild": "^0.25.0",
+    "@tootallnate/once": "2.0.1"
+  }
+}

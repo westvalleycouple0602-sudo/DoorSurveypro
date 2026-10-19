@@ -1,0 +1,133 @@
+// src/components/HardwareComplianceDetails.tsx
+
+import React from "react";
+import type {
+  DoorElevationOverlayHardwareMarker,
+  OverlayStatus
+} from "../engine/doorElevationOverlay";
+import type { RuleEvaluationResult } from "../engine/doorComplianceEngine";
+
+type Props = {
+  marker: DoorElevationOverlayHardwareMarker | null;
+  evaluations: RuleEvaluationResult[];
+  onClose?: () => void;
+};
+
+const STATUS_COLOR: Record<OverlayStatus, string> = {
+  pass: "#16a34a",
+  violation: "#dc2626",
+  unknown: "#6b7280"
+};
+
+const HardwareComplianceDetails: React.FC<Props> = ({
+  marker,
+  evaluations,
+  onClose
+}) => {
+  if (!marker) {
+    return (
+      <div className="w-full md:w-80 border-l bg-white p-4 text-sm text-gray-500">
+        Select hardware on the door elevation to see compliance details.
+      </div>
+    );
+  }
+
+  const related = evaluations.filter(
+    (ev) => ev.hardwareId === marker.hardwareId
+  );
+
+  return (
+    <div className="w-full md:w-80 border-l bg-white flex flex-col">
+      <div className="flex items-center justify-between border-b px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span
+            className="inline-block rounded-full"
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: STATUS_COLOR[marker.status]
+            }}
+          />
+          <div className="text-sm font-semibold">
+            {marker.type}{" "}
+            {marker.hardwareId ? (
+              <span className="text-xs text-gray-500">
+                ({marker.hardwareId})
+              </span>
+            ) : null}
+          </div>
+        </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-xs text-gray-500 hover:text-gray-800"
+          >
+            Close
+          </button>
+        )}
+      </div>
+
+      <div className="flex-1 overflow-auto px-4 py-3 space-y-3">
+        {related.length === 0 ? (
+          <p className="text-xs text-gray-500">
+            No specific rule evaluations associated with this hardware yet.
+          </p>
+        ) : (
+          related.map((ev) => (
+            <div
+              key={ev.ruleId}
+              className={`border rounded-md p-3 text-xs space-y-1 ${
+                ev.passed ? "border-emerald-200" : "border-red-200"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-semibold">
+                  Rule: {ev.ruleId}
+                </span>
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] ${
+                    ev.passed
+                      ? "bg-emerald-100 text-emerald-800"
+                      : "bg-red-100 text-red-800"
+                  }`}
+                >
+                  {ev.passed ? "PASS" : "VIOLATION"}
+                </span>
+              </div>
+              <div className="text-gray-700 leading-snug">
+                {ev.message}
+              </div>
+              {ev.remediation && !ev.passed && (
+                <div className="text-[11px] text-red-800 bg-red-50 border border-red-100 rounded mt-2 p-2">
+                  <div className="font-semibold mb-0.5">
+                    Suggested Fix:
+                  </div>
+                  <div>{ev.remediation}</div>
+                </div>
+              )}
+              <div className="text-[10px] text-gray-500 mt-1 flex flex-wrap gap-1">
+                {ev.codeReferences.map((cr) => (
+                  <span
+                    key={cr}
+                    className="px-1 py-0.5 bg-gray-100 rounded"
+                  >
+                    {cr}
+                  </span>
+                ))}
+              </div>
+              <div className="text-[10px] text-gray-400 mt-1">
+                Confidence: {(ev.confidence * 100).toFixed(0)}%
+                {ev.measurement_source
+                  ? ` • Source: ${ev.measurement_source}`
+                  : ""}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default HardwareComplianceDetails;

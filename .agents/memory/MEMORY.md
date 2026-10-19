@@ -1,0 +1,9 @@
+- [Auth migration compatibility](auth-migration-compatibility.md) — legacy accounts may have app IDs different from identity-provider IDs; preserve their existing links.
+- [Live legacy schema](live-legacy-schema.md) — source declarations and the existing database differ; inspect live metadata before compatibility changes.
+- [Dependency install verification](dependency-install-verification.md) — verify clean installs and inspect transitive package engine ranges as well as the package firewall.
+- [Stripe retention](payment-free-publishing.md) — user reversed the removal request and said “do not remove stripe”; keep Stripe.
+- [Entitlement repair safety](entitlement-repair-safety.md) — fixing a failed status read can reactivate previously dormant entitlement changes.
+- [Collaboration backup requirements](collaboration-backup.md) — preserve the existing work in a private GitHub backup before the shared-workspace rebuild.
+- [Connector execution boundaries](connector-execution.md) — fresh impure boundaries per call; persist long-upload progress without storing credentials.
+- [Dual-scan durability](dual-scan-durability.md) — preserve the older two-capture protocol; persisted session metadata cannot restore a lost local fallback file.
+- [Jest cache discovery](jest-cache-discovery.md) — exact test selection does not constrain package discovery; keep workspace caches and export copies outside runner roots.

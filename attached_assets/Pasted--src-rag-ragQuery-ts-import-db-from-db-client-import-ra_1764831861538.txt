@@ -1,0 +1,122 @@
+// src/rag/ragQuery.ts
+import { db } from "../db/client";
+import { ragChunks } from "../db/schema/rag";
+import type { DoorSurveyPayload } from "../types/doorSurvey";
+import { embedText } from "./embeddings";
+import { sql } from "drizzle-orm";
+
+export interface RetrievedDoc {
+  id: string;
+  text: string;
+  sourceName: string;
+  standard?: string;
+  sectionRef?: string;
+}
+
+/**
+ * Build a natural-language query to send to the vector index
+ * for a specific opening, emphasizing Div 08 & Div 28.
+ */
+export function buildRagQueryForOpening(payload: DoorSurveyPayload): string {
+  const { project, opening } = payload;
+
+  const standards = [
+    ...new Set([...project.standards, ...opening.compliance.standardsChecked]),
+  ].join(", ");
+
+  const isFireDoor = opening.doorLeaf.fireRatingMinutes > 0;
+
+  const parts: string[] = [];
+
+  parts.push(
+    `${project.buildingType} building door opening with tag ${
+      opening.doorTag
+    } in room ${opening.spaceName}.`
+  );
+
+  parts.push(
+    `Opening type: ${opening.openingType}, handing: ${opening.handing}.`
+  );
+
+  if (isFireDoor) {
+    parts.push(
+      `This is a fire-rated door (${opening.doorLeaf.fireRatingMinutes} minutes).`
+    );
+  }
+
+  if (opening.hardware.lockFunction) {
+    parts.push(`Lock function: ${opening.hardware.lockFunction}.`);
+  }
+
+  if (opening.hardware.exitDevice) {
+    parts.push(`Exit device present: ${opening.hardware.exitDevice}.`);
+  }
+
+  const hasElectronic =
+    opening.hardware.electronicSecurity.length > 0 ||
+    opening.hardware.electrifiedHardware.length > 0;
+
+  if (hasElectronic) {
+    const devTypes = opening.hardware.electronicSecurity
+      .map((d) => d.type)
+      .join(", ");
+    parts.push(
+      `There are Division 28 electronic security devices: ${devTypes}.`
+    );
+  }
+
+  parts.push(
+    `We need requirements and best practices for standards: ${standards}, particularly Division 08 (Openings) and Division 28 (Electronic Safety and Security).`
+  );
+
+  return parts.join(" ");
+}
+
+/**
+ * Perform a pgvector similarity search with metadata filters
+ * tuned for Div 08 / Div 28 + the project's buildingType.
+ */
+export async function searchRelevantDocsForOpening(
+  payload: DoorSurveyPayload,
+  opts?: { limit?: number }
+): Promise<RetrievedDoc[]> {
+  const limit = opts?.limit ?? 8;
+  const query = buildRagQueryForOpening(payload);
+
+  // 1. Embed query
+  const queryEmbedding = await embedText(query);
+
+  const buildingType = payload.project.buildingType.toLowerCase();
+
+  // 2. Similarity search using <-> operator
+  // Note: we bias towards matching division + buildingType, but still allow general code.
+  const rows = await db
+    .select({
+      id: ragChunks.id,
+      content: ragChunks.content,
+      sectionRef: ragChunks.sectionRef,
+      standard: ragChunks.standard,
+      division: ragChunks.division,
+      buildingType: ragChunks.buildingType,
+      similarity: sql<number>`(embedding <-> ${queryEmbedding}::vector)`,
+    })
+    .from(ragChunks)
+    .where(
+      sql`( ${ragChunks.division} IN ('08','28') 
+             OR ${ragChunks.standard} IN ('ADA','IBC','NFPA','ANSI_SDI','LOCAL','DIV08','DIV28') ) 
+           AND (${ragChunks.buildingType} IS NULL OR ${ragChunks.buildingType} = ${buildingType})`
+    )
+    .orderBy(sql`embedding <-> ${queryEmbedding}::vector`, sql`priority DESC`)
+    .limit(limit);
+
+  return rows.map((row) => ({
+    id: row.id,
+    text: row.content,
+    sectionRef: row.sectionRef ?? undefined,
+    standard: row.standard ?? undefined,
+    sourceName:
+      row.standard && row.division
+        ? `${row.standard} Div ${row.division}`
+        : row.standard ?? "Unknown",
+  }));
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="120" viewBox="0 0 160 120">
+  <defs>
+    <style>
+      .line { fill: none; stroke: #444; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #444; stroke-width: 2; }
+      .glass { fill: #9ecff3; opacity: .35; stroke: #444; stroke-width: 2; }
+      .fixed { fill: #e5e7eb; stroke: #444; stroke-width: 2; }
+      .operable { fill: #bcdffb; stroke: #444; stroke-width: 2; }
+      .badge { fill: #fff; stroke: #444; stroke-width: 2; }
+      .text { fill: #444; font: 700 11px Arial, sans-serif; }
+    </style>
+  </defs>
+  <rect x="10" y="10" width="140" height="100" class="line" />
+<path d="M 25 92 Q 80 10 135 92" class="thin"/>
+<rect x="40" y="40" width="35" height="52" class="operable"/>
+<rect x="80" y="40" width="35" height="52" class="operable"/>
+<line x1="58" y1="66" x2="72" y2="66" class="thin"/><line x1="98" y1="66" x2="112" y2="66" class="thin"/>
+
+</svg>

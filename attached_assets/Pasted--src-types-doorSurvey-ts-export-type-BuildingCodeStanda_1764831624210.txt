@@ -1,0 +1,147 @@
+// src/types/doorSurvey.ts
+
+export type BuildingCodeStandard = "ADA" | "IBC" | "NFPA" | "ANSI_SDI" | "LOCAL";
+
+export interface DoorSurveyProject {
+  id?: string;
+  name: string;
+  location: string;
+  customerId?: string;
+  buildingType: string;
+  quoteType: "none" | "budget" | "proposal" | "change_order";
+  standards: BuildingCodeStandard[];
+}
+
+export interface Measurements {
+  roughWidthMm: number;
+  roughHeightMm: number;
+  clearWidthMm: number;
+  headHeightMm: number;
+  jambDepthMm: number;
+  doorThicknessMm: number;
+  sillHeightMm?: number;
+}
+
+export type OpeningType =
+  | "single"
+  | "pair"
+  | "sliding"
+  | "folding"
+  | "revolving"
+  | "other";
+
+export type Handing = "RH" | "LH" | "RHR" | "LHR";
+
+export interface DoorLeaf {
+  leafType: "flush" | "full_glass" | "half_glass" | "narrow_lite";
+  coreType: "solid" | "hollow" | "mineral" | "stc";
+  fireRatingMinutes: number;
+  hasVisionLite: boolean;
+  visionLiteDescription?: string;
+  manufacturer?: string;
+  model?: string;
+}
+
+export interface Frame {
+  material: "hollow_metal" | "aluminum" | "wood";
+  profile: string;
+  anchorType: "existing" | "new" | "steel";
+  conditionScore: 1 | 2 | 3 | 4 | 5;
+  notes?: string;
+}
+
+export interface HardwarePiece {
+  type:
+    | "hinge"
+    | "lockset"
+    | "exit_device"
+    | "closer"
+    | "strike"
+    | "electric_strike"
+    | "mag_lock"
+    | "operator"
+    | "accessory";
+  description: string;
+  manufacturer?: string;
+  model?: string;
+  qty?: number;
+}
+
+export interface HardwareSet {
+  hinges: HardwarePiece[];
+  lockFunction: string; // e.g. 45 – storeroom
+  lockset: string;
+  exitDevice?: string;
+  closer?: string;
+  accessories: HardwarePiece[];
+  electrifiedHardware: HardwarePiece[];
+}
+
+export interface ComplianceIssue {
+  standard: BuildingCodeStandard;
+  codeRef: string;
+  severity: "info" | "warning" | "critical";
+  message: string;
+}
+
+export interface ComplianceResult {
+  standardsChecked: BuildingCodeStandard[];
+  passes: boolean;
+  issues: ComplianceIssue[];
+  notes?: string;
+}
+
+export interface EvidenceFile {
+  id?: string;
+  type: "photo" | "video" | "document";
+  url: string;
+  label?: string;
+}
+
+export interface Evidence {
+  photos: EvidenceFile[];
+  videos: EvidenceFile[];
+  documents: EvidenceFile[];
+}
+
+export interface EngineeringConflict {
+  type: "hardware" | "fire_rating" | "egress" | "structure" | "electrical";
+  message: string;
+}
+
+export interface EngineeringReview {
+  status: "pending" | "approved" | "changes_required";
+  notes?: string;
+  conflicts: EngineeringConflict[];
+}
+
+export interface QuoteSummary {
+  materialCost: number;
+  laborCost: number;
+  shippingCost: number;
+  marginPercent: number;
+  totalPrice: number;
+  optionLabel: string; // e.g. "Base", "Option A"
+}
+
+export interface DoorOpeningInput {
+  id?: string;
+  doorTag: string;
+  floor: string;
+  spaceName: string;
+  openingType: OpeningType;
+  handing: Handing;
+  measurements: Measurements;
+  doorLeaf: DoorLeaf;
+  frame: Frame;
+  hardware: HardwareSet;
+  compliance: ComplianceResult;
+  evidence: Evidence;
+  engineeringReview: EngineeringReview;
+  quoteSummary: QuoteSummary;
+}
+
+export interface DoorSurveyPayload {
+  project: DoorSurveyProject;
+  opening: DoorOpeningInput;
+}

@@ -1,0 +1,146 @@
+// src/components/HardwareComplianceDetails.tsx
+
+import React from "react";
+import type {
+  DoorElevationOverlayHardwareMarker,
+  OverlayStatus
+} from "../engine/doorElevationOverlay";
+import type { RuleEvaluationResult } from "../engine/doorComplianceEngine";
+
+type Props = {
+  marker: DoorElevationOverlayHardwareMarker | null;
+  evaluations: RuleEvaluationResult[];
+  onClose?: () => void;
+};
+
+const STATUS_COLOR: Record<OverlayStatus, string> = {
+  pass: "#22c55e",
+  violation: "#ef4444",
+  unknown: "#9ca3af"
+};
+
+const HardwareComplianceDetails: React.FC<Props> = ({
+  marker,
+  evaluations,
+  onClose
+}) => {
+  if (!marker) {
+    return (
+      <div className="w-full md:w-80 border-l bg-white p-4 text-sm text-slate-500">
+        <p className="text-xs uppercase tracking-wide text-orange-400 font-semibold mb-1">
+          Compliance Details
+        </p>
+        <p>Select a hardware marker on the LiDAR door view to see rule checks.</p>
+      </div>
+    );
+  }
+
+  const related = evaluations.filter(
+    (ev) => ev.hardwareId === marker.hardwareId
+  );
+
+  return (
+    <div className="w-full md:w-80 border-l bg-white flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between border-b px-4 py-3 bg-slate-50/80">
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-2">
+            <span
+              className="inline-block rounded-full"
+              style={{
+                width: 10,
+                height: 10,
+                backgroundColor: STATUS_COLOR[marker.status]
+              }}
+            />
+            <span className="text-sm font-semibold text-slate-800">
+              {marker.type}
+            </span>
+          </div>
+          {marker.hardwareId && (
+            <span className="text-[10px] uppercase tracking-wide text-slate-500">
+              Hardware ID: {marker.hardwareId}
+            </span>
+          )}
+        </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-xs text-slate-500 hover:text-slate-900 px-2 py-1 rounded-md hover:bg-slate-100"
+          >
+            Close
+          </button>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex-1 overflow-auto px-4 py-3 space-y-3">
+        {related.length === 0 ? (
+          <p className="text-xs text-slate-500">
+            No specific rule evaluations associated with this hardware yet.
+          </p>
+        ) : (
+          related.map((ev) => (
+            <div
+              key={ev.ruleId}
+              className={`rounded-lg p-3 text-xs space-y-1 border ${
+                ev.passed
+                  ? "border-emerald-200 bg-emerald-50/60"
+                  : "border-red-200 bg-red-50/60"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-slate-800">
+                  {ev.ruleId}
+                </span>
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                    ev.passed
+                      ? "bg-emerald-200 text-emerald-900"
+                      : "bg-red-200 text-red-900"
+                  }`}
+                >
+                  {ev.passed ? "PASS" : "VIOLATION"}
+                </span>
+              </div>
+
+              <div className="text-slate-800 leading-snug">
+                {ev.message}
+              </div>
+
+              {ev.remediation && !ev.passed && (
+                <div className="text-[11px] text-red-900 bg-red-100/80 border border-red-200 rounded mt-2 p-2">
+                  <div className="font-semibold mb-0.5">
+                    Suggested Fix
+                  </div>
+                  <div>{ev.remediation}</div>
+                </div>
+              )}
+
+              <div className="text-[10px] text-slate-500 mt-1 flex flex-wrap gap-1">
+                {ev.codeReferences.map((cr) => (
+                  <span
+                    key={cr}
+                    className="px-1 py-0.5 bg-slate-100 rounded"
+                  >
+                    {cr}
+                  </span>
+                ))}
+              </div>
+
+              <div className="text-[10px] text-slate-400 mt-1">
+                Confidence: {(ev.confidence * 100).toFixed(0)}%
+                {ev.measurement_source
+                  ? ` • Source: ${ev.measurement_source}`
+                  : ""}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default HardwareComplianceDetails;

@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bug Reports</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 16px; }
+  table { width:100%; border-collapse: collapse; }
+  th,td { padding:8px; border-bottom:1px solid #eee; vertical-align: top; }
+  .mono { font-family: ui-monospace, Menlo, monospace; }
+  .pill { padding:2px 6px; border-radius:8px; border:1px solid #ddd; }
+  .pill.new { background:#eef2ff; }
+  .pill.investigating { background:#fef9c3; }
+  .pill.resolved { background:#dcfce7; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  input, select, button { padding:8px; border-radius:8px; border:1px solid #ddd; }
+  textarea { width:100%; min-height:100px; }
+</style>
+</head>
+<body>
+<h1>Bug Reports</h1>
+<div class="row">
+  <input id="q" placeholder="Search description/user/scan_id..." style="min-width:280px;"/>
+  <select id="statusF">
+    <option value="">Any status</option>
+    <option>New</option>
+    <option>Investigating</option>
+    <option>Resolved</option>
+  </select>
+  <button id="refresh">Refresh</button>
+</div>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Meta</th><th>Description</th><th>Links</th><th>Update</th></tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<script>
+function pill(status){
+  const s = (status||'').toLowerCase();
+  const cls = s==='resolved' ? 'resolved' : (s==='investigating' ? 'investigating' : 'new');
+  return `<span class="pill ${cls}">${status||'New'}</span>`;
+}
+function rowHTML(b){
+  const meta = `
+    <div><strong>User:</strong> ${b.user_id} | <strong>Platform:</strong> ${b.platform}</div>
+    <div><strong>Scan:</strong> <span class="mono">${b.scan_id||'-'}</span> | <strong>Severity:</strong> ${b.severity} | <strong>Time:</strong> ${b.timestamp}</div>
+    <div><strong>Status:</strong> ${pill(b.status)} ${b.assignee ? '| <strong>Assignee:</strong> '+b.assignee : ''}</div>`;
+  const links = `
+    ${b.screenshot_url ? `<div><a href="${b.screenshot_url}" target="_blank">Screenshot</a></div>`:''}
+    ${b.logs_url ? `<div><a href="${b.logs_url}" target="_blank">Logs</a></div>`:''}
+    ${b.logs_excerpt ? `<pre class="mono" style="white-space:pre-wrap; background:#0b1020; color:#e6edf3; padding:8px; border-radius:8px;">${b.logs_excerpt.replace(/</g,'&lt;')}</pre>`:''}
+  `;
+  const upd = `
+    <div class="row">
+      <select id="st-${b.bug_id}">
+        <option ${b.status==='New'?'selected':''}>New</option>
+        <option ${b.status==='Investigating'?'selected':''}>Investigating</option>
+        <option ${b.status==='Resolved'?'selected':''}>Resolved</option>
+      </select>
+      <input id="as-${b.bug_id}" placeholder="Assignee" value="${b.assignee||''}"/>
+    </div>
+    <div class="row">
+      <textarea id="no-${b.bug_id}" placeholder="Notes...">${b.notes||''}</textarea>
+    </div>
+    <button onclick="save('${b.bug_id}')">Save</button>
+  `;
+  return `<tr>
+    <td class="mono">${b.bug_id}</td>
+    <td>${meta}</td>
+    <td>${(b.description||'').replace(/</g,'&lt;')}</td>
+    <td>${links}</td>
+    <td>${upd}</td>
+  </tr>`;
+}
+async function load(){
+  const r = await fetch('/bugs'); const j = await r.json();
+  const q = document.getElementById('q').value.toLowerCase();
+  const sf = document.getElementById('statusF').value;
+  const arr = Object.values(j).filter(b => {
+    const hay = (b.description||'') + ' ' + (b.user_id||'') + ' ' + (b.scan_id||'');
+    const okQ = !q || hay.toLowerCase().includes(q);
+    const okS = !sf || b.status===sf;
+    return okQ && okS;
+  }).sort((a,b)=> (a.timestamp < b.timestamp ? 1 : -1));
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = arr.map(rowHTML).join('');
+}
+async function save(id){
+  const body = {
+    status: document.getElementById('st-'+id).value,
+    assignee: document.getElementById('as-'+id).value,
+    notes: document.getElementById('no-'+id).value
+  };
+  const r = await fetch('/bugs/'+id, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  if (r.ok) { alert('Saved'); load(); } else { alert('Failed'); }
+}
+document.getElementById('refresh').onclick = load;
+document.getElementById('statusF').onchange = load;
+document.getElementById('q').oninput = () => { clearTimeout(window._t); window._t=setTimeout(load, 300); };
+load();
+</script>
+</body>
+</html>

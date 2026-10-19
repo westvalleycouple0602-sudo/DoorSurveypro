@@ -1,0 +1,54 @@
+{
+  "core": [
+    "tests/foundation.test.ts",
+    "server/__tests__/operator-origin.test.ts",
+    "client/src/lib/__tests__/project-analytics.test.ts",
+    "tests/logo-palette.test.ts",
+    "tests/git-workflow.test.mjs"
+  ],
+  "jestServer": [
+    "server/__tests__/cache.test.ts",
+    "server/__tests__/calculators.test.ts",
+    "server/__tests__/job-queue.test.ts",
+    "server/__tests__/phase1-compliance-rules.test.ts",
+    "server/__tests__/phase2-3-compliance-rules.test.ts",
+    "server/__tests__/photo-verification.test.ts"
+  ],
+  "jestBrowser": [
+    "client/src/components/__tests__/contextual-help.test.tsx",
+    "client/src/components/__tests__/form-wizard.test.tsx",
+    "client/src/components/__tests__/metric-card.test.tsx",
+    "client/src/components/ui/__tests__/skeleton-card.test.tsx"
+  ],
+  "domain": [
+    "tests/landed-cost.test.ts"
+  ],
+  "database": [
+    "server/__tests__/clerk-account-binding.test.ts",
+    "server/__tests__/dual-scan-persistence.test.ts",
+    "server/__tests__/trial-service.test.ts"
+  ],
+  "legacyIntegration": [
+    "server/__tests__/integration/cache-integration.test.ts",
+    "server/__tests__/integration/infrastructure-api.test.ts",
+    "server/__tests__/integration/job-queue-integration.test.ts",
+    "server/__tests__/smoke-tests.test.ts"
+  ],
+  "e2e": [
+    "tests/e2e/01-authentication.spec.ts",
+    "tests/e2e/02-project-management.spec.ts",
+    "tests/e2e/03-door-openings.spec.ts",
+    "tests/e2e/04-photo-upload.spec.ts",
+    "tests/e2e/05-lidar-scanning.spec.ts",
+    "tests/e2e/06-hardware-scanning.spec.ts",
+    "tests/e2e/07-compliance-checking.spec.ts",
+    "tests/e2e/auth.spec.ts",
+    "tests/e2e/compliance-schema-validation.spec.ts",
+    "tests/e2e/navigation.spec.ts",
+    "tests/e2e/photo-upload.spec.ts",
+    "tests/e2e/profile.spec.ts",
+    "tests/e2e/project-flow.spec.ts",
+    "tests/e2e/quote-flow.spec.ts"
+  ]
+}
+

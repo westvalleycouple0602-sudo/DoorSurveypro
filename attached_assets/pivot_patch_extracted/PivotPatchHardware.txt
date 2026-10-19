@@ -1,0 +1,8 @@
+
+; Type Catalog for PivotPatchHardware.rfa
+Label,PartNumber,Role,GlassThickness_mm,Offset_mm,MaxHeight_mm,MaxWeight_kg,Finish
+PH20C,PH20C,TopPatch,10;12,70,2591,88,BrushedStainless|Polished|MatteBlack
+PH21,PH21,TopPatch,10;12,65,2591,80,BrushedStainless|Polished|MatteBlack
+PH10C,PH10C,BottomPatch,10;12,70,,,,BrushedStainless|Polished|MatteBlack
+0PF10RBS,0PF10RBS,OffsetBottomPatch,10;12,,,,BrushedStainless
+AMR201,AMR201,PatchShell,10;12,0,,,,Stainless

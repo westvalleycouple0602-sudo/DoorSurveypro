@@ -1,0 +1,26 @@
+name: Application work item
+description: Scope a change in an existing-app workstream.
+body:
+  - type: dropdown
+    id: workstream
+    attributes:
+      label: Workstream
+      options:
+        - Engineering foundation
+        - Survey to quote
+        - Accounts and tenancy
+        - Capture reliability
+        - Integrations and operations
+        - Collaboration and handoff
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: User outcome and acceptance checks
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Data, roles, dependencies and preservation constraints

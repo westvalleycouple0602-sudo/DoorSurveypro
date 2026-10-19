@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+  nats:
+    image: nats:2
+    ports: ["4222:4222"]
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["minio:/data"]
+
+  server:
+    build:
+      context: ../server
+      dockerfile: ../infra/Dockerfile.server
+    environment:
+      DATABASE_URL: postgres://app:app@postgres:5432/app
+      NATS_URL: nats://nats:4222
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_ACCESS_KEY_ID: minioadmin
+      S3_SECRET_ACCESS_KEY: minioadmin
+      S3_BUCKET: doorsurvey
+    depends_on: [postgres, nats, minio]
+    ports: ["3000:3000"]
+
+  enricher:
+    build:
+      context: ../workers/node/enricher
+      dockerfile: ../../infra/Dockerfile.worker
+    environment:
+      DATABASE_URL: postgres://app:app@postgres:5432/app
+      NATS_URL: nats://nats:4222
+    depends_on: [postgres, nats]
+
+volumes:
+  pgdata:
+  minio:
+
+  compliance:
+    build:
+      context: ../workers/node/compliance
+      dockerfile: ../../infra/Dockerfile.worker
+    environment:
+      DATABASE_URL: postgres://app:app@postgres:5432/app
+      NATS_URL: nats://nats:4222
+    depends_on: [postgres, nats]
+

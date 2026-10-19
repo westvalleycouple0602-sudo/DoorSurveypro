@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "notes": "Templates; verify with AHJ before enforcing."
+  },
+  "overrides": [
+    {
+      "jurisdiction": {
+        "country": "US",
+        "state": "CA"
+      },
+      "reference": "CBC 11B-309.3",
+      "changes": [
+        {
+          "rule_id": "HW_MH_001",
+          "action": "replace",
+          "check": {
+            "type": "max",
+            "path": "hardware.height_aff",
+            "max": 44
+          },
+          "message_fail": "Hardware height ${hardware.height_aff} in exceeds CA max 44 in AFF."
+        }
+      ]
+    },
+    {
+      "jurisdiction": {
+        "country": "US",
+        "state": "NY",
+        "city": "New York City"
+      },
+      "reference": "NYC Local Code (verify)",
+      "changes": [
+        {
+          "rule_id": "EG_PANIC_REQUIRED",
+          "action": "note",
+          "note": "Verify panic thresholds and occupancy exceptions with NYC DOB/FDNY."
+        }
+      ]
+    },
+    {
+      "jurisdiction": {
+        "country": "US",
+        "state": "TX"
+      },
+      "reference": "TAS (verify)",
+      "changes": [
+        {
+          "rule_id": "HW_MH_001",
+          "action": "note",
+          "note": "TAS generally mirrors ADA; confirm local interpretations with TDLR."
+        }
+      ]
+    },
+    {
+      "jurisdiction": {
+        "country": "CA",
+        "province": "ON"
+      },
+      "reference": "OBC (verify)",
+      "changes": [
+        {
+          "rule_id": "HW_MH_001",
+          "action": "todo",
+          "todo": "Set metric AFF band per OBC when confirmed."
+        }
+      ]
+    },
+    {
+      "jurisdiction": {
+        "country": "CA",
+        "province": "BC"
+      },
+      "reference": "BCBC (verify)",
+      "changes": [
+        {
+          "rule_id": "HW_MH_001",
+          "action": "todo",
+          "todo": "Add provincial mounting heights if different from NBC."
+        }
+      ]
+    }
+  ]
+}

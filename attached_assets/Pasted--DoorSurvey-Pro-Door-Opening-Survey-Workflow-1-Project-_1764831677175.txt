@@ -1,0 +1,151 @@
+# DoorSurvey Pro – Door Opening Survey Workflow
+
+## 1. Project Initialization
+
+**Goal:** Establish project context and applicable building codes before any doors are surveyed.
+
+**Fields**
+- Project name  
+- Location  
+- Customer (optional)  
+- Building type (Hospital, Office, School, etc.)  
+- Quote type (None, Budget, Proposal, Change Order)  
+- Applicable standards (ADA, IBC, NFPA, ANSI/SDI, Local)
+
+---
+
+## 2. Opening Mapping
+
+**Goal:** Link each opening to its location on the floor plan and assign a stable ID.
+
+**Steps**
+1. Select floor plan.
+2. Drop a marker on the door location.
+3. Assign or confirm door tag (e.g., `101A`).
+4. Enter floor and space (e.g., Level 1 – Corridor 1).
+5. Select opening type and handing.
+
+---
+
+## 3. AR / LiDAR Measurements
+
+**Goal:** Capture accurate dimensions of the opening.
+
+**Captured**
+- Rough opening width & height  
+- Clear width  
+- Head height  
+- Jamb depth  
+- Door thickness  
+- Sill height (if applicable)
+
+The app guides the user with AR prompts (start at hinge jamb, sweep across head, etc.) and validates measurements against code tolerances.
+
+---
+
+## 4. Door Panel Survey
+
+**Goal:** Describe the installed or proposed door leaf.
+
+**Captured**
+- Door type (flush, full glass, half glass, narrow lite)  
+- Core type (solid, hollow, mineral, STC)  
+- Fire rating (minutes)  
+- Vision lite presence and description  
+- Manufacturer and model (barcode or manual selection)
+
+---
+
+## 5. Frame Survey
+
+**Goal:** Capture frame material, profile, anchorage, and condition.
+
+**Captured**
+- Frame material (hollow metal, aluminum, wood)  
+- Profile size  
+- Anchor type (existing, new, steel clip)  
+- Condition score (1–5)  
+- Notes and special conditions  
+
+---
+
+## 6. Hardware Set
+
+**Goal:** Identify all hardware installed or required at the opening.
+
+**Captured**
+- Hinges (size, type, quantity, manufacturer)  
+- Lock/exit device details and function code  
+- Closer type and mounting  
+- Accessories (kick plates, stops, coordinators, etc.)  
+- Electrified hardware (mag locks, power supplies, readers, operators)
+
+The app cross-references the hardware catalog and suggests code-compliant substitutions.
+
+---
+
+## 7. Code Compliance
+
+**Goal:** Automatically analyze the opening against codes and standards.
+
+**Standards Checked**
+- ADA: clear width, approaches, hardware heights, opening force  
+- IBC: fire rating, glass type, egress requirements  
+- NFPA 80: fire door assembly details  
+- ANSI/SDI: frame and door standards  
+
+**Output**
+- Pass/Fail status  
+- List of issues with code references  
+- Recommendations for corrective actions  
+
+---
+
+## 8. Photos & Evidence
+
+**Goal:** Capture visual evidence for engineering review and record keeping.
+
+**Captured**
+- Full elevation photo  
+- Frame and hinge detail  
+- Lock/exit device close-up  
+- Threshold/undercut photo  
+- Fire label and listing marks  
+
+---
+
+## 9. Engineering Review
+
+**Goal:** Provide a structured handoff to engineering.
+
+**Captured**
+- AI-generated summary  
+- Reviewer status (Pending, Approved, Changes Required)  
+- Identified conflicts (hardware, rating, egress, structure)  
+- Reviewer notes  
+
+---
+
+## 10. Quote Summary
+
+**Goal:** Turn the survey into a priceable opening.
+
+**Captured**
+- Material cost  
+- Labor cost  
+- Shipping cost  
+- Margin %  
+- Total price  
+- Option label (Base / Option A / Option B)  
+
+---
+
+## 11. Final Report & Export
+
+**Goal:** Produce deliverables for the client and internal teams.
+
+**Outputs**
+- Survey report (PDF)  
+- Compliance summary (PDF / JSON)  
+- Quote breakdown (PDF / CSV)  
+- Data export (JSON) to integrate with estimating, ERP, and CRM systems

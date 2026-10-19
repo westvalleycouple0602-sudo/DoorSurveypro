@@ -1,0 +1,80 @@
+[
+  {
+    "category":"Cylindrical",
+    "function_name":"Passage",
+    "ansi_bhma_function":"F75",
+    "desc":"Latch both sides, no locking"
+  },
+  {
+    "category":"Cylindrical",
+    "function_name":"Privacy",
+    "ansi_bhma_function":"F76",
+    "desc":"Push-button inside; emergency release outside"
+  },
+  {
+    "category":"Cylindrical",
+    "function_name":"Entry\/Office",
+    "ansi_bhma_function":"F82\/F109",
+    "desc":"Entry\/office variants; key from outside; inside control"
+  },
+  {
+    "category":"Cylindrical",
+    "function_name":"Storeroom",
+    "ansi_bhma_function":"F84",
+    "desc":"Outside always locked; key retracts latch; inside free egress"
+  },
+  {
+    "category":"Cylindrical",
+    "function_name":"Classroom",
+    "ansi_bhma_function":"F84\/F86",
+    "desc":"Key outside locks\/unlocks; inside free egress"
+  },
+  {
+    "category":"Cylindrical",
+    "function_name":"Classroom Security",
+    "ansi_bhma_function":"\u2014",
+    "desc":"Inside key locks outside (brand-specific extensions)"
+  },
+  {
+    "category":"Mortise",
+    "function_name":"Passage",
+    "ansi_bhma_function":"F01",
+    "desc":"Latch both sides; no locking"
+  },
+  {
+    "category":"Mortise",
+    "function_name":"Privacy",
+    "ansi_bhma_function":"F02",
+    "desc":"Inside privacy control; emergency release outside"
+  },
+  {
+    "category":"Mortise",
+    "function_name":"Entry\/Office",
+    "ansi_bhma_function":"F04",
+    "desc":"Deadlocking latch; key outside; inside control"
+  },
+  {
+    "category":"Mortise",
+    "function_name":"Storeroom",
+    "ansi_bhma_function":"F07",
+    "desc":"Outside trim rigid; key retracts latch; inside free egress"
+  },
+  {
+    "category":"Mortise",
+    "function_name":"Apartment\/Hotel",
+    "ansi_bhma_function":"F13\/F20",
+    "desc":"Inside free egress with deadbolt options"
+  },
+  {
+    "category":"Deadbolt",
+    "function_name":"Single Cylinder",
+    "ansi_bhma_function":"F156",
+    "desc":"Key outside\/turn inside"
+  },
+  {
+    "category":"Deadbolt",
+    "function_name":"Double Cylinder",
+    "ansi_bhma_function":"F158",
+    "desc":"Key both sides; code restricted on egress"
+  }
+]

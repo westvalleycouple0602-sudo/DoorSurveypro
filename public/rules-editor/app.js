@@ -1,0 +1,9 @@
+const $=id=>document.getElementById(id);const editor=$("editor");const filterCat=$("filterCat");const filterSev=$("filterSev");let master=null;let current=null;
+async function fetchMaster(){const res=await fetch("../rules_compliance_master.json");if(!res.ok)throw new Error("Unable to load master file");master=await res.json();current=structuredClone(master);render();loadFilters();}
+function loadFilters(){const cats=[...new Set((current.rules||[]).map(r=>r.category))].sort();filterCat.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option>${c}</option>`).join("");}
+function render(){editor.value=JSON.stringify(current,null,2);$("status").textContent=`Rules: ${(current.rules||[]).length}`;}
+function applyFilters(){if(!master)return;const cat=filterCat.value;const sev=filterSev.value;const rules=(master.rules||[]).filter(r=>(!cat||r.category===cat)&&(!sev||r.severity===sev));current={...master,rules};render();}
+$("file").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;const txt=await f.text();try{current=JSON.parse(txt);master=current;loadFilters();render();}catch(e){alert("Invalid JSON");}});
+$("loadMaster").addEventListener("click",async()=>{try{await fetchMaster();}catch(e){alert(e.message);}});
+filterCat.addEventListener("change",applyFilters);filterSev.addEventListener("change",applyFilters);
+$("download").addEventListener("click",()=>{const blob=new Blob([editor.value],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="rules_edited.json";a.click();URL.revokeObjectURL(url);});

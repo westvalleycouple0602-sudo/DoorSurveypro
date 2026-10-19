@@ -1,0 +1,20 @@
+name: Report a broken workflow
+description: Describe an application problem and how to reproduce it.
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What were you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps and actual result
+      description: Include the screen, role, and expected result. Never include credentials or customer-sensitive data.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: What would show this is fixed?

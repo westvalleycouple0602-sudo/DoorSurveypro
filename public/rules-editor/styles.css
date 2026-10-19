@@ -1,0 +1,7 @@
+body{margin:0;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0b1020;color:#eaf0ff}
+header{padding:16px;border-bottom:1px solid #273052}h1{margin:0;font-size:20px}
+.panel{padding:12px;margin:12px;background:#111936;border:1px solid #273052;border-radius:12px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+textarea{width:100%;height:70vh;background:#0f152c;color:#eaf0ff;border:1px solid #273052;border-radius:8px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+#status{margin-top:8px;color:#a9b3d1}button,select{background:#1a2241;color:#eaf0ff;border:1px solid #273052;border-radius:8px;padding:8px 12px;cursor:pointer}
+button:hover{background:#24305c}

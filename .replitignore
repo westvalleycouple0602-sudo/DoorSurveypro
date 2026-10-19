@@ -1,0 +1,4 @@
+/generated-artifacts/
+/coverage/
+/test-results/
+/playwright-report/

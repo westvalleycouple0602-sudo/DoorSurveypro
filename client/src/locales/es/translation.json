@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "dashboard": "Panel de Control",
+    "projects": "Proyectos",
+    "estimating": "Estimación",
+    "quotes": "Cotizaciones",
+    "projectManagement": "Gestión de Proyectos",
+    "reviewTools": "Herramientas de Revisión",
+    "purchasing": "Compras",
+    "analytics": "Analítica",
+    "company": "Empresa",
+    "settings": "Configuración"
+  },
+  "dashboard": {
+    "welcome": "¡Bienvenido de nuevo, {{name}}!",
+    "welcomeDefault": "¡Bienvenido de nuevo!",
+    "quickActions": "Acciones Rápidas",
+    "recentProjects": "Proyectos Recientes",
+    "activeQuotes": "Cotizaciones Activas",
+    "metrics": {
+      "totalProjects": "Proyectos Totales",
+      "activeQuotes": "Cotizaciones Activas",
+      "doorOpenings": "Aberturas de Puertas"
+    },
+    "actions": {
+      "newProject": "Nuevo Proyecto",
+      "viewProjects": "Ver Todos los Proyectos",
+      "createQuote": "Crear Cotización"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "tabs": {
+      "profile": "Perfil",
+      "preferences": "Preferencias",
+      "security": "Seguridad",
+      "activity": "Actividad"
+    },
+    "personalInfo": "Información Personal",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "edit": "Editar",
+    "save": "Guardar Cambios",
+    "cancel": "Cancelar",
+    "notifications": {
+      "title": "Notificaciones",
+      "description": "Administra tus preferencias de notificación",
+      "emailNotifications": "Notificaciones por Correo",
+      "emailNotificationsDesc": "Recibir notificaciones por correo electrónico",
+      "projectUpdates": "Actualizaciones de Proyecto",
+      "projectUpdatesDesc": "Recibir notificaciones sobre cambios en proyectos",
+      "quoteAlerts": "Alertas de Cotización",
+      "quoteAlertsDesc": "Recibir alertas sobre actualizaciones de cotizaciones",
+      "weeklyDigest": "Resumen Semanal",
+      "weeklyDigestDesc": "Recibir un resumen de tu semana",
+      "marketingEmails": "Correos de Marketing",
+      "marketingEmailsDesc": "Recibir actualizaciones sobre nuevas funciones"
+    },
+    "language": {
+      "title": "Idioma",
+      "description": "Selecciona tu idioma preferido para la interfaz",
+      "preferred": "Idioma Preferido",
+      "preferredDesc": "Elige el idioma que deseas usar para la interfaz de la aplicación"
+    },
+    "measurements": {
+      "title": "Sistema de Medición",
+      "description": "Configura tus unidades de medida preferidas",
+      "system": "Unidades de Medida",
+      "systemDesc": "Selecciona el sistema de medición preferido de tu organización",
+      "imperial": "Imperial (pulgadas, pies)",
+      "metric": "Métrico (milímetros, metros)"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "import": "Importar",
+    "new": "Nuevo",
+    "view": "Ver",
+    "actions": "Acciones"
+  },
+  "messages": {
+    "success": {
+      "saved": "Cambios guardados exitosamente",
+      "deleted": "Elemento eliminado exitosamente",
+      "created": "Elemento creado exitosamente"
+    },
+    "error": {
+      "generic": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+      "network": "Error de red. Por favor, verifica tu conexión.",
+      "unauthorized": "No estás autorizado para realizar esta acción."
+    }
+  }
+}

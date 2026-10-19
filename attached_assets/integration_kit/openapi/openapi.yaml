@@ -1,0 +1,50 @@
+
+openapi: 3.0.3
+info:
+  title: DoorSurvey Pro — Integrations API
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /integrations/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+  /integrations/hubspot/oauth/start:
+    get:
+      summary: Start HubSpot OAuth
+      responses:
+        '302':
+          description: Redirect to provider
+  /integrations/hubspot/oauth/callback:
+    get:
+      summary: HubSpot OAuth callback
+      responses:
+        '200':
+          description: Linked
+  /integrations/quickbooks/oauth/start:
+    get:
+      summary: Start QuickBooks OAuth
+      responses:
+        '302':
+          description: Redirect to provider
+  /integrations/quickbooks/oauth/callback:
+    get:
+      summary: QuickBooks OAuth callback
+      responses:
+        '200':
+          description: Linked
+  /webhooks/{provider}:
+    post:
+      summary: Webhook receiver (generic)
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received

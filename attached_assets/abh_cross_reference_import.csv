@@ -1,0 +1,46 @@
+productType,abhPart,trimcoPart,rockPart,otherManufacturerName,otherManufacturerPart,notes
+Push Plate,AB-70A,1700-1,K1050,Ives,8260,"Standard 3 x 12 push plate"
+Push Plate,AB-70B,1700-2,K1051,Ives,8261,"Standard 3.5 x 15 push plate"
+Push Plate,AB-70C,1700-3,K1052,Ives,8262,"Standard 4 x 16 push plate"
+Push Plate,AB-70E,1700-5,K1054,Ives,8264,"Standard 6 x 16 push plate"
+Push Plate,AB-70F,1700-6,K1055,Ives,8265,"Standard 8 x 16 push plate"
+Push Plate,AB-73B,1700HD-2,K1150,Hager,5204,"Heavy duty 3.5 x 15 push plate"
+Push Plate,AB-73C,1700HD-3,K1151,Hager,5205,"Heavy duty 4 x 16 push plate"
+Flush Pull,AB-94,1202,K1100,Don-Jo,FP-111,"Standard 3.5 x 5 flush pull"
+Flush Pull,AB-94BTB,1202BTB,K1100BTB,Don-Jo,FP-111BTB,"Back-to-back pair 3.5 x 5"
+Flush Pull,AB-94C,1202C,K1100C,Don-Jo,FP-111CS,"Concealed screws 3.5 x 5"
+Flush Pull,AB-95A,1203,K1101,Don-Jo,FP-112,"Compact 2-3/16 x 3-1/4"
+Flush Pull,AB-95B,1204,K1102,Don-Jo,FP-113,"Medium 2-11/16 x 4-3/16"
+Flush Pull,AB-95R,1205,K1103,Don-Jo,FP-114,"Round 3.5 diameter"
+Door Pull,AB-102,1304,K1200,Ives,8271,"Type 1HD 5.5 CTC"
+Door Pull,AB-105,1305,K1201,Ives,8272,"Type 1HD 5.5 CTC 3/4 dia"
+Door Pull,AB-106,1306,K1202,Ives,8273,"Type 1HD 6 CTC"
+Door Pull,AB-107,1307,K1203,Ives,8274,"Type 1HD 8 CTC"
+Door Pull,AB-110,1310,K1205,Ives,8276,"Type 1HD 8 CTC 1 dia"
+Door Pull,AB-111,1311,K1206,Ives,8277,"Type 1HD 10 CTC"
+Hinge,AB-4C-1,CB180,NRP8300,Hager,BB1168,"4.5 x 4.5 heavy weight ball bearing"
+Hinge,AB-5C-1,CB181,NRP8301,Hager,BB1279,"5 x 4.5 heavy weight ball bearing"
+Hinge,AB-5C-HD,CB181HD,NRP8301HD,McKinney,TA2714,"5 x 4.5 heavy duty ball bearing"
+Hinge,AB-3H-1,3H1,NRP8298,Stanley,FBB179,"4.5 x 4.5 full mortise"
+Hospital Latch,AB-1600,1042,K1400,Ives,SL29,Push/pull hospital latch
+Hospital Latch,AB-1601,1043,K1401,Ives,SL30,Heavy duty hospital latch
+Pivot Set,AB-7600,1500,K1500,Ives,7WD17,Standard floor pivot
+Pivot Set,AB-7600HD,1500HD,K1500HD,Ives,7WD18,Heavy duty floor pivot
+Pivot Set,AB-7622,1501,K1501,Ives,7WD21,Offset floor pivot
+Overhead Stop,AB-8000,1800,K1600,Ives,SB501,Surface mounted overhead stop
+Overhead Stop,AB-8001,1801,K1601,Ives,SB502,Concealed overhead stop
+Overhead Stop,AB-8010,1802,K1602,Rockwood,482,Electromagnetic overhead holder
+Electromagnetic Holder,AB-EM-45,1900,K1700,Rixson,370,45 lb electromagnetic holder
+Electromagnetic Holder,AB-EM-75,1901,K1701,Rixson,371,75 lb electromagnetic holder
+Electromagnetic Holder,AB-EM-150,1902,K1702,Rixson,372,150 lb electromagnetic holder
+Protection Plate,AB-120A,2000,K1800,Ives,8400,"8 x 34 mop plate"
+Protection Plate,AB-120B,2001,K1801,Ives,8401,"10 x 34 mop plate"
+Protection Plate,AB-120C,2002,K1802,Ives,8402,"12 x 34 mop plate"
+Protection Plate,AB-121A,2003,K1803,Don-Jo,90,"8 x 34 armor plate"
+Protection Plate,AB-121B,2004,K1804,Don-Jo,91,"10 x 34 armor plate"
+Kick Plate,AB-125A,2100,K1900,Ives,8100,"8 x 30 kick plate"
+Kick Plate,AB-125B,2101,K1901,Ives,8101,"10 x 30 kick plate"
+Kick Plate,AB-125C,2102,K1902,Ives,8102,"12 x 30 kick plate"
+Edge Pull,AB-130,2200,K2000,Rockwood,102,"6 edge pull"
+Edge Pull,AB-131,2201,K2001,Rockwood,103,"8 edge pull"
+Edge Pull,AB-132,2202,K2002,Rockwood,104,"10 edge pull"

@@ -1,0 +1,39 @@
+
+<!doctype html>
+<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Multi-Partner Price Compare</title>
+<style>
+body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+input,button{padding:8px;border-radius:8px;border:1px solid #ddd}
+table{border-collapse:collapse;width:100%}th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+pre{background:#0b1020;color:#e6edf3;padding:8px;border-radius:8px;white-space:pre-wrap}
+small{color:#666}
+</style></head>
+<body>
+<h1>Price Compare</h1>
+<p>Enter partner IDs (comma-separated) and line items (JSON) with <code>opening_id, qty, codes</code>.</p>
+<div class="row">
+  <input id="partners" value="acme,contoso" size="40"/>
+  <button onclick="run()">Compare</button>
+</div>
+<textarea id="items" rows="8" style="width:100%;">[
+  {"opening_id":"D-101A","qty":1,"codes":["HM16G-G90","FR-ULX","GL-FR"]},
+  {"opening_id":"D-102B","qty":2,"codes":["HM16G-G90","HINGE-CONT-FS"]}
+]</textarea>
+<div id="table"></div>
+<pre id="out">—</pre>
+<script>
+async function run(){
+  const p = document.getElementById('partners').value.split(',').map(x => x.trim()).filter(Boolean);
+  let items;
+  try{ items = JSON.parse(document.getElementById('items').value); }catch(e){ alert('Bad JSON'); return; }
+  const r = await fetch('/api/partners/price_multi', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({partners:p, items})});
+  const j = await r.json();
+  document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+  // simple table
+  const rows = (j.partners||[]).map(r => `<tr><td>${r.partner_id}</td><td>${r.currency||''}</td><td>${r.total ?? ''}</td><td><small>${(r.unmapped||[]).join(', ')}</small></td></tr>`).join('');
+  document.getElementById('table').innerHTML = `<table><thead><tr><th>Partner</th><th>Currency</th><th>Total</th><th>Unmapped Codes</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+</script>
+</body></html>

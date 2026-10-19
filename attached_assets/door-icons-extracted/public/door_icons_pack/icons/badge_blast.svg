@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="120" viewBox="0 0 160 120">
+  <defs>
+    <style>
+      .line { fill: none; stroke: #444; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #444; stroke-width: 2; }
+      .glass { fill: #9ecff3; opacity: .35; stroke: #444; stroke-width: 2; }
+      .fixed { fill: #e5e7eb; stroke: #444; stroke-width: 2; }
+      .operable { fill: #bcdffb; stroke: #444; stroke-width: 2; }
+      .badge { fill: #fff; stroke: #444; stroke-width: 2; }
+      .text { fill: #444; font: 700 11px Arial, sans-serif; }
+    </style>
+  </defs>
+  <rect x="10" y="10" width="140" height="100" class="line" /><rect x="98" y="12" width="52" height="18" rx="4" class="badge"/><text x="102" y="25" class="text">BLAST</text>
+</svg>

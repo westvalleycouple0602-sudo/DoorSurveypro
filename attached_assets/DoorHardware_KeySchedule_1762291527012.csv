@@ -1,0 +1,5 @@
+Door_Hardware_Set,BOM_Item_Category,BOM_Manufacturer,BOM_Model_Number,BOM_Description,BOM_Qty,BOM_Size_Spec,BOM_Finish,BOM_Handing,BOM_Fire_Smoke_Rating,BOM_Notes
+STD_HM_PAIR_QEL,Exit Device,Von Duprin,99 QEL,Rim exit with Quiet Latch Retraction,2,,626 (US26D),Pair (LH Active),90 Min (S),Use Command Access PS210
+AUTO_LHR_SINGLE,Operator,DORMAKABA,ED250,Low Energy Swing Operator,1,,630 (US32D),LHR,Non-Rated,Include BEA 10MS31 & 10TD900
+FIRELITE_VL_NGP_SEALS,Vision Lite/Glazing,TGP (FireLite),FireLite-NT 5/16,Fire-protective glazing,1,"33-7/8"" x custom",,,45 Min (S),NGP 1815 kit + NGP 425 perimeter seals
+STOREFRONT_338_RAIL,Accessories,CRL (C.R. Laurence),DR2TBR,"Bottom Rail, 3-3/8""",1,"4'-0"" opening",Polished,,Non-Rated,FHC GRA-338 alternate

@@ -1,0 +1,6 @@
+guideline_id,topic,rule,method_examples,source_ref
+SELF_CLOSE,Fire Door Basics,All fire-rated doors must be self-closing.,"Surface closer or concealed closer; spring hinges (less common, typically 2 for commercial).",HM201_FireDoors
+SELF_LATCH,Fire Door Basics,All fire-rated doors must be self-latching (positive latching).,Latch engages automatically on close; cannot be reopened by simple push/pull.,HM201_FireDoors
+LABEL_VIS,Labels,Labels must remain visible to AHJ after install.,Relocate label when continuous hinges used.,HM201_FireDoors
+FRAME_90,Frames (3-sided),DCI often manufactures 3-sided frames to 90 min while doors may be 60; opening rating is the lower of the two.,Order may show 60-min door / 90-min frame; opening = 60 min.,HM201_FireFrames
+RACEWAY_PATH,Electrified Preps,Provide explicit raceway path and wire count on order.,"e.g., 'from 3rd butt hinge to lock edge'; note any Molex needs.",HM201_Electrified

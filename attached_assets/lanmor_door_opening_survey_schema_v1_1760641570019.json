@@ -1,0 +1,308 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Door Opening Survey",
+  "type": "object",
+  "required": [
+    "project",
+    "openings"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": [
+        "project_name",
+        "site_address",
+        "surveyor_name",
+        "survey_date"
+      ],
+      "properties": {
+        "project_name": {
+          "type": "string"
+        },
+        "client_name": {
+          "type": "string"
+        },
+        "site_address": {
+          "type": "string"
+        },
+        "building": {
+          "type": "string"
+        },
+        "surveyor_name": {
+          "type": "string"
+        },
+        "survey_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "openings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "door_id",
+          "location",
+          "door",
+          "frame"
+        ],
+        "properties": {
+          "door_id": {
+            "type": "string"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "floor": {
+                "type": "string"
+              },
+              "area": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "floor",
+              "area"
+            ],
+            "additionalProperties": false
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "handing": {
+                "type": "string",
+                "enum": [
+                  "LH",
+                  "RH",
+                  "LHR",
+                  "RHR",
+                  "Double"
+                ]
+              },
+              "swing": {
+                "type": "string",
+                "enum": [
+                  "Inward",
+                  "Outward",
+                  "Double Acting"
+                ]
+              },
+              "active_leaf": {
+                "type": "string",
+                "enum": [
+                  "Left",
+                  "Right",
+                  "Both"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "ratings": {
+            "type": "object",
+            "properties": {
+              "fire_rating": {
+                "type": "string",
+                "enum": [
+                  "None",
+                  "20 min",
+                  "45 min",
+                  "60 min",
+                  "90 min"
+                ]
+              },
+              "stc": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "door": {
+            "type": "object",
+            "properties": {
+              "material": {
+                "type": "string",
+                "enum": [
+                  "Hollow Metal",
+                  "Wood",
+                  "Aluminum/Glass",
+                  "All-Glass"
+                ]
+              },
+              "size_nominal_w": {
+                "type": "number"
+              },
+              "size_nominal_h": {
+                "type": "number"
+              },
+              "thickness_in": {
+                "type": "number"
+              },
+              "vision_lite_size": {
+                "type": "string"
+              },
+              "glazing_type": {
+                "type": "string"
+              },
+              "glazing_rating": {
+                "type": "string",
+                "enum": [
+                  "NR",
+                  "20 min",
+                  "45 min",
+                  "60 min",
+                  "90 min"
+                ]
+              },
+              "condition_notes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "material",
+              "size_nominal_w",
+              "size_nominal_h",
+              "thickness_in"
+            ],
+            "additionalProperties": false
+          },
+          "frame": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Welded HM",
+                  "Knock-Down HM",
+                  "Butt to CMU",
+                  "Butt to Wood",
+                  "Split"
+                ]
+              },
+              "opening_type": {
+                "type": "string",
+                "enum": [
+                  "Single",
+                  "Pair"
+                ]
+              },
+              "jamb_depth_in": {
+                "type": "number"
+              },
+              "throat_depth_in": {
+                "type": "number"
+              },
+              "anchor_type": {
+                "type": "string"
+              },
+              "hinge_reference": {
+                "type": "object",
+                "properties": {
+                  "A": {
+                    "type": "number"
+                  },
+                  "B": {
+                    "type": "number"
+                  },
+                  "C": {
+                    "type": "number"
+                  },
+                  "D": {
+                    "type": "number"
+                  },
+                  "E": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "condition_notes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "jamb_depth_in",
+              "throat_depth_in"
+            ],
+            "additionalProperties": false
+          },
+          "hardware": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "manufacturer": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "Hinge",
+                    "Lock",
+                    "Exit Device",
+                    "Closer",
+                    "Strike",
+                    "Electrified",
+                    "Auto Operator",
+                    "Threshold",
+                    "Sweep",
+                    "Gasket",
+                    "Bolt",
+                    "Coordinator",
+                    "Viewer",
+                    "Stop",
+                    "Pull/Push",
+                    "Other"
+                  ]
+                },
+                "template": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "notes": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "electrification": {
+            "type": "object",
+            "properties": {
+              "is_electrified": {
+                "type": "boolean",
+                "default": false
+              },
+              "programming_notes": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "survey_notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

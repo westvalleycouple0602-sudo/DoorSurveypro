@@ -1,0 +1,508 @@
+// --- helper components & types imports above remain the same ---
+
+/* ... ProjectStep, MappingStep, MeasurementsStep, DoorStep, FrameStep stay as before ... */
+
+// Small reusable text input component (optional helper)
+const TextInput = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <input
+    {...props}
+    className={[
+      "input",
+      props.className,
+    ]
+      .filter(Boolean)
+      .join(" ")}
+  />
+);
+
+/* ----------------- HARDWARE (DIV 08 & DIV 28) ----------------- */
+
+const HardwareStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const hw = opening.hardware;
+
+  const updateHw = (patch: Partial<typeof hw>) =>
+    onChange({ ...opening, hardware: { ...hw, ...patch } });
+
+  const updateElectronic = (
+    index: number,
+    patch: Partial<(typeof hw.electronicSecurity)[number]>
+  ) => {
+    const next = [...hw.electronicSecurity];
+    next[index] = { ...next[index], ...patch };
+    updateHw({ electronicSecurity: next });
+  };
+
+  const addElectronic = () => {
+    updateHw({
+      electronicSecurity: [
+        ...hw.electronicSecurity,
+        {
+          type: "card_reader",
+          description: "",
+          qty: 1,
+          monitored: true,
+        },
+      ],
+    });
+  };
+
+  const removeElectronic = (index: number) => {
+    const next = [...hw.electronicSecurity];
+    next.splice(index, 1);
+    updateHw({ electronicSecurity: next });
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* DIV 08 – mechanical hardware */}
+      <div className="space-y-3">
+        <h3 className="text-sm font-semibold">
+          Division 08 – Openings (Mechanical Hardware)
+        </h3>
+        <div className="grid gap-3 md:grid-cols-2">
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Lock Function</span>
+            <TextInput
+              value={hw.lockFunction}
+              onChange={(e) => updateHw({ lockFunction: e.target.value })}
+              placeholder="e.g. 45 - Storeroom"
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Primary Lockset</span>
+            <TextInput
+              value={hw.lockset}
+              onChange={(e) => updateHw({ lockset: e.target.value })}
+              placeholder="Manufacturer / model"
+            />
+          </label>
+
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Exit Device</span>
+            <TextInput
+              value={hw.exitDevice ?? ""}
+              onChange={(e) => updateHw({ exitDevice: e.target.value })}
+              placeholder="If applicable – rim / vertical rod, etc."
+            />
+          </label>
+
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Closer</span>
+            <TextInput
+              value={hw.closer ?? ""}
+              onChange={(e) => updateHw({ closer: e.target.value })}
+              placeholder="Closer model / arm type"
+            />
+          </label>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Note: Division 08 compliance will check function, handing, grade and
+          fire rating against project requirements.
+        </p>
+      </div>
+
+      {/* DIV 28 – electronic safety & security */}
+      <div className="space-y-3">
+        <h3 className="text-sm font-semibold">
+          Division 28 – Electronic Safety & Security
+        </h3>
+        <p className="text-xs text-muted-foreground">
+          Add access control and monitoring devices tied to this opening
+          (readers, REX, contacts, cameras, power supplies, fire alarm
+          interfaces, etc.).
+        </p>
+
+        {hw.electronicSecurity.map((dev, index) => (
+          <div
+            key={index}
+            className="border rounded-md p-3 grid gap-2 md:grid-cols-4 items-start"
+          >
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium">Device Type</span>
+              <select
+                className="input"
+                value={dev.type}
+                onChange={(e) =>
+                  updateElectronic(index, {
+                    type: e.target.value as typeof dev.type,
+                  })
+                }
+              >
+                <option value="card_reader">Card Reader</option>
+                <option value="keypad">Keypad</option>
+                <option value="door_contact">Door Contact</option>
+                <option value="rex_device">REX Device</option>
+                <option value="request_to_exit_bar">
+                  Request-to-Exit Bar
+                </option>
+                <option value="camera">Camera</option>
+                <option value="intercom">Intercom</option>
+                <option value="power_supply">Power Supply</option>
+                <option value="fire_alarm_interface">
+                  Fire Alarm Interface
+                </option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium">Description</span>
+              <TextInput
+                value={dev.description}
+                onChange={(e) =>
+                  updateElectronic(index, { description: e.target.value })
+                }
+                placeholder="Location / mounting (e.g. wall reader at latch side)"
+              />
+            </label>
+
+            <label className="flex flex-col gap-1">
+              <span className="text-xs font-medium">Qty</span>
+              <TextInput
+                type="number"
+                min={0}
+                value={dev.qty ?? 1}
+                onChange={(e) =>
+                  updateElectronic(index, { qty: Number(e.target.value) })
+                }
+              />
+            </label>
+
+            <div className="flex flex-col gap-1">
+              <span className="text-xs font-medium">Monitoring</span>
+              <label className="flex items-center gap-2 text-xs">
+                <input
+                  type="checkbox"
+                  checked={dev.monitored ?? false}
+                  onChange={(e) =>
+                    updateElectronic(index, { monitored: e.target.checked })
+                  }
+                />
+                Monitored / supervised circuit
+              </label>
+              <button
+                type="button"
+                className="text-xs text-destructive mt-1"
+                onClick={() => removeElectronic(index)}
+              >
+                Remove device
+              </button>
+            </div>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          className="btn btn-outline text-xs"
+          onClick={addElectronic}
+        >
+          + Add Division 28 Device
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ----------------- COMPLIANCE (codes + DIV 8/28) ----------------- */
+
+const ComplianceStep: React.FC<
+  StepProps & { project: DoorSurveyProject }
+> = ({ opening, onChange, project }) => {
+  const comp = opening.compliance;
+
+  const toggleStandard = (std: BuildingCodeStandard) => {
+    const exists = comp.standardsChecked.includes(std);
+    const next = {
+      ...comp,
+      standardsChecked: exists
+        ? comp.standardsChecked.filter((s) => s !== std)
+        : [...comp.standardsChecked, std],
+    };
+    onChange({ ...opening, compliance: next });
+  };
+
+  const updateNotes = (notes: string) =>
+    onChange({ ...opening, compliance: { ...comp, notes } });
+
+  // future: this is where you'd display results from the AI rules engine
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-sm font-semibold">Standards & Divisions Checked</h3>
+        <p className="text-xs text-muted-foreground">
+          Enable all that should apply for this opening. DIV08 and DIV28 ensure
+          the opening complies with architectural and electronic security
+          spec sections in addition to building codes.
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {(
+            [
+              "ADA",
+              "IBC",
+              "NFPA",
+              "ANSI_SDI",
+              "LOCAL",
+              "DIV08",
+              "DIV28",
+            ] as BuildingCodeStandard[]
+          ).map((std) => (
+            <button
+              key={std}
+              type="button"
+              className={[
+                "px-3 py-1 rounded-full border text-xs",
+                comp.standardsChecked.includes(std)
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-muted text-muted-foreground",
+              ].join(" ")}
+              onClick={() => toggleStandard(std)}
+            >
+              {std === "ANSI_SDI" ? "ANSI/SDI" : std}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="border rounded-md p-3 space-y-2">
+        <h4 className="text-xs font-semibold">Results (placeholder)</h4>
+        <p className="text-xs text-muted-foreground">
+          In production, this card shows pass/fail indicators and detailed
+          issues returned by the compliance engine (ADA clear width, NFPA fire
+          rating, DIV08 hardware function match, DIV28 access control rules
+          like fail-safe/fail-secure on fire alarm, card reader location,
+          REX/door contact logic, etc.).
+        </p>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Compliance Notes</span>
+          <textarea
+            className="input min-h-[80px]"
+            value={comp.notes ?? ""}
+            onChange={(e) => updateNotes(e.target.value)}
+            placeholder="Summarize any waivers, AHJ approvals, or deviations from Div 08 / Div 28 requirements."
+          />
+        </label>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={comp.passes}
+            onChange={(e) =>
+              onChange({
+                ...opening,
+                compliance: { ...comp, passes: e.target.checked },
+              })
+            }
+          />
+          Opening passes all required checks
+        </label>
+        <span className="text-xs text-muted-foreground">
+          Uncheck if any unresolved issues remain.
+        </span>
+      </div>
+
+      <p className="text-xs text-muted-foreground">
+        Project standards: {project.standards.join(", ")}
+      </p>
+    </div>
+  );
+};
+
+/* ----------------- EVIDENCE ----------------- */
+
+const EvidenceStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const ev = opening.evidence;
+
+  const addPhoto = () => {
+    const url = prompt("Paste photo URL (stub – wire to uploader later)");
+    if (!url) return;
+    onChange({
+      ...opening,
+      evidence: {
+        ...ev,
+        photos: [...ev.photos, { type: "photo", url }],
+      },
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-muted-foreground">
+        Attach photos, videos, labels, and documents used to support the survey
+        and Div 8 / Div 28 review.
+      </p>
+
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold">Photos</h3>
+        <div className="flex flex-wrap gap-2">
+          {ev.photos.map((p, i) => (
+            <div
+              key={i}
+              className="w-32 h-24 bg-muted rounded-md flex items-center justify-center text-[10px] text-center p-1"
+            >
+              {p.label ?? p.url}
+            </div>
+          ))}
+          <button
+            type="button"
+            className="btn btn-outline text-xs"
+            onClick={addPhoto}
+          >
+            + Add Photo (stub)
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-semibold">Documents</h3>
+        <p className="text-xs text-muted-foreground">
+          Use this to attach spec excerpts (Div 08 / Div 28), AHJ approvals,
+          or fire alarm drawings tied to the opening.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+/* ----------------- ENGINEERING REVIEW ----------------- */
+
+const EngineeringStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const er = opening.engineeringReview;
+
+  const update = (patch: Partial<typeof er>) =>
+    onChange({ ...opening, engineeringReview: { ...er, ...patch } });
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-sm font-semibold">Engineering Review</h3>
+      <p className="text-xs text-muted-foreground">
+        Engineering checks Div 08 (door, frame, hardware, fire rating) and Div
+        28 (access control, monitoring, power and life-safety tie-ins) for
+        conflicts.
+      </p>
+
+      <label className="flex flex-col gap-1 max-w-xs">
+        <span className="text-xs font-medium">Status</span>
+        <select
+          className="input"
+          value={er.status}
+          onChange={(e) =>
+            update({ status: e.target.value as typeof er.status })
+          }
+        >
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="changes_required">Changes Required</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1">
+        <span className="text-xs font-medium">Reviewer Notes</span>
+        <textarea
+          className="input min-h-[80px]"
+          value={er.notes ?? ""}
+          onChange={(e) => update({ notes: e.target.value })}
+          placeholder="Summarize any hardware set changes, access control revisions, or life safety requirements."
+        />
+      </label>
+
+      <p className="text-xs text-muted-foreground">
+        In production, conflicts (e.g. mag lock on egress door without proper
+        release devices, mismatched fire rating, under-sized closer) will show
+        up here from the AI engine as structured items.
+      </p>
+    </div>
+  );
+};
+
+/* ----------------- QUOTE ----------------- */
+
+const QuoteStep: React.FC<StepProps> = ({ opening, onChange }) => {
+  const q = opening.quoteSummary;
+  const update = (patch: Partial<typeof q>) =>
+    onChange({ ...opening, quoteSummary: { ...q, ...patch } });
+
+  const numberInput = (field: keyof typeof q) => ({
+    type: "number",
+    className: "input",
+    value: (q[field] as number) ?? "",
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      update({ [field]: Number(e.target.value) } as any),
+  });
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-sm font-semibold">Quote Summary</h3>
+      <p className="text-xs text-muted-foreground">
+        Costing for Division 08 (doors, frames, hardware) and Division 28
+        (electronic security devices, power supplies, integration labor).
+      </p>
+
+      <div className="grid gap-3 md:grid-cols-3">
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Material Cost</span>
+          <TextInput {...numberInput("materialCost")} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Labor Cost</span>
+          <TextInput {...numberInput("laborCost")} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Shipping Cost</span>
+          <TextInput {...numberInput("shippingCost")} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Margin %</span>
+          <TextInput {...numberInput("marginPercent")} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Total Price</span>
+          <TextInput {...numberInput("totalPrice")} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-medium">Option Label</span>
+          <TextInput
+            value={q.optionLabel}
+            onChange={(e) => update({ optionLabel: e.target.value })}
+            placeholder="Base, Option A, etc."
+          />
+        </label>
+      </div>
+    </div>
+  );
+};
+
+/* ----------------- REVIEW ----------------- */
+
+const ReviewStep: React.FC<{
+  project: DoorSurveyProject;
+  opening: DoorOpeningInput;
+}> = ({ project, opening }) => (
+  <div className="space-y-3 text-sm">
+    <h3 className="font-semibold">Review Summary</h3>
+    <p>
+      <span className="font-medium">Project:</span> {project.name} –{" "}
+      {project.location}
+    </p>
+    <p>
+      <span className="font-medium">Opening:</span> {opening.doorTag} –{" "}
+      {opening.spaceName} ({opening.openingType}, {opening.handing})
+    </p>
+    <p>
+      <span className="font-medium">Codes & Divisions:</span>{" "}
+      {project.standards.join(", ")}
+    </p>
+    <p>
+      <span className="font-medium">Compliance Pass:</span>{" "}
+      {opening.compliance.passes ? "Yes" : "No"}
+    </p>
+    <p>
+      <span className="font-medium">Quote Total:</span> $
+      {opening.quoteSummary.totalPrice.toFixed(2)}
+    </p>
+    <pre className="mt-3 text-xs bg-muted rounded-md p-2 max-h-64 overflow-auto">
+      {JSON.stringify({ project, opening }, null, 2)}
+    </pre>
+  </div>
+);

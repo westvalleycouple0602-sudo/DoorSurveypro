@@ -1,0 +1,6 @@
+fire_id,minutes,label,notes,applies_to,source_ref
+MIN20,20,20-minute,Often paired with S-label for smoke when gasketing is applied.,"doors, frames, borrowed lights (varies)",HM201_FireDoors;HM201_FireFrames
+MIN45,45,45-minute,UL listed label required.,"doors, frames, borrowed lights (varies)",HM201_FireDoors;HM201_FireFrames
+MIN60,60,60-minute,3-sided frames from DCI commonly provided as 90-minute even if 60 requested (opening rated to LOWER of components).,"doors (60), frames often 90 for single/paired openings",HM201_FireFrames
+MIN90,90,90-minute,Common for 3-sided frames (single or pair).,frames (three-sided),HM201_FireFrames
+MIN180,180,180-minute,Highest standard rating for hollow metal; three hours.,"doors, frames (varies)",HM201_FireDoors;HM201_FireFrames

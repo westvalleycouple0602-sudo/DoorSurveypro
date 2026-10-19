@@ -1,0 +1,41 @@
+<!doctype html><html><body><h1>Process</h1><script>
+const spin = document.getElementById('spin');
+(function(){
+  let on=true; setInterval(()=>{ if(!spin) return; spin.textContent = on ? '⏳' : '⏱️'; on=!on; }, 700);
+})();
+</script>
+<div>
+  <h3>Anchors</h3>
+  <input id="ldm_w" placeholder="LDM width (mm)">
+  <input id="ldm_h" placeholder="LDM height (mm)">
+  <input id="scale" placeholder="Scale factor (e.g., 1.0009)">
+  <button id="saveAnchors">Save Anchors</button>
+</div>
+<script>
+function getQueryParam(k) { const u=new URL(window.location.href); return u.searchParams.get(k); }
+window.addEventListener('load', ()=>{
+  const sid=getQueryParam('scan_id'); const mode=getQueryParam('mode')||'fast';
+  const scan=document.getElementById('scan'); const modeSel=document.getElementById('mode');
+  if (scan) scan.value=sid||''; if (modeSel) modeSel.value=mode;
+});
+document.getElementById('saveAnchors').addEventListener('click', async ()=>{
+  const sid=(document.getElementById('scan')||{}).value || prompt('scan_id');
+  if (!sid) { alert('Enter scan_id first'); return; }
+  const w = document.getElementById('ldm_w').value.trim();
+  const h = document.getElementById('ldm_h').value.trim();
+  const s = document.getElementById('scale').value.trim();
+  const payload = {}; if (w||h) payload.ldm={};
+  if (w) payload.ldm.width_mm=parseFloat(w);
+  if (h) payload.ldm.height_mm=parseFloat(h);
+  if (s) payload.scale={factor:parseFloat(s)};
+  const r = await fetch('/anchors/' + encodeURIComponent(sid), {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  alert('Anchors ' + (r.ok ? 'saved' : 'failed'));
+});
+
+const spin = document.getElementById('spin');
+(function(){
+  let on=true; setInterval(()=>{ if(!spin) return; spin.textContent = on ? '⏳' : '⏱️'; on=!on; }, 700);
+})();
+</script>
+</body></html>
+</html>

@@ -1,0 +1,477 @@
+{
+  "version": "2025-11-03",
+  "units": {
+    "default": "in",
+    "length": [
+      "in",
+      "mm"
+    ],
+    "weight": [
+      "lb",
+      "kg"
+    ]
+  },
+  "door_types": [
+    {
+      "id": "swing_single",
+      "label": "Swinging (Single) Door",
+      "operations": [
+        "manual",
+        "automatic"
+      ],
+      "materials": [
+        "hollow_metal",
+        "stainless",
+        "aluminum",
+        "fiberglass",
+        "wood",
+        "glass"
+      ],
+      "common_use": [
+        "egress",
+        "interior",
+        "exterior"
+      ],
+      "handing": [
+        "LH",
+        "RH",
+        "LHR",
+        "RHR"
+      ],
+      "notes": "Use clear opening at 90\u00b0. Gaps at pull side. Hardware per function set."
+    },
+    {
+      "id": "swing_pair",
+      "label": "Swinging (Pair) Door",
+      "operations": [
+        "manual",
+        "automatic"
+      ],
+      "materials": [
+        "hollow_metal",
+        "stainless",
+        "aluminum",
+        "fiberglass",
+        "wood",
+        "glass"
+      ],
+      "common_use": [
+        "egress",
+        "interior",
+        "exterior"
+      ],
+      "pair_types": [
+        "active_inactive",
+        "balanced",
+        "equal_leaves"
+      ],
+      "notes": "Check meeting stile gaps. Coordinator if manual closers & astragal per rating."
+    },
+    {
+      "id": "sliding_manual",
+      "label": "Sliding Door (Manual)",
+      "operations": [
+        "manual"
+      ],
+      "materials": [
+        "aluminum",
+        "wood",
+        "glass",
+        "barn_style",
+        "pocket"
+      ],
+      "common_use": [
+        "interior",
+        "residential",
+        "limited_egress"
+      ],
+      "notes": "Egress only where occupant load \u2264 threshold; breakout/push-open rules apply."
+    },
+    {
+      "id": "sliding_auto",
+      "label": "Sliding Door (Automatic)",
+      "operations": [
+        "automatic"
+      ],
+      "materials": [
+        "aluminum",
+        "glass"
+      ],
+      "common_use": [
+        "entrance",
+        "egress"
+      ],
+      "notes": "Requires fail-safe and emergency egress clear opening."
+    },
+    {
+      "id": "revolving",
+      "label": "Revolving Door",
+      "operations": [
+        "automatic",
+        "manual"
+      ],
+      "materials": [
+        "aluminum",
+        "stainless",
+        "glass"
+      ],
+      "common_use": [
+        "entrance"
+      ],
+      "notes": "Not on accessible routes; provide adjacent swinging door."
+    },
+    {
+      "id": "folding",
+      "label": "Folding Door",
+      "operations": [
+        "manual",
+        "automatic"
+      ],
+      "materials": [
+        "aluminum",
+        "glass",
+        "accordion"
+      ],
+      "common_use": [
+        "space_saving",
+        "special_use"
+      ]
+    }
+  ],
+  "frame_types": [
+    {
+      "id": "hollow_metal",
+      "label": "Hollow Metal Frame",
+      "depth_in": [
+        4.0,
+        4.875,
+        5.75,
+        6.125,
+        6.875,
+        7.25,
+        7.75,
+        8.25
+      ],
+      "profiles": [
+        "knock_down",
+        "welded",
+        "split"
+      ],
+      "anchors": [
+        "wire",
+        "T_anchor",
+        "expansion_bolt",
+        "wood_screw"
+      ],
+      "fire_labels": [
+        "20",
+        "45",
+        "60",
+        "90",
+        "180"
+      ],
+      "notes": "Backset, rabbet, and stop must match door thickness."
+    },
+    {
+      "id": "aluminum",
+      "label": "Aluminum Storefront/Entrance",
+      "depth_in": [
+        4.5,
+        5.25
+      ],
+      "profiles": [
+        "center_glaze",
+        "offset"
+      ],
+      "fire_labels": [],
+      "notes": "Thermal break for exterior."
+    },
+    {
+      "id": "wood",
+      "label": "Wood Frame",
+      "depth_in": [
+        4.625,
+        5.25,
+        6.875
+      ],
+      "profiles": [
+        "stained",
+        "painted"
+      ],
+      "fire_labels": [
+        "20",
+        "45",
+        "60"
+      ],
+      "notes": "Moisture control required."
+    }
+  ],
+  "standard_sizes": {
+    "US": {
+      "swing_single": [
+        {
+          "size_in": [
+            36,
+            84
+          ]
+        },
+        {
+          "size_in": [
+            36,
+            80
+          ]
+        },
+        {
+          "size_in": [
+            32,
+            80
+          ]
+        },
+        {
+          "size_in": [
+            36,
+            90
+          ]
+        }
+      ],
+      "swing_pair": [
+        {
+          "size_in": [
+            72,
+            84
+          ]
+        },
+        {
+          "size_in": [
+            72,
+            80
+          ]
+        },
+        {
+          "size_in": [
+            60,
+            84
+          ]
+        }
+      ],
+      "thickness_in": [
+        1.375,
+        1.75,
+        2.25
+      ],
+      "glass_kits": [
+        "vision_lite_narrow",
+        "full_lite",
+        "half_lite"
+      ]
+    },
+    "CA": {
+      "swing_single": [
+        {
+          "size_in": [
+            36,
+            84
+          ]
+        },
+        {
+          "size_in": [
+            36,
+            80
+          ]
+        },
+        {
+          "size_in": [
+            34,
+            84
+          ]
+        }
+      ],
+      "swing_pair": [
+        {
+          "size_in": [
+            72,
+            84
+          ]
+        },
+        {
+          "size_in": [
+            66,
+            84
+          ]
+        }
+      ],
+      "thickness_in": [
+        1.75,
+        2.25
+      ],
+      "glass_kits": [
+        "vision_lite_narrow",
+        "full_lite",
+        "half_lite"
+      ]
+    }
+  },
+  "fire_ratings_minutes": [
+    20,
+    45,
+    60,
+    90,
+    180
+  ],
+  "handing": {
+    "single": [
+      "LH",
+      "RH"
+    ],
+    "pair": [
+      "LHR",
+      "RHR"
+    ]
+  },
+  "hardware_sets": [
+    {
+      "id": "office_privacy",
+      "label": "Office/Privacy",
+      "components": [
+        "latchset_privacy",
+        "hinges_bearing",
+        "silencers",
+        "strike_std"
+      ]
+    },
+    {
+      "id": "classroom_lock",
+      "label": "Classroom Function",
+      "components": [
+        "lever_lock_classroom",
+        "hinges_bearing",
+        "closer_surface",
+        "kickplate",
+        "stop"
+      ]
+    },
+    {
+      "id": "panic_egress",
+      "label": "Panic/Egress",
+      "components": [
+        "rim_panic_device",
+        "hinges_heavy",
+        "closer_surface",
+        "strike_panic",
+        "door_coordinator_optional"
+      ]
+    },
+    {
+      "id": "fire_pair_90min",
+      "label": "Fire Pair 90min",
+      "components": [
+        "mortise_lock_or_panic",
+        "hinges_fire_labeled",
+        "closer_surface",
+        "smoke_seals",
+        "edge_guard",
+        "coordinator_astragal_if_req"
+      ]
+    },
+    {
+      "id": "auto_sliding_entry",
+      "label": "Automatic Sliding Entry",
+      "components": [
+        "auto_operator",
+        "presence_sensor",
+        "safety_beam",
+        "panic_breakout",
+        "battery_backup"
+      ]
+    }
+  ],
+  "access_control": {
+    "readers": [
+      "keypad",
+      "prox",
+      "smartcard",
+      "BLE",
+      "NFC"
+    ],
+    "locks": [
+      "elec_strike",
+      "maglock",
+      "motorized_latch",
+      "deadlatch_electric"
+    ],
+    "egress_devices": [
+      "request_to_exit_sensor",
+      "push_to_exit_button",
+      "panic_with_switch"
+    ],
+    "notes": "Follow life-safety egress, emergency power release, and sensor redundancies."
+  },
+  "ai_detection_labels": [
+    "door_single",
+    "door_pair",
+    "frame_hollow_metal",
+    "frame_aluminum",
+    "hinge",
+    "lever",
+    "panic_device",
+    "closer",
+    "vision_lite",
+    "threshold",
+    "sill",
+    "astral",
+    "coordinator",
+    "auto_operator",
+    "reader",
+    "strike",
+    "maglock"
+  ],
+  "measurement_schema": {
+    "clear_opening_in": "At 90\u00b0 between face of door and stop; sliding between jambs",
+    "clear_height_in": "Finish floor to underside of stop or header",
+    "threshold_height_in": "Finish floor to top of threshold/ramp",
+    "hardware_height_in": "Centerline of operable hardware",
+    "gaps_in": {
+      "top": "Top rail to frame stop",
+      "latch": "Latch stile to stop",
+      "hinge": "Hinge stile to stop",
+      "meeting_stiles": "Between leaves",
+      "bottom": "Bottom of door to floor/threshold"
+    },
+    "maneuvering": {
+      "pull_side": {
+        "latch_side_in": "clearance at latch side",
+        "perpendicular_depth_in": "depth perpendicular to door"
+      },
+      "push_side": {
+        "latch_side_in": "clearance at latch side",
+        "perpendicular_depth_in": "depth perpendicular to door"
+      }
+    }
+  },
+  "code_crosswalk": {
+    "US": {
+      "accessibility": [
+        "ADA 404 (clearances, thresholds, hardware height)",
+        "ANSI A117.1 404"
+      ],
+      "egress": [
+        "IBC 1010 (doors, gates)"
+      ],
+      "fire": [
+        "NFPA 80 (fire doors)"
+      ]
+    },
+    "CA": {
+      "accessibility": [
+        "NBC 3.8 (Barrier-Free Design) / Provincial variants",
+        "CSA B651"
+      ],
+      "egress": [
+        "NBC 3.4 (Means of Egress)"
+      ],
+      "fire": [
+        "NFPA 80 (adopted provinces)/CAN ULC-S104 labels"
+      ]
+    }
+  }
+}

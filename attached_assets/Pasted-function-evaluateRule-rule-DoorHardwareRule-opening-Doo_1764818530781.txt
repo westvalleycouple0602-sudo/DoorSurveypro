@@ -1,0 +1,67 @@
+function evaluateRule(
+  rule: DoorHardwareRule,
+  opening: DoorOpeningContext,
+  hw: HardwareMeasurement
+): RuleEvaluationResult | null {
+  if (!appliesToOpening(rule, opening)) return null;
+  if (!ruleAppliesToHardware(rule, hw)) return null;
+
+  let passed = true;
+  let messages: string[] = [];
+
+  // Base confidence seeded from measurement source
+  let confidence = 0.8;
+  if (hw.measurement_source === "lidar") {
+    confidence = 0.95;
+    if (typeof hw.lidar_confidence === "number") {
+      // Combine engine confidence and LiDAR detection confidence
+      confidence = Math.min(0.99, confidence * hw.lidar_confidence);
+    }
+  } else if (hw.measurement_source === "photo_estimate") {
+    confidence = 0.6;
+  } else if (hw.measurement_source === "manual") {
+    confidence = 0.85;
+  }
+
+  let severity: ViolationSeverity = "warning";
+
+  // ---- Check height requirements ----
+  if (rule.requirements.height_aff) {
+    const { min_in, max_in } = rule.requirements.height_aff;
+    const measured = hw.centerline_height_aff_in;
+
+    if (measured !== undefined) {
+      if ((min_in !== undefined && measured < min_in) || (max_in !== undefined && measured > max_in)) {
+        passed = false;
+        messages.push(
+          `Measured height ${measured.toFixed(1)} in AFF is outside required range ` +
+            `${min_in ?? "-"}–${max_in ?? "-"} in AFF.`
+        );
+      }
+    } else {
+      messages.push("No height measurement provided for this hardware; unable to fully verify.");
+      confidence = Math.min(confidence, 0.4);
+    }
+  }
+
+  // ---- Threshold check stays the same (you already had it) ----
+  // ...
+  // ---- Severity heuristic stays the same ----
+  // ...
+
+  const effectiveMessage = buildMessage(rule, opening, hw, messages);
+
+  return {
+    ruleId: rule.id,
+    openingId: opening.openingId,
+    hardwareId: hw.hardwareId,
+    passed,
+    severity,
+    message: effectiveMessage,
+    remediation: passed ? undefined : rule.remediation?.generic_fix,
+    codeReferences: rule.code_references.map((cr) => `${cr.source} ${cr.section}`),
+    confidence,
+    measurement_source: hw.measurement_source,
+    evidence: []
+  };
+}

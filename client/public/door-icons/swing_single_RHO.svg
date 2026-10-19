@@ -1,0 +1,23 @@
+<svg class="door-svg" xmlns="http://www.w3.org/2000/svg" width="160" height="120" viewBox="0 0 160 120">
+  <defs>
+    <style>
+      .line { fill: none; stroke: var(--door-stroke); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: var(--door-stroke); stroke-width: 2; }
+      .glass { fill: var(--door-glass); opacity: .35; stroke: var(--door-stroke); stroke-width: 2; }
+      .grid { fill: none; stroke: var(--door-stroke); stroke-width: 1.5; opacity:.6 }
+      .arrow { fill: none; stroke: var(--door-stroke); stroke-width: 2; marker-end: url(#arrow); }
+      .fixed { fill: var(--door-fixed); stroke: var(--door-stroke); stroke-width: 2; }
+      .operable { fill: var(--door-operable); stroke: var(--door-stroke); stroke-width: 2; }
+      .badge { fill: var(--door-badge-bg); stroke: var(--door-stroke); stroke-width: 2; }
+      .text { fill: var(--door-stroke); font: 700 11px Arial, sans-serif; }
+      .hatch { fill: url(#diag); stroke: var(--door-stroke); stroke-width: 2; opacity:.8 }
+    </style>
+    <pattern id="diag" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="var(--door-stroke)" stroke-width="1"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--door-stroke)"/>
+    </marker>
+  </defs>
+  <rect x="10" y="10" width="140" height="100" class="line" /><line x1="135" y1="20" x2="135" y2="100" class="line"/><path d="M 135 20 A 75 75 0 0 1 65 100" class="line"/><circle cx="135" cy="60" r="3" fill="var(--door-stroke)"/><rect x="108" y="12" width="40" height="16" rx="4" class="badge"/><text x="112" y="24" class="text">OUT</text>
+</svg>

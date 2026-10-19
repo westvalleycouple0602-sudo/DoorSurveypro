@@ -1,0 +1,202 @@
+
+<!doctype html><html><body>
+
+<header>
+  <strong>📊 Survey Dashboard</strong>
+  <button id="bulkProcess" class="btn">Run Full on All LiDAR</button>
+  <label style="margin-left:auto; display:flex; align-items:center; gap:6px;">
+    <input id="autoRefresh" type="checkbox"/> Auto-refresh
+  </label>
+  <button id="toggleDark" class="btn secondary">🌗</button>
+</header>
+
+
+<style id="ux-style">
+  :root { --bg:#fff; --fg:#111; --muted:#666; --card:#fff; --border:#eee; --good:#15a34a; --warn:#eab308; --bad:#dc2626; }
+  html.dark { --bg:#0b1020; --fg:#e6edf3; --muted:#9aa7b4; --card:#0f172a; --border:#1f2937; }
+  body { background:var(--bg); color:var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+  table { width:100%; border-collapse: collapse; }
+  th,td { padding:8px; border-bottom:1px solid var(--border); }
+  .btn { padding:8px 12px; border-radius:10px; border:1px solid var(--border); background: var(--fg); color: var(--bg); cursor:pointer; text-decoration:none; }
+  .btn.secondary { background: transparent; color: var(--fg); }
+  .badge { padding:2px 6px; border-radius:8px; font-size:12px; border:1px solid var(--border); }
+  .q-good { color: var(--good); border-color: var(--good); }
+  .q-warn { color: var(--warn); border-color: var(--warn); }
+  .q-bad  { color: var(--bad);  border-color: var(--bad); }
+  header { display:flex; align-items:center; gap:8px; padding:10px; border-bottom:1px solid var(--border); position:sticky; top:0; backdrop-filter: blur(6px); }
+  #toast { position:fixed; right:12px; bottom:12px; background:var(--fg); color:var(--bg); padding:10px 14px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.25); display:none; }
+</style>
+
+<h1>Survey Dashboard</h1>
+<table id="tbl"><thead><tr>
+  <th>Scan ID</th><th>Type</th><th>Manufacturer</th><th>Model</th><th>BHMA</th><th>Finish</th>
+  <th>Width</th><th>Height</th><th>Depth</th><th>Catalog</th><th>DXF</th><th>Quality</th><th>Actions</th><th>Docs</th>
+</tr></thead><tbody></tbody></table>
+<script></script>
+<div id="liveLogPanel" style="position:fixed; left:8px; bottom:8px; width:40vw; max-width:680px; background:#0b1020; color:#e6edf3; border-radius:12px; padding:10px; display:none; box-shadow:0 6px 24px rgba(0,0,0,0.25);">
+  <div style="display:flex; gap:8px; align-items:center; margin-bottom:6px;">
+    <strong>Logs:</strong>
+    <span id="liveLogScan" style="font-family: ui-monospace, Menlo, monospace;"></span>
+    <button onclick="stopLiveLog()" style="margin-left:auto;">Close</button>
+  </div>
+  <pre id="liveLog" style="white-space:pre-wrap; max-height:40vh; overflow:auto; margin:0;"></pre>
+</div>
+
+<script>
+async function fetchResults() {
+  const res = await fetch('/results');
+  return res.json();
+}
+
+
+function qClass(rec){
+  const m = rec.metrics || {}; const f = m.quality_flags || {};
+  const pe = Number(m.parallel_error_deg ?? 0);
+  const pl = Number(m.plumb_error_deg ?? 0);
+  const sw = Number(m.sigma_width_mm ?? 0);
+  if ((f.parallel_ok===false)||(f.plumb_ok===false) || pe>3 || pl>3 || sw>3) return 'q-bad';
+  if (pe>2 || pl>2 || sw>2) return 'q-warn';
+  return 'q-good';
+}
+function qBadge(rec)
+ {
+  const m = rec.metrics || {};
+  const flags = m.quality_flags || {};
+  const parts = [];
+  if (m.sigma_width_mm != null) parts.push(`σw=${m.sigma_width_mm}mm`);
+  if (m.parallel_error_deg != null) parts.push(`∥=${m.parallel_error_deg}°`);
+  if (m.plumb_error_deg != null) parts.push(`plumb=${m.plumb_error_deg}°`);
+  if (flags.parallel_ok === false || flags.plumb_ok === false) parts.push("⚠️");
+  return parts.join(" ");
+}
+
+function dxfCell(sid) {
+  const url = `/artifacts/${sid}.dxf`;
+  return `<a href="${url}" target="_blank" class="btn secondary" onclick="event.stopPropagation();" id="dxf-${sid}" style="display:none;">📐 DXF</a>`;
+}
+
+function actionButtons(sid, mfr, mdl) {
+  return `<div style="display:flex; gap:6px; flex-wrap:wrap;">
+    <button class="btn" onclick="processAsync('${sid}','full')">⚙️ Full</button>
+    <button class="btn secondary" onclick="sendAnchors('${sid}')">📏 Anchors</button>
+    <button class="btn secondary" onclick="sendROIs('${sid}')">🧭 ROIs</button>
+    ${(mfr||mdl) ? `<button class="btn" onclick="openDocs('${sid}','${mfr||''}','${mdl||''}')">📚 Docs</button>` : ''}
+    <button class="btn secondary" onclick="checkDXF('${sid}')">🔎 DXF?</button>
+  </div>`;
+}
+
+function rowHTML(sid, rec) {
+  const f = rec.fields || {};
+  const mfr = (rec.manufacturer || f.manufacturer) || "";
+  const mdl = (rec.model || f.model) || "";
+  const bhma = (rec.bhma_function || f.bhma_function) || "";
+  const fin = (rec.finish || f.finish) || "";
+  const width = rec.width ?? (rec.metrics && rec.metrics.width_mm) ?? "";
+  const height = rec.height ?? (rec.metrics && rec.metrics.height_mm) ?? "";
+  const depth = rec.frame_depth ?? (rec.metrics && rec.metrics.frame_depth_mm) ?? "";
+  const type = rec.source || "";
+  const q = new URLSearchParams({ manufacturer: mfr, model: mdl, scan_id: sid }).toString();
+  const cat = (mfr || mdl) ? `<a class="btn secondary" href="/catalogLookup?${q}" target="_blank">🔗</a>` : "";
+  const qual = qBadge(rec);
+  return `<tr id="row-${sid}">
+    <td class="mono">${sid}</td>
+    <td><span class="badge">${type}</span></td>
+    <td>${mfr}</td>
+    <td class="mono">${mdl}</td>
+    <td>${bhma}</td>
+    <td>${fin}</td>
+    <td>${width}</td>
+    <td>${height}</td>
+    <td>${depth}</td>
+    <td>${cat}</td>
+    <td>${dxfCell(sid)}</td>
+    <td class="badge ${qClass(rec)}">${qual}</td>
+    <td>${actionButtons(sid, mfr, mdl)}</td>
+    <td></td>
+  </tr>`;
+}
+
+function applyFilter(data) {
+  const tbody = document.querySelector('#tbl tbody');
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  for (const [sid, rec] of Object.entries(data)) {
+    tbody.insertAdjacentHTML('beforeend', rowHTML(sid, rec));
+  }
+}
+
+(async () => {
+  const data = await fetchResults();
+  applyFilter(data);
+})();
+</script>
+
+<div id="toast"></div>
+
+<script>
+function toast(msg, ms=2500){
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent = msg; t.style.display='block';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>{t.style.display='none'}, ms);
+}
+// Dark mode toggle + persist
+(function(){
+  const saved = localStorage.getItem('darkMode');
+  if(saved==='1') document.documentElement.classList.add('dark');
+  document.getElementById('toggleDark').onclick = () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark') ? '1':'0');
+  };
+})();
+// Periodic DXF check for visible rows
+async function checkDXF(sid){
+  try {
+    const r = await fetch(`/artifacts/${sid}.dxf`, { method: 'GET' });
+    const a = document.getElementById('dxf-'+sid);
+    if(a) a.style.display = r.ok ? 'inline-block' : 'none';
+  } catch(e){ /* ignore */ }
+}
+// Bulk process all LiDAR scans
+async function bulkProcess(){
+  const rows = document.querySelectorAll('tr[id^="row-"]');
+  let count=0;
+  for (const row of rows){
+    const sid = row.id.replace('row-','');
+    const type = row.querySelector('td:nth-child(2) .badge')?.textContent || '';
+    if(type !== 'ios_lidar') continue;
+    await processAsync(sid, 'full');
+    count++;
+    await new Promise(r=>setTimeout(r, 300)); // throttle
+  }
+  toast(`Started full processing for ${count} scans`);
+}
+document.getElementById('bulkProcess').onclick = bulkProcess;
+// Auto refresh results
+let refreshTimer=null;
+async function reloadResults(){
+  try{
+    const data = await fetch('/results').then(r=>r.json());
+    applyFilter(data);
+    // probe DXF for each row
+    Object.keys(data).forEach(checkDXF);
+  }catch(e){ /* ignore */ }
+}
+const auto = document.getElementById('autoRefresh');
+auto.checked = localStorage.getItem('autoRefresh')==='1';
+if(auto.checked){ refreshTimer = setInterval(reloadResults, 5000); }
+auto.addEventListener('change', ()=>{
+  localStorage.setItem('autoRefresh', auto.checked ? '1':'0');
+  if(refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = auto.checked ? setInterval(reloadResults, 5000) : null;
+});
+// Keyboard shortcuts
+window.addEventListener('keydown', (e)=>{
+  if(e.key==='/'){ const inp=document.getElementById('q'); if(inp){ inp.focus(); e.preventDefault(); } }
+  if(e.key==='g' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); window.location.href='/public/dashboard.html'; }
+});
+</script>
+
+<script>async function processAsync(sid,mode){await fetch(`/processLidarAsync/${sid}?mode=${mode||'full'}`,{method:'POST'});toast('Started '+sid+' ('+(mode||'full')+')')}</script></body></html>
+</html>

@@ -1,0 +1,962 @@
+[
+  {
+    "id": "D-001",
+    "type": "classroom",
+    "door": {
+      "space_type": "A",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "A door; fire-rated; electrified"
+  },
+  {
+    "id": "D-002",
+    "type": "office",
+    "door": {
+      "space_type": "B",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "B door; fire-rated; electrified"
+  },
+  {
+    "id": "D-003",
+    "type": "storeroom",
+    "door": {
+      "space_type": "S",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "none",
+      "fire_alarm_interface": false
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "S door; fire-rated; manual"
+  },
+  {
+    "id": "D-004",
+    "type": "corridor_fire",
+    "door": {
+      "space_type": "E",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "pull",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "E door; fire-rated; electrified"
+  },
+  {
+    "id": "D-005",
+    "type": "vestibule",
+    "door": {
+      "space_type": "B",
+      "is_fire_door": "exterior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "B door; fire-rated; electrified"
+  },
+  {
+    "id": "D-006",
+    "type": "entry_auto",
+    "door": {
+      "space_type": "A",
+      "is_fire_door": "exterior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "A door; fire-rated; electrified"
+  },
+  {
+    "id": "D-007",
+    "type": "exit_panic",
+    "door": {
+      "space_type": "A",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "A door; fire-rated; electrified"
+  },
+  {
+    "id": "D-008",
+    "type": "server_room",
+    "door": {
+      "space_type": "B",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "B door; fire-rated; electrified"
+  },
+  {
+    "id": "D-009",
+    "type": "mechanical",
+    "door": {
+      "space_type": "F",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 36,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "none",
+      "fire_alarm_interface": false
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "F door; fire-rated; manual"
+  },
+  {
+    "id": "D-010",
+    "type": "closet",
+    "door": {
+      "space_type": "S",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "none",
+      "fire_alarm_interface": false
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "S door; fire-rated; manual"
+  },
+  {
+    "id": "D-011",
+    "type": "bathroom",
+    "door": {
+      "space_type": "R",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "pull",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "R door; fire-rated; electrified"
+  },
+  {
+    "id": "D-012",
+    "type": "suite_entry",
+    "door": {
+      "space_type": "R",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 36,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "R door; fire-rated; electrified"
+  },
+  {
+    "id": "D-013",
+    "type": "apartment_entry",
+    "door": {
+      "space_type": "R",
+      "is_fire_door": "exterior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 36,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 36,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "R door; fire-rated; electrified"
+  },
+  {
+    "id": "D-014",
+    "type": "fire_stair",
+    "door": {
+      "space_type": "E",
+      "is_fire_door": "interior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 36,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "deadbolt",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "E door; fire-rated; electrified"
+  },
+  {
+    "id": "D-015",
+    "type": "lobby_entry",
+    "door": {
+      "space_type": "B",
+      "is_fire_door": "exterior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "B door; fire-rated; electrified"
+  },
+  {
+    "id": "D-016",
+    "type": "conference",
+    "door": {
+      "space_type": "A",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "A door; fire-rated; electrified"
+  },
+  {
+    "id": "D-017",
+    "type": "gym_entry",
+    "door": {
+      "space_type": "A",
+      "is_fire_door": "exterior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 36,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "exit_device",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "A door; fire-rated; electrified"
+  },
+  {
+    "id": "D-018",
+    "type": "loading_dock",
+    "door": {
+      "space_type": "F",
+      "is_fire_door": "exterior",
+      "is_accessible_route": true,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 32,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "deadbolt",
+      "height_aff": 38,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "none",
+      "fire_alarm_interface": false
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "F door; fire-rated; manual"
+  },
+  {
+    "id": "D-019",
+    "type": "storage_exterior",
+    "door": {
+      "space_type": "S",
+      "is_fire_door": "exterior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 36,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.25,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "lever",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": true,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "exterior"
+    },
+    "electrical": {
+      "device_type": "none",
+      "fire_alarm_interface": false
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "S door; fire-rated; manual"
+  },
+  {
+    "id": "D-020",
+    "type": "residential_interior",
+    "door": {
+      "space_type": "R",
+      "is_fire_door": "interior",
+      "is_accessible_route": false,
+      "is_interior": true,
+      "is_egress_required": true,
+      "location_zone": "interior"
+    },
+    "geometry": {
+      "clear_width_in": 34,
+      "leaf_height_in": 80,
+      "undercut_in": 0.5,
+      "edge_gap_in": 0.125
+    },
+    "threshold": {
+      "height_in": 0.5,
+      "beveled": true,
+      "bevel_slope_ratio": 2.0
+    },
+    "hardware": {
+      "role": "operable",
+      "category": "deadbolt",
+      "height_aff": 42,
+      "features": [
+        "lever"
+      ],
+      "closer_present": false,
+      "positive_latch": true
+    },
+    "labels_docs": {
+      "ul_markings": "interior"
+    },
+    "electrical": {
+      "device_type": "maglock",
+      "fire_alarm_interface": true
+    },
+    "finish": {
+      "lock": "626",
+      "hinge": "652",
+      "plate": "630",
+      "closer": "689",
+      "exit_device": "689"
+    },
+    "notes": "R door; fire-rated; electrified"
+  }
+]

@@ -1,0 +1,65 @@
+modules = ["nodejs-20", "web", "python-3.11", "postgresql-16"]
+run = "npm run dev"
+hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["freetype", "lcms2", "libimagequant", "libjpeg", "libtiff", "libwebp", "libxcrypt", "openjpeg", "openssh", "redis", "tcl", "tk", "unzip", "zlib"]
+
+[deployment]
+deploymentTarget = "autoscale"
+build = ["npm", "run", "build"]
+run = ["npm", "run", "start"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 23636
+externalPort = 3001
+
+[env]
+PORT = "5000"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[agent]
+integrations = ["javascript_mem_db:1.0.0", "javascript_database:1.0.0", "javascript_openai_ai_integrations:1.0.0", "javascript_log_in_with_replit:1.0.0"]
+
+[objectStorage]
+defaultBucketID = "replit-objstore-b1c807cd-12d1-4af6-baca-98a7fc1a80e2"
+
+[userenv]
+
+[userenv.shared]
+STRIPE_PRICE_ID_STARTER_MONTHLY = "price_1SYvnyASeEhxOIF71OYaa2up"
+STRIPE_PRICE_ID_STARTER_ANNUAL = "price_1SYvnyASeEhxOIF7oM8u2ewD"
+STRIPE_PRICE_ID_PROFESSIONAL_MONTHLY = "price_1SYvnzASeEhxOIF7yGBgsAkr"
+STRIPE_PRICE_ID_PROFESSIONAL_ANNUAL = "price_1SYvnzASeEhxOIF7hPiMdqlV"
+STRIPE_PRICE_ID_ENTERPRISE_MONTHLY = "price_1SYvo0ASeEhxOIF7uFqMcsnT"
+STRIPE_PRICE_ID_ENTERPRISE_ANNUAL = "price_1SYvo0ASeEhxOIF7vnn686Ci"
+CUSTOM_OIDC_DOMAINS = "doorsurvepro.com"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 180000

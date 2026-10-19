@@ -1,0 +1,6 @@
+frame_id,gauge,desc,notes,source_ref
+STD16,16,Standard frame gauge option,Common in commercial applications.,HM101_Frames
+STD14,14,Heavier frame gauge option,Higher durability; heavy traffic openings.,HM101_Frames
+STD12,12,Heaviest common frame gauge,"Special-use, high abuse or security.",HM101_Frames
+SPC18,18,Specialty flush frame,Used for specific specialty frame product.,HM101_Frames
+SPC20,20,Specialty flush frame,Used for specific specialty frame product.,HM101_Frames

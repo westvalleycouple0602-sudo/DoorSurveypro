@@ -1,0 +1,236 @@
+{
+  "PH20C": {
+    "Manufacturer": "CRL",
+    "PartNumber": "PH20C",
+    "Role": "TopPatch",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": 70,
+    "MaxHeight_mm": 2591,
+    "MaxWeight_kg": 88,
+    "Finish": [
+      "BrushedStainless",
+      "Polished",
+      "MatteBlack"
+    ],
+    "CompatibleParts": [
+      "PH10C",
+      "1NT403",
+      "1NT304"
+    ],
+    "Notes": "Adjustable top patch; \u00b13\u00b0 alignment; North American setback.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "PH21": {
+    "Manufacturer": "CRL",
+    "PartNumber": "PH21",
+    "Role": "TopPatch",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": 65,
+    "MaxHeight_mm": 2591,
+    "MaxWeight_kg": 80,
+    "Finish": [
+      "BrushedStainless",
+      "Polished",
+      "MatteBlack"
+    ],
+    "CompatibleParts": [
+      "PH10C",
+      "1NT300",
+      "1NT304"
+    ],
+    "Notes": "European-style top patch; ~65 mm setback.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "PH10C": {
+    "Manufacturer": "CRL",
+    "PartNumber": "PH10C",
+    "Role": "BottomPatch",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": 70,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "BrushedStainless",
+      "Polished",
+      "MatteBlack"
+    ],
+    "CompatibleParts": [
+      "PH20C",
+      "PH21",
+      "1NT403"
+    ],
+    "Notes": "Bottom patch used with North American/European top patches.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "0PF10RBS": {
+    "Manufacturer": "CRL",
+    "PartNumber": "0PF10RBS",
+    "Role": "OffsetBottomPatch",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "BrushedStainless"
+    ],
+    "CompatibleParts": [
+      "PH20C",
+      "PH21"
+    ],
+    "Notes": "Right-hand offset bottom patch enabling 180\u00b0 swing near sidelites.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "1NT300": {
+    "Manufacturer": "CRL",
+    "PartNumber": "1NT300",
+    "Role": "TopPivotInsert",
+    "GlassThickness_mm": null,
+    "Offset_mm": [
+      70,
+      65
+    ],
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [
+      "PH34",
+      "PH40",
+      "PH41",
+      "PH42",
+      "PH43",
+      "PH51",
+      "PH20",
+      "PH21"
+    ],
+    "Notes": "Reversible insert to support 70mm (US) or 65mm (EU) setback.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "1NT304": {
+    "Manufacturer": "CRL",
+    "PartNumber": "1NT304",
+    "Role": "OverheadCloserInsert",
+    "GlassThickness_mm": null,
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [
+      "PH20",
+      "PH21"
+    ],
+    "Notes": "Front-loading OHC insert for top door patch fittings.",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "PHA2": {
+    "Manufacturer": "CRL",
+    "PartNumber": "PHA2",
+    "Role": "PatchDoorKit",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": 70,
+    "MaxHeight_mm": 2591,
+    "MaxWeight_kg": 88,
+    "Finish": [
+      "BrushedStainless",
+      "MatteBlack"
+    ],
+    "CompatibleParts": [
+      "PH20C",
+      "PH10C",
+      "1NT403",
+      "(optional)AMR205"
+    ],
+    "Notes": "North American patch door kit; overhead closer/lock ordered separately (kit variant with lock includes AMR205).",
+    "Source": "https://www.crlaurence.com/"
+  },
+  "PFD-20": {
+    "Manufacturer": "Rockwood / ASSA ABLOY",
+    "PartNumber": "PFD-20",
+    "Role": "TopPatchPivot",
+    "GlassThickness_mm": [
+      10,
+      12
+    ],
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [
+      "PFD-10",
+      "PF-FM",
+      "PF-SM"
+    ],
+    "Notes": "Top patch pivot fitting for glass doors.",
+    "Source": "https://www.tmhardware.com/"
+  },
+  "PF-SM": {
+    "Manufacturer": "ASSA ABLOY",
+    "PartNumber": "PF-SM",
+    "Role": "SurfaceMountPivot",
+    "GlassThickness_mm": null,
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [
+      "PFD-20",
+      "PatchFittings"
+    ],
+    "Notes": "Surface-mount pivot for patch-fitting systems.",
+    "Source": "https://www.tmhardware.com/"
+  },
+  "PF-FM": {
+    "Manufacturer": "ASSA ABLOY",
+    "PartNumber": "PF-FM",
+    "Role": "FloorMountPivot",
+    "GlassThickness_mm": null,
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [
+      "PatchFittings"
+    ],
+    "Notes": "Floor-mounted pivot for glass patch systems.",
+    "Source": "https://www.tmhardware.com/"
+  },
+  "GPH-40L": {
+    "Manufacturer": "Sugatsune",
+    "PartNumber": "GPH-40L",
+    "Role": "InsetPivotHinge",
+    "GlassThickness_mm": null,
+    "Offset_mm": null,
+    "MaxHeight_mm": null,
+    "MaxWeight_kg": null,
+    "Finish": [
+      "Stainless"
+    ],
+    "CompatibleParts": [],
+    "Notes": "Left-side inset pivot hinge for glass doors.",
+    "Source": "https://www.sugatsune.com/"
+  }
+}

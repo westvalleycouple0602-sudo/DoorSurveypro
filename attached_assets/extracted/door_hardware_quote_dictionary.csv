@@ -1,0 +1,113 @@
+field,description
+project_name,—
+project_id,—
+opening_id,Opening identifiers; use opening_id to group multiple line items.
+location,—
+floor,—
+room,—
+door_mark,Opening identifiers; use opening_id to group multiple line items.
+hardware_set,Opening identifiers; use opening_id to group multiple line items.
+spec_section,—
+spec_revision,—
+bid_package,—
+estimator,—
+takeoff_date,—
+door_width_mm,—
+door_height_mm,—
+door_thickness_mm,—
+door_material,—
+core_type,—
+fire_rating_minutes,—
+door_hand,—
+frame_type,—
+frame_material,—
+frame_profile,—
+wall_depth_mm,—
+frame_finish,—
+glazing_type,—
+lite_size_mm,—
+vision_panel,—
+acoustic_rating_stc,—
+ada_clear_width_mm,—
+is_electrified,—
+voltage_vdc,Electrified hardware load; use for power sizing.
+current_ma,Electrified hardware load; use for power sizing.
+fail_safe_or_secure,—
+power_supply_required,—
+reader_type,—
+reader_protocol,—
+controller_brand,—
+controller_model,—
+request_to_exit,—
+door_position_switch,—
+key_system,—
+keyway,—
+keyed_alike_group,—
+master_key_level,—
+cylinder_type,—
+cylinder_length_mm,—
+line_no,—
+category,—
+manufacturer,—
+model,—
+description,—
+bhma_function,"BHMA function and finish (e.g., 626)."
+finish_code,"BHMA function and finish (e.g., 626)."
+backset_mm,—
+latch_faceplate,—
+strike_type,—
+hinge_type,—
+hinge_size_mm,—
+hinge_bearing,—
+closer_arm_type,—
+hold_open,—
+delayed_egr,—
+panic_or_exit_device,—
+trim_type,—
+uom,Unit of measure and quantity for the line item.
+qty,Unit of measure and quantity for the line item.
+unit_cost_currency,—
+unit_cost,Net = unit_cost * (1 - discount_pct/100).
+discount_pct,Net = unit_cost * (1 - discount_pct/100).
+net_unit_cost,Net = unit_cost * (1 - discount_pct/100).
+hs_code,Trade compliance fields; HS code and origin drive tariff calculations.
+country_of_origin,Trade compliance fields; HS code and origin drive tariff calculations.
+tariff_rate_pct,Trade compliance fields; HS code and origin drive tariff calculations.
+anti_dumping_pct,—
+other_duties_pct,—
+ship_from_country,—
+ship_from_postal,—
+ship_to_country,—
+ship_to_postal,—
+incoterm,—
+pkg_length_cm,—
+pkg_width_cm,—
+pkg_height_cm,—
+pkg_weight_kg,—
+base_freight_currency,—
+base_freight_cost,Shipping components; freight_total = base + base*fuel% + accessorials + insurance + brokerage.
+fuel_surcharge_pct,Shipping components; freight_total = base + base*fuel% + accessorials + insurance + brokerage.
+accessorials_cost,Shipping components; freight_total = base + base*fuel% + accessorials + insurance + brokerage.
+insurance_cost,Shipping components; freight_total = base + base*fuel% + accessorials + insurance + brokerage.
+customs_brokerage_cost,Shipping components; freight_total = base + base*fuel% + accessorials + insurance + brokerage.
+tariff_cost,—
+anti_dumping_cost,—
+other_duties_cost,—
+freight_cost_total,—
+landed_unit_cost,Calculated: net_unit_cost + tariffs/duties + allocated freight per unit.
+landed_line_total,Calculated: net_unit_cost + tariffs/duties + allocated freight per unit.
+lead_time_days,—
+mfg_cutoff_date,—
+required_on_site_date,—
+upc,—
+gtin,—
+manufacturer_sku,—
+distributor_sku,—
+barcode_dataformat,—
+notes,—
+ada_compliant,—
+life_safety_compliant,—
+fire_label_required,—
+ul_listed,—
+rohs_compliant,—
+warranty_years,—

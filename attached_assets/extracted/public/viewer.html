@@ -1,0 +1,36 @@
+<!doctype html><html><body>
+<a class="btn" href="/public/bug.html?page=viewer&scan_id=" style="position:fixed; right:12px; top:12px;">🐞 Report a Bug</a><h1>Viewer</h1><script></script>
+<script>
+async function fetchMetrics(sid) {
+  const r = await fetch('/results/' + encodeURIComponent(sid));
+  if (!r.ok) return null;
+  const j = await r.json();
+  const w = j.width || (j.metrics && j.metrics.width_mm);
+  const h = j.height || (j.metrics && j.metrics.height_mm);
+  const d = j.frame_depth || (j.metrics && j.metrics.frame_depth_mm);
+  const flags = j.metrics && j.metrics.quality_flags;
+  const pe = j.metrics && j.metrics.parallel_error_deg;
+  const pl = j.metrics && j.metrics.plumb_error_deg;
+  const met = document.getElementById('metrics');
+  if (met) met.textContent = `W=${w||0}mm H=${h||0}mm D=${d||0}mm` + (flags?` | flags:${JSON.stringify(flags)}`:'') + (pe?` | parallel=${pe}°`: '') + (pl?` | plumb=${pl}°`: '');
+  return {w:Number(w||0), h:Number(h||0)};
+}
+let rectMesh=null;
+function drawOpeningRect(w_mm, h_mm) {
+  if (!window.THREE || !w_mm || !h_mm) return;
+  const w = w_mm/1000.0, h = h_mm/1000.0;
+  const shape = new THREE.Shape();
+  shape.moveTo(0,0); shape.lineTo(w,0); shape.lineTo(w,h); shape.lineTo(0,h); shape.lineTo(0,0);
+  const geo = new THREE.ShapeGeometry(shape);
+  const mat = new THREE.MeshBasicMaterial({ transparent:true, opacity:0.15, depthWrite:false });
+  const mesh = new THREE.Mesh(geo, mat);
+  if (rectMesh) { scene.remove(rectMesh); rectMesh.geometry.dispose(); rectMesh.material.dispose(); }
+  rectMesh = mesh; scene.add(rectMesh);
+}
+async function overlayForScan(sid) {
+  const m = await fetchMetrics(sid);
+  if (m) drawOpeningRect(m.w, m.h);
+}
+</script>
+
+</body></html>

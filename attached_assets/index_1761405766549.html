@@ -1,0 +1,112 @@
+
+<!doctype html>
+<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Scanner</title></head>
+<body>
+<button id='toggleDark' style='position:fixed;right:12px;top:12px;'>🌗</button>
+<div id='toast' style='position:fixed;right:12px;bottom:12px;display:none;background:#111;color:#fff;padding:8px 12px;border-radius:10px;'></div><h1>Scanner</h1><input id="lidar" type="file" accept=".ply,.obj"/><button id="upload">Upload</button>
+<pre id="out">—</pre><script>
+<script>
+async function uploadLiDAR() {
+  const file = document.getElementById('lidar_file').files[0];
+  const log = document.getElementById('lidarLog');
+  if (!file) { alert('Choose a .ply or .obj'); return; }
+  log.textContent = 'Uploading...';
+  const buf = await file.arrayBuffer();
+  const res = await fetch('/uploadScan', {
+    method: 'POST',
+    headers: { 'X-Scan-Type': 'ios_lidar', 'X-File-Ext': file.name.split('.').pop().toLowerCase() || 'ply' },
+    body: buf
+  });
+  const json = await res.json();
+  if (!res.ok) { log.textContent = 'Upload failed: ' + JSON.stringify(json); return; }
+  const sid = json.scan_id;
+  log.textContent = 'Uploaded. scan_id=' + sid;
+  document.getElementById('btnProcessFull').disabled = false;
+  const pp = document.getElementById('btnProcessPage');
+  pp.style.display = 'inline-block';
+  pp.href = '/public/process.html?scan_id=' + encodeURIComponent(sid) + '&mode=full';
+  document.getElementById('btnProcessFull').dataset.scan = sid;
+  document.getElementById('btnDXF').dataset.scan = sid;
+  document.getElementById('btnDXF').style.display = 'none';
+}
+
+async function startProcessFull() {
+  const btn = document.getElementById('btnProcessFull');
+  const sid = btn.dataset.scan;
+  const log = document.getElementById('lidarLog');
+  if (!sid) { alert('Upload first'); return; }
+  log.textContent = 'Processing (full) started...';
+  await fetch('/processLidarAsync/' + encodeURIComponent(sid) + '?mode=full', { method: 'POST' });
+
+  // Poll progress + check for DXF
+  let run = true;
+  const poll = async () => {
+    if (!run) return;
+    try {
+      const p = await fetch('/progress/' + encodeURIComponent(sid));
+      const pj = await p.json();
+      log.textContent = (pj.log || []).join('\n') || '—';
+    } catch (_) {}
+    try {
+      const r = await fetch('/results/' + encodeURIComponent(sid));
+      if (r.ok) {
+        const j = await r.json();
+        // Try to show DXF link if exists (either in metrics or by known name)
+        const dxfA = document.getElementById('btnDXF');
+        const guess = '/artifacts/' + sid + '.dxf';
+        // Try HEAD-ish check by fetching with 'no-cors' then toggling (best effort)
+        fetch(guess, { method: 'GET' }).then(resp => {
+          if (resp.ok) { dxfA.href = guess; dxfA.style.display = 'inline-block'; }
+        }).catch(()=>{});
+      }
+    } catch (e) {}
+    setTimeout(poll, 1000);
+  };
+  poll();
+  // stop after 45s to avoid infinite loop
+  setTimeout(()=>{ run=false; }, 45000);
+}
+
+const up = document.getElementById('btnUploadLidar');
+if (up) up.addEventListener('click', uploadLiDAR);
+const pf = document.getElementById('btnProcessFull');
+if (pf) pf.addEventListener('click', startProcessFull);
+
+(function(){
+  const saved = localStorage.getItem('darkMode');
+  if(saved==='1') document.documentElement.style.filter='invert(1) hue-rotate(180deg)';
+  document.getElementById('toggleDark').onclick=()=>{
+    const inv = document.documentElement.style.filter ? '' : 'invert(1) hue-rotate(180deg)';
+    document.documentElement.style.filter = inv;
+    localStorage.setItem('darkMode', inv ? '1':'0');
+  };
+  window.toast = (m)=>{ const t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2000); };
+})();
+</script>
+
+
+(function(){
+  const saved = localStorage.getItem('darkMode');
+  if(saved==='1') document.documentElement.style.filter='invert(1) hue-rotate(180deg)';
+  document.getElementById('toggleDark').onclick=()=>{
+    const inv = document.documentElement.style.filter ? '' : 'invert(1) hue-rotate(180deg)';
+    document.documentElement.style.filter = inv;
+    localStorage.setItem('darkMode', inv ? '1':'0');
+  };
+  window.toast = (m)=>{ const t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2000); };
+})();
+</script>
+<section class="card" id="lidarUpload" style="margin-top:12px;">
+  <h3>LiDAR Scan (PLY/OBJ)</h3>
+  <input id="lidar_file" type="file" accept=".ply,.obj" />
+  <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+    <button id="btnUploadLidar">⬆️ Upload</button>
+    <button id="btnProcessFull" disabled>⚙️ Process Full</button>
+    <a id="btnProcessPage" class="btn" style="display:none;" target="_blank">🔎 Open Progress Page</a>
+    <a id="btnDXF" class="btn" style="display:none;" target="_blank">📐 Download DXF</a>
+  </div>
+  <pre id="lidarLog" class="mono" style="white-space:pre-wrap; background:#0b1020; color:#e6edf3; padding:10px; border-radius:10px; min-height:80px;">—</pre>
+</section>
+
+</body></html>

@@ -1,0 +1,28 @@
+{
+  "name": "console-example",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@doorsurvey/scan-react": "0.1.0",
+    "@doorsurvey/scan-core": "0.1.0",
+    "@doorsurvey/scan-platform": "0.1.0"
+  },
+  "devDependencies": {
+    "vite": "6.4.4",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.4.5"
+  },
+  "overrides": {
+    "uuid": "11.1.1",
+    "esbuild": "^0.25.0",
+    "@tootallnate/once": "2.0.1"
+  }
+}

@@ -1,0 +1,4 @@
+label_id,type,visibility_rule,relocation_notes,source_ref
+MYLAR,Mylar (sticker),Must remain visible post-install,May be relocated to avoid being covered by continuous hinges.,HM201_FireDoors
+METAL,Metal (riveted),Must remain visible post-install,Chosen for durability; location varies by hardware.,HM201_FireDoors
+SMOKE_S,Smoke 'S' indicator,On the UL label when leakage test met,Requires UL 1784 and perimeter gasketing on stops.,HM201_FireDoors;HM201_FireFrames

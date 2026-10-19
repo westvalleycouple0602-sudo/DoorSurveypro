@@ -1,0 +1,4 @@
+interface:
+  display_name: "DSP Brand and Field UX"
+  short_description: "Apply Octo branding and practical iPad workflows"
+  default_prompt: "Use $dsp-apply-brand-ux to handle the requested Door Survey Pro task using the current project code."
