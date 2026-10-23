@@ -1,3 +1,4 @@
+import { archiveSafeAuditPath } from "./customer-storage/audit-path";
 import type { Request, Response, NextFunction } from "express";
 import { db } from "./db";
 import { auditLogs } from "@shared/schema";
@@ -45,7 +46,7 @@ export function auditMiddleware(req: Request, res: Response, next: NextFunction)
         organizationId: organizationId as string,
         userId: userId as string,
         method: req.method as "GET" | "POST" | "PATCH" | "DELETE",
-        path: req.originalUrl.slice(0, 512),
+        path: archiveSafeAuditPath(req.originalUrl).slice(0, 512),
         status: res.statusCode,
         ip: (req.ip || req.socket.remoteAddress || "").slice(0, 64),
         userAgent: String(userAgent),
@@ -60,7 +61,7 @@ export function auditMiddleware(req: Request, res: Response, next: NextFunction)
       logger.error("Failed to write audit log", {
         error: error instanceof Error ? error.message : String(error),
         method: req.method,
-        path: req.originalUrl,
+        path: archiveSafeAuditPath(req.originalUrl),
       });
     }
   });
@@ -116,7 +117,7 @@ export function createAuditMiddleware(options: {
         };
 
         // Optionally include request body for POST/PATCH (be careful with sensitive data)
-        if (includeBody && (req.method === "POST" || req.method === "PATCH")) {
+        if (includeBody && !req.originalUrl.startsWith('/api/customer-storage/') && (req.method === "POST" || req.method === "PATCH")) {
           extra.requestBody = req.body;
         }
 
@@ -124,7 +125,7 @@ export function createAuditMiddleware(options: {
           organizationId: organizationId as string,
           userId: userId as string,
           method: req.method as "GET" | "POST" | "PATCH" | "DELETE",
-          path: req.originalUrl.slice(0, 512),
+          path: archiveSafeAuditPath(req.originalUrl).slice(0, 512),
           status: res.statusCode,
           ip: (req.ip || req.socket.remoteAddress || "").slice(0, 64),
           userAgent: String(userAgent),
@@ -135,7 +136,7 @@ export function createAuditMiddleware(options: {
         logger.error("Failed to write audit log", {
           error: error instanceof Error ? error.message : String(error),
           method: req.method,
-          path: req.originalUrl,
+          path: archiveSafeAuditPath(req.originalUrl),
         });
       }
     });

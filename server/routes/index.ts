@@ -1,3 +1,4 @@
+import { registerCustomerStorage } from "../customer-storage";
 import type { Express } from "express";
 import type { IStorage } from "../storage";
 import type { Multer } from "multer";
@@ -89,6 +90,7 @@ export async function registerModularRoutes(
   middleware: any,
   logger: any
 ): Promise<void> {
+  registerCustomerStorage(app);
   const deps: RouteDependencies = {
     storage,
     uploaders,

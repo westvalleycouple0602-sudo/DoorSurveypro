@@ -53,3 +53,11 @@ files. A separate process resumes an unfinished capture using the database and
 the original file, with no shared in-memory store. Other tests cover tenant
 isolation, stale updates, interrupted-processing retries, retained results and
 drawings, and both local and object-storage capture reads.
+
+## Customer-owned archive extension
+
+See [customer-owned storage](customer-owned-storage.md) for the opt-in Google
+Drive API adapter, resumable transfer checkpoints and separate original-media
+browser queue. It preserves business data in the application database. It does
+not automatically migrate existing objects, enroll existing capture screens, or
+make missing local fallback files recoverable without a verified archive.
