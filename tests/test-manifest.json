@@ -4,7 +4,8 @@
     "server/__tests__/operator-origin.test.ts",
     "client/src/lib/__tests__/project-analytics.test.ts",
     "tests/logo-palette.test.ts",
-    "tests/git-workflow.test.mjs"
+    "tests/git-workflow.test.mjs",
+    "server/__tests__/customer-storage.test.ts"
   ],
   "jestServer": [
     "server/__tests__/cache.test.ts",
@@ -26,7 +27,8 @@
   "database": [
     "server/__tests__/clerk-account-binding.test.ts",
     "server/__tests__/dual-scan-persistence.test.ts",
-    "server/__tests__/trial-service.test.ts"
+    "server/__tests__/trial-service.test.ts",
+    "server/__tests__/customer-storage-database.test.ts"
   ],
   "legacyIntegration": [
     "server/__tests__/integration/cache-integration.test.ts",
@@ -51,4 +53,3 @@
     "tests/e2e/quote-flow.spec.ts"
   ]
 }
-
